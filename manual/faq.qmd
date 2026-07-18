@@ -1,0 +1,110 @@
+---
+title: "FAQ"
+---
+
+Short answers. Follow the links for the full picture.
+
+### Is the engine subject-independent? Can I point it at any subject?
+
+Mostly, but not fully — be precise about which parts. The state engine, SM-2
+scheduler, Theorem Ledger, stuck-state escalation, Bloom calibration, and
+volunteering UX know nothing about Real Analysis; the curriculum lives as data
+in `curriculum/real-analysis/`. But three things are still hardwired: only one
+curriculum pack ships, some skill prose bakes in Real Analysis specifics
+(`skills/check-proof`'s epsilon-delta language, the six error categories), and
+nothing currently reads the workspace's `"curriculum"` field to switch packs.
+See [Generality](generality.qmd) for the honest tier-by-tier breakdown.
+
+### What role does Bloom's taxonomy actually play?
+
+It is not decoration — it drives four concrete mechanisms: the hidden
+per-reply plan that picks a cognitive level for every question, the
+progression gates in `curriculum/real-analysis/ladder.yaml` that map
+proof-ladder rungs to Bloom levels, the Bloom-indexed structure of the
+Four-Part Consolidation Assessment, and the `bloom_level` field persisted per
+concept in `learner.json`. See [Pedagogy](pedagogy.qmd) for how it divides
+labor with Solow, Pólya, and Alcock's research.
+
+### Why won't it just give me the answer?
+
+Because the struggle is the mechanism, not an obstacle to it
+(`skills/tutor/SKILL.md`, "Identity and prime directive"): every reply asks a
+question before explaining, and no reply supplies a complete proof, a partial
+proof, or a single step — "just the first few steps" is still the proof. This
+isn't a stylistic preference; the source guide cites Hodds, Alcock & Inglis
+(2014), whose self-explanation training produced an effect size of d = 0.95 on
+proof comprehension, one of the larger effects reported in mathematics
+education research, and the gains held for weeks after a single session.
+
+### Do I need Lean 4?
+
+No. Lean verification is an amplifier the tutor offers when it would help —
+first at Stage 4 (formalization) or whenever machine-checked certainty would
+matter — not a gate. If Lean isn't installed, the tutor says so cheerfully and
+continues on paper (`skills/tutor/SKILL.md`, "Volunteering rules"). Setup is
+guided by `skills/setup/SKILL.md` and only runs system-level commands after
+you confirm them.
+
+### Where is my data stored, and how do I reset?
+
+In your study workspace (default `~/real-analysis-study`, chosen during
+onboarding): `learner.json`, `reviews.json`, `ledger.json`, and
+`error_log.json`, alongside a `.ra-tutor-workspace` marker file
+(`engine/state.py`). A pointer to that workspace also lives in
+`~/.claude/real-analysis-tutor.json` so the tutor can find it even if you open
+Claude Code from elsewhere (`skills/tutor/SKILL.md`, "Belt-and-braces"). To
+reset, delete the workspace directory (or just its JSON files) and the
+`~/.claude/real-analysis-tutor.json` pointer; the next session runs onboarding
+again as if you were new.
+
+### Why does the tutor speak first? How does it know where I left off?
+
+The `SessionStart` hook (`hooks/scripts/session_start.py`) runs before you
+type anything: it finds your workspace, loads `learner.json` and
+`reviews.json` through the engine, and injects a digest of your position, due
+reviews, and current phase as context. That's why the tutor can open with your
+progress and an agenda instead of asking you to re-explain where you are —
+see the open ritual in [Architecture](architecture.qmd).
+
+### What is the "Stop hook" message I might see once per session?
+
+If `learner.json` hasn't been touched in the last 30 minutes and proof work
+plausibly happened, the Stop hook (`hooks/scripts/session_end.py`) blocks the
+first stop attempt with a reminder to persist state via the close ritual. It
+fires at most once per session (a sentinel file in the workspace records
+that), then gets out of the way. Claude Code's harness surfaces a blocking
+stop hook as an "error" in the transcript — that's cosmetic, not a real
+failure.
+
+### Can I use it on Windows?
+
+Yes, via WSL 2 — that's the supported path. Native Windows shells (Git Bash,
+PowerShell) are detected and redirected: the setup skill explains why (native
+filesystem performance, unmodified shell commands) and points you at
+`wsl --install`, but it never runs that command itself since it needs an
+admin PowerShell session and a reboot (`skills/setup/SKILL.md`,
+"Windows-native branch"). Once you're inside WSL 2, everything runs as
+documented for native Linux.
+
+### Who authored the methodology?
+
+Don Kearney. This plugin operationalizes his V2.1 methodology — the *Real
+Analysis Complete Study Guide* and the *Low-Friction Setup & Workflow Guide*,
+vendored under `docs/source-guides/` — as a Claude Code plugin (`README.md`).
+The plugin is an implementation of that work, not a new methodology.
+
+### Does it work offline? What does it cost?
+
+No other services are involved — no external APIs, no telemetry, no
+accounts beyond Claude Code itself. You need Claude Code with a Pro or Max
+plan (or equivalent API access) to run any session; Lean 4 and Mathlib, if
+you set them up, run entirely locally.
+
+### How do I add Topology or Abstract Algebra?
+
+Author a new curriculum pack under `curriculum/<subject>/` following the same
+YAML shapes as `curriculum/real-analysis/`, and edit the Real-Analysis-specific
+prose in the affected skills and the `SessionStart` hook's phase→misconception
+map. See [Extending](extending.qmd) for what a pack needs and the roadmap item
+that would let the engine switch packs automatically instead of requiring
+those edits.

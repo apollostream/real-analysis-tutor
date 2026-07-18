@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>6&nbsp; Reference – Real Analysis Tutor — Developer's Manual</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./faq.html" rel="next">
+<link href="./extending.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-d5b752b018eda1e851242e8e578203d2.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-48ea6c8a616232a4c557869175357a3c.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-d5b752b018eda1e851242e8e578203d2.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-6ad36c86e96a1c60c103c8333b8125c1.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-a083587f07dc5e8b2dd305ddab9dcd7e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-6ad36c86e96a1c60c103c8333b8125c1.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./reference.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Reference</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Real Analysis Tutor — Developer’s Manual</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/apollostream/real-analysis-tutor" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="./real-analysis-tutor-manual.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pedagogy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The Pedagogical Frameworks</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./architecture.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Architecture</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./generality.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Engine Generality</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./extending.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Extending to a New Subject</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./reference.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Reference</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./faq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">FAQ</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#engine-api" id="toc-engine-api" class="nav-link active" data-scroll-target="#engine-api"><span class="header-section-number">6.1</span> Engine API</a>
+  <ul class="collapse">
+  <li><a href="#enginestate.py-workspace-discovery-learner-state" id="toc-enginestate.py-workspace-discovery-learner-state" class="nav-link" data-scroll-target="#enginestate.py-workspace-discovery-learner-state"><span class="header-section-number">6.1.1</span> <code>engine/state.py</code> — workspace discovery &amp; learner state</a></li>
+  <li><a href="#enginescheduler.py-sm-2-spaced-repetition" id="toc-enginescheduler.py-sm-2-spaced-repetition" class="nav-link" data-scroll-target="#enginescheduler.py-sm-2-spaced-repetition"><span class="header-section-number">6.1.2</span> <code>engine/scheduler.py</code> — SM-2 spaced repetition</a></li>
+  <li><a href="#engineledger.py-theorem-ledger-error-log" id="toc-engineledger.py-theorem-ledger-error-log" class="nav-link" data-scroll-target="#engineledger.py-theorem-ledger-error-log"><span class="header-section-number">6.1.3</span> <code>engine/ledger.py</code> — Theorem Ledger &amp; Error Log</a></li>
+  </ul></li>
+  <li><a href="#hook-contracts" id="toc-hook-contracts" class="nav-link" data-scroll-target="#hook-contracts"><span class="header-section-number">6.2</span> Hook Contracts</a>
+  <ul class="collapse">
+  <li><a href="#sessionstart-hooksscriptssession_start.py" id="toc-sessionstart-hooksscriptssession_start.py" class="nav-link" data-scroll-target="#sessionstart-hooksscriptssession_start.py"><span class="header-section-number">6.2.1</span> <code>SessionStart</code> — <code>hooks/scripts/session_start.py</code></a></li>
+  <li><a href="#userpromptsubmit-hooksscriptsprompt_guard.py" id="toc-userpromptsubmit-hooksscriptsprompt_guard.py" class="nav-link" data-scroll-target="#userpromptsubmit-hooksscriptsprompt_guard.py"><span class="header-section-number">6.2.2</span> <code>UserPromptSubmit</code> — <code>hooks/scripts/prompt_guard.py</code></a></li>
+  <li><a href="#stop-hooksscriptssession_end.py" id="toc-stop-hooksscriptssession_end.py" class="nav-link" data-scroll-target="#stop-hooksscriptssession_end.py"><span class="header-section-number">6.2.3</span> <code>Stop</code> — <code>hooks/scripts/session_end.py</code></a></li>
+  </ul></li>
+  <li><a href="#workspace-layout" id="toc-workspace-layout" class="nav-link" data-scroll-target="#workspace-layout"><span class="header-section-number">6.3</span> Workspace Layout</a>
+  <ul class="collapse">
+  <li><a href="#the-.claudereal-analysis-tutor.json-pointer" id="toc-the-.claudereal-analysis-tutor.json-pointer" class="nav-link" data-scroll-target="#the-.claudereal-analysis-tutor.json-pointer"><span class="header-section-number">6.3.1</span> The <code>~/.claude/real-analysis-tutor.json</code> pointer</a></li>
+  </ul></li>
+  <li><a href="#theorem-ledger-field-reference" id="toc-theorem-ledger-field-reference" class="nav-link" data-scroll-target="#theorem-ledger-field-reference"><span class="header-section-number">6.4</span> Theorem Ledger — Field Reference</a></li>
+  <li><a href="#error-categories" id="toc-error-categories" class="nav-link" data-scroll-target="#error-categories"><span class="header-section-number">6.5</span> Error Categories</a></li>
+  <li><a href="#curriculum-pack-schema" id="toc-curriculum-pack-schema" class="nav-link" data-scroll-target="#curriculum-pack-schema"><span class="header-section-number">6.6</span> Curriculum Pack Schema</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Reference</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>This page is the factual lookup table for the deterministic layer: engine functions, hook contracts, the workspace layout, the Theorem Ledger’s 14 fields, the 6 error categories, and the curriculum-pack YAML schemas. Signatures and field names are transcribed verbatim from source — <code>engine/state.py</code>, <code>engine/scheduler.py</code>, <code>engine/ledger.py</code>, <code>hooks/hooks.json</code> and its three scripts, <code>curriculum/real-analysis/ledger-schema.yaml</code>, and <code>tests/test_curriculum.py</code>. Prose here is deliberately thin; treat the tables as the source of truth and the linked file as the source of the source.</p>
+<section id="engine-api" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="engine-api"><span class="header-section-number">6.1</span> Engine API</h2>
+<p>The three engine modules are the deterministic layer: no model judgment, stdlib only (<code>json</code>, <code>os</code>, <code>datetime</code>/<code>date</code>, <code>pathlib</code>, <code>collections.Counter</code> — each module’s own docstring says so), atomic writes throughout (<code>os.replace</code> after a <code>.tmp</code> write).</p>
+<section id="enginestate.py-workspace-discovery-learner-state" class="level3" data-number="6.1.1">
+<h3 data-number="6.1.1" class="anchored" data-anchor-id="enginestate.py-workspace-discovery-learner-state"><span class="header-section-number">6.1.1</span> <code>engine/state.py</code> — workspace discovery &amp; learner state</h3>
+<p>Module constant: <code>MARKER = ".ra-tutor-workspace"</code>.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>Behavior</th>
+<th>Error behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>find_workspace(start: Path) -&gt; Path \| None</code></td>
+<td>Walks <code>start</code> and its ancestors for a directory containing <code>MARKER</code>; if none is found, falls back to reading the <code>"workspace"</code> key from <code>~/.claude/real-analysis-tutor.json</code> and returns that path if its marker exists.</td>
+<td>Never raises — returns <code>None</code> on any failure or if nothing is found.</td>
+</tr>
+<tr class="even">
+<td><code>default_state() -&gt; dict</code></td>
+<td>Returns the fresh-learner state dict: <code>{"schema_version": 1, "position": {"phase": "prelim", "chapter": None, "rung": 1}, "concepts": {}, "stuck": {}, "misconception_log": [], "session_count": 0, "profile": None}</code>.</td>
+<td>Pure; never raises.</td>
+</tr>
+<tr class="odd">
+<td><code>load_state(workspace: Path) -&gt; dict</code></td>
+<td>Reads <code>&lt;workspace&gt;/learner.json</code>; returns <code>default_state()</code> if the file does not exist.</td>
+<td>On <code>JSONDecodeError</code>, <code>OSError</code>, or <code>UnicodeDecodeError</code>, renames the bad file to <code>learner.json.corrupt-&lt;UTC timestamp&gt;</code> (best-effort; a failed rename is silently swallowed) and returns <code>default_state()</code>. Never raises.</td>
+</tr>
+<tr class="even">
+<td><code>save_state(workspace: Path, state: dict) -&gt; None</code></td>
+<td>Writes <code>state</code> as JSON to <code>&lt;workspace&gt;/learner.json.tmp</code>, then <code>os.replace</code>s it onto <code>&lt;workspace&gt;/learner.json</code> (atomic).</td>
+<td>Not caught — an <code>OSError</code> during the write/replace propagates to the caller.</td>
+</tr>
+<tr class="odd">
+<td><code>state_digest(state: dict, due: list[str]) -&gt; str</code></td>
+<td>Builds a short digest for hook injection: position line, sessions-completed line, up to 3 weakest concepts by mastery (ascending), a due-for-review line if <code>due</code> is non-empty. Returns at most the first 6 lines joined with <code>\n</code>.</td>
+<td>Pure; tolerant of missing keys via <code>.get()</code>; never raises.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="enginescheduler.py-sm-2-spaced-repetition" class="level3" data-number="6.1.2">
+<h3 data-number="6.1.2" class="anchored" data-anchor-id="enginescheduler.py-sm-2-spaced-repetition"><span class="header-section-number">6.1.2</span> <code>engine/scheduler.py</code> — SM-2 spaced repetition</h3>
+<p>Module docstring: “Interval math ALWAYS lives here — never delegated to the model.” Module constants: <code>REVIEWS_FILE = "reviews.json"</code>, <code>DEFAULT_EF = 2.5</code>, <code>EF_FLOOR = 1.3</code>.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>Behavior</th>
+<th>Error behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>record_review(reviews: list, concept: str, grade: int, today: datetime.date) -&gt; list</code></td>
+<td>Applies SM-2 to <code>concept</code> for <code>grade</code> (0–5) as of <code>today</code>; returns a <strong>new</strong> list (input items are not mutated in place — matching items are replaced, new ones appended). <code>grade &lt; 3</code> resets <code>reps=0, interval=1</code>; else <code>reps</code> increments and <code>interval</code> is 1 (first rep), 6 (second rep), or <code>round(interval * old_ef)</code> (subsequent reps). New ease factor is <code>max(EF_FLOOR, old_ef + 0.1 - (5-grade)*(0.08+(5-grade)*0.02))</code>.</td>
+<td>Raises <code>ValueError(f"grade must be an int 0-5, got {grade!r}")</code> if <code>grade</code> is not an <code>int</code> (booleans excluded) or is outside <code>0–5</code>.</td>
+</tr>
+<tr class="even">
+<td><code>due(reviews: list, today: datetime.date) -&gt; list</code></td>
+<td>Returns concept names whose <code>due</code> date is on or before <code>today</code>, oldest first.</td>
+<td>Not caught — <code>date.fromisoformat</code> raises <code>ValueError</code> on a malformed <code>"due"</code> string; a missing <code>"due"</code> key raises <code>KeyError</code>.</td>
+</tr>
+<tr class="odd">
+<td><code>load_reviews(workspace: Path) -&gt; list</code></td>
+<td>Reads <code>&lt;workspace&gt;/reviews.json</code>; returns <code>[]</code> if the file does not exist.</td>
+<td>On <code>JSONDecodeError</code> or <code>OSError</code>, returns <code>[]</code>. Never raises.</td>
+</tr>
+<tr class="even">
+<td><code>save_reviews(workspace: Path, reviews: list) -&gt; None</code></td>
+<td>Writes <code>reviews</code> as JSON to <code>&lt;workspace&gt;/reviews.json.tmp</code>, then <code>os.replace</code>s it onto <code>&lt;workspace&gt;/reviews.json</code> (atomic).</td>
+<td>Not caught — an <code>OSError</code> propagates.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="engineledger.py-theorem-ledger-error-log" class="level3" data-number="6.1.3">
+<h3 data-number="6.1.3" class="anchored" data-anchor-id="engineledger.py-theorem-ledger-error-log"><span class="header-section-number">6.1.3</span> <code>engine/ledger.py</code> — Theorem Ledger &amp; Error Log</h3>
+<p>Module docstring: two append-only JSON logs in the workspace — <code>ledger.json</code> (theorem entries, see <a href="#theorem-ledger-field-reference">Theorem Ledger field reference</a>) and <code>error_log.json</code> (error entries, see <a href="#error-categories">Error categories</a>). Both are written atomically (temp file + <code>os.replace</code>).</p>
+<p>Module constants: <code>LEDGER_FIELDS</code> (the 14 names, list order is the contract — <code>tests/test_curriculum.py::test_ledger_schema_matches_engine</code> asserts <code>curriculum/real-analysis/ledger-schema.yaml</code>’s <code>fields</code> list matches it exactly) and <code>ERROR_CATEGORIES</code> (the 6 names, same order contract via <code>error_categories</code>).</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>Behavior</th>
+<th>Error behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>load_ledger(workspace: Path) -&gt; list</code></td>
+<td>Returns the list of theorem-ledger entries for <code>workspace</code> (reads <code>&lt;workspace&gt;/ledger.json</code>).</td>
+<td>Returns <code>[]</code> if the file is missing, contains invalid JSON, or the parsed JSON is not a list. <code>OSError</code> on an existing-but-unreadable file is not caught.</td>
+</tr>
+<tr class="even">
+<td><code>append_theorem(workspace: Path, entry: dict) -&gt; None</code></td>
+<td>Validates <code>entry</code> has every <code>LEDGER_FIELDS</code> key, then stamps it with an <code>"added"</code> ISO date (<code>date.today().isoformat()</code>) and appends it atomically to <code>ledger.json</code>.</td>
+<td>Raises <code>ValueError(f"Missing required ledger field(s): {', '.join(missing)}")</code> naming every missing field.</td>
+</tr>
+<tr class="odd">
+<td><code>append_error(workspace: Path, category: str, description: str, context: str = "") -&gt; None</code></td>
+<td>Validates <code>category</code> is one of <code>ERROR_CATEGORIES</code>, builds a record <code>{"date": &lt;UTC ISO now&gt;, "category": category, "description": description, "context": context}</code>, and appends it atomically to <code>error_log.json</code>.</td>
+<td>Raises <code>ValueError(f"Invalid error category: {category!r}; must be one of {ERROR_CATEGORIES}")</code>.</td>
+</tr>
+<tr class="even">
+<td><code>error_counts(workspace: Path, last_n: int = 20) -&gt; dict</code></td>
+<td>Returns a <code>dict</code> of category → count over the most recent <code>last_n</code> entries of <code>error_log.json</code> (all entries if <code>last_n</code> is falsy).</td>
+<td>Not caught — a malformed entry missing <code>"category"</code> raises <code>KeyError</code>.</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="hook-contracts" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="hook-contracts"><span class="header-section-number">6.2</span> Hook Contracts</h2>
+<p>Three hooks are registered in <code>hooks/hooks.json</code>, each run as <code>python3 "${CLAUDE_PLUGIN_ROOT}/hooks/scripts/&lt;script&gt;.py"</code>:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Event</th>
+<th>Script</th>
+<th>Registered command</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>SessionStart</code></td>
+<td><code>hooks/scripts/session_start.py</code></td>
+<td><code>python3 "${CLAUDE_PLUGIN_ROOT}/hooks/scripts/session_start.py"</code></td>
+</tr>
+<tr class="even">
+<td><code>UserPromptSubmit</code></td>
+<td><code>hooks/scripts/prompt_guard.py</code></td>
+<td><code>python3 "${CLAUDE_PLUGIN_ROOT}/hooks/scripts/prompt_guard.py"</code></td>
+</tr>
+<tr class="odd">
+<td><code>Stop</code></td>
+<td><code>hooks/scripts/session_end.py</code></td>
+<td><code>python3 "${CLAUDE_PLUGIN_ROOT}/hooks/scripts/session_end.py"</code></td>
+</tr>
+</tbody>
+</table>
+<p>All three carry the same three guarantees (<code>docs/superpowers/plans/2026-07-17-real-analysis-tutor.md</code>):</p>
+<ul>
+<li><strong>Runtime budget: &lt; 1 second.</strong></li>
+<li><strong>Stdlib only</strong> — no third-party imports at runtime (no <code>yaml</code> in hooks); each script inserts the repo root onto <code>sys.path</code> (<code>Path(__file__).resolve().parents[2]</code>) to import <code>engine</code>.</li>
+<li><strong>Fail-open</strong> — every script wraps its body in <code>try/except Exception</code> and exits 0 with no (or minimal) output on internal error, so a harness or engine bug never blocks the session.</li>
+</ul>
+<section id="sessionstart-hooksscriptssession_start.py" class="level3" data-number="6.2.1">
+<h3 data-number="6.2.1" class="anchored" data-anchor-id="sessionstart-hooksscriptssession_start.py"><span class="header-section-number">6.2.1</span> <code>SessionStart</code> — <code>hooks/scripts/session_start.py</code></h3>
+<ul>
+<li><p><strong>Input fields consumed from stdin JSON:</strong> <code>cwd</code> (falls back to <code>Path.cwd()</code> if absent). Also calls <code>date.today()</code> directly, not from the payload.</p></li>
+<li><p><strong>Output shape (context available):</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span><span class="dt">"hookSpecificOutput"</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">"hookEventName"</span><span class="fu">:</span> <span class="st">"SessionStart"</span><span class="fu">,</span> <span class="dt">"additionalContext"</span><span class="fu">:</span> <span class="st">"&lt;text&gt;"</span><span class="fu">}}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>printed to stdout as one line of JSON, only when <code>build_context()</code> returns non-<code>None</code>.</p></li>
+<li><p><strong>No-op cases (nothing printed, exit 0 implicitly):</strong> unparseable/non-JSON stdin; stdin JSON that is not an object; <code>engine.state</code>/<code>engine.scheduler</code> failed to import (broken/partial install).</p></li>
+<li><p><strong><code>build_context(cwd, today)</code> behavior</strong> (pure function, the testable core):</p>
+<ul>
+<li>no workspace found → returns <code>NO_WORKSPACE_DIRECTIVE</code> (a conditional “offer onboarding only if the learner’s intent warrants it” instruction).</li>
+<li>workspace found but no <code>learner.json</code> yet → returns <code>FIRST_RUN_DIRECTIVE</code> (introduce yourself, run onboarding, volunteer workspace creation and the never-hand-over-proofs rule).</li>
+<li>returning learner → returns the open-ritual directive plus <code>state.state_digest()</code> output plus, if the current phase has a named misconception (the <code>MISCONCEPTIONS</code> dict keyed <code>phase1</code>–<code>phase7</code>), a <code>"Current phase: &lt;phase&gt; (named   misconception: &lt;id&gt;)"</code> line, else <code>"Current phase: &lt;phase&gt;"</code>.</li>
+</ul></li>
+<li><p><strong>Fail-open mechanism:</strong> <code>main()</code> wraps everything in <code>try/except Exception</code>; on exception it best-effort logs <code>f"session_start.py: {exc!r}\n"</code> to <code>${CLAUDE_PLUGIN_DATA}/errors.log</code> if <code>CLAUDE_PLUGIN_DATA</code> is set (silently skipped if not, or if logging itself fails), then returns normally (exit 0).</p></li>
+</ul>
+</section>
+<section id="userpromptsubmit-hooksscriptsprompt_guard.py" class="level3" data-number="6.2.2">
+<h3 data-number="6.2.2" class="anchored" data-anchor-id="userpromptsubmit-hooksscriptsprompt_guard.py"><span class="header-section-number">6.2.2</span> <code>UserPromptSubmit</code> — <code>hooks/scripts/prompt_guard.py</code></h3>
+<ul>
+<li><p><strong>Input fields consumed from stdin JSON:</strong> <code>prompt</code> (default <code>""</code>), <code>cwd</code> (falls back to <code>str(Path.cwd())</code>).</p></li>
+<li><p><strong>Output shape (workspace active):</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span><span class="dt">"hookSpecificOutput"</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">"hookEventName"</span><span class="fu">:</span> <span class="st">"UserPromptSubmit"</span><span class="fu">,</span> <span class="dt">"additionalContext"</span><span class="fu">:</span> <span class="st">"&lt;reminder text&gt;"</span><span class="fu">}}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p><strong>No-op case:</strong> no workspace found (<code>state.find_workspace(Path(cwd))</code> is <code>None</code>) — nothing printed.</p></li>
+<li><p><strong><code>tier(prompt) -&gt; int</code></strong> (pure): returns <code>2</code> if the prompt matches the <code>TIER2_PATTERNS</code> regex (answer-fishing, salami-slicing “first N steps”, persona overrides, or the <code>AUTHORITY_PATTERNS</code> — “my professor/teacher/prof said”, “the textbook/book/notes says”, “I’m allowed”); else <code>1</code>.</p></li>
+<li><p><strong><code>reminder(prompt) -&gt; str</code></strong> (pure): tier 1 → <code>TIER1_TEXT</code> (Socratic-contract standing reminder: no next step or complete proof, one question per turn, silent pre-plan before replying). Tier 2 → <code>TIER2_BASE_TEXT</code> plus a tail that branches on whether the match was an authority claim (<code>TIER2_AUTHORITY_TAIL</code>: turn it into a joint verification question) or any other tier-2 trigger (<code>TIER2_FISHING_TAIL</code>: offer the stuck-state protocol).</p></li>
+<li><p><strong>Fail-open mechanism:</strong> <code>main()</code> wraps the entire body in a bare <code>try/except Exception: pass</code> — any error, including a JSON parse failure on stdin, produces no output and no crash.</p></li>
+</ul>
+</section>
+<section id="stop-hooksscriptssession_end.py" class="level3" data-number="6.2.3">
+<h3 data-number="6.2.3" class="anchored" data-anchor-id="stop-hooksscriptssession_end.py"><span class="header-section-number">6.2.3</span> <code>Stop</code> — <code>hooks/scripts/session_end.py</code></h3>
+<ul>
+<li><p><strong>Input fields consumed from stdin JSON:</strong> <code>cwd</code> (falls back to <code>str(Path.cwd())</code>), <code>stop_hook_active</code> (default <code>False</code>), <code>session_id</code>.</p></li>
+<li><p><strong>Output shape (reminder due):</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span><span class="dt">"decision"</span><span class="fu">:</span> <span class="st">"block"</span><span class="fu">,</span> <span class="dt">"reason"</span><span class="fu">:</span> <span class="st">"&lt;REASON text&gt;"</span><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>printed once, then <code>sys.exit(0)</code> regardless.</p></li>
+<li><p><strong>No-op case:</strong> nothing printed (still <code>sys.exit(0)</code>) whenever <code>should_remind()</code> is <code>False</code>.</p></li>
+<li><p><strong><code>should_remind(ws, now_ts, stop_hook_active, session_id) -&gt; bool</code></strong> (pure): <code>False</code> if <code>ws is None</code>; <code>False</code> if <code>stop_hook_active</code> is truthy; <code>False</code> if <code>&lt;ws&gt;/learner.json</code> does not exist; <code>False</code> if the session was already reminded (sentinel check below); else <code>True</code> iff <code>now_ts - learner.json mtime &gt; STALE_SECONDS</code> (<code>30 * 60</code>, i.e.&nbsp;30 minutes).</p></li>
+<li><p><strong>Once-per-session sentinel:</strong> file <code>&lt;workspace&gt;/.stop-reminder-session</code> (constant <code>SENTINEL</code>). Session key is <code>str(session_id)</code> if truthy, else <code>"day-" + date.today().isoformat()</code> (so a missing session id still caps the reminder at once per calendar day rather than never or every turn). <code>_already_reminded()</code> reads the sentinel and compares to the current session key; on a reminder, <code>record_reminded()</code> overwrites the sentinel with the current session key. Both sentinel operations swallow <code>OSError</code>.</p></li>
+<li><p><strong>Fail-open mechanism:</strong> <code>main()</code> wraps its body in <code>try/except Exception: pass</code>, then unconditionally calls <code>sys.exit(0)</code> — the Stop hook can never itself force a block via an internal error.</p></li>
+</ul>
+</section>
+</section>
+<section id="workspace-layout" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="workspace-layout"><span class="header-section-number">6.3</span> Workspace Layout</h2>
+<p>A workspace is any directory containing the marker file <code>.ra-tutor-workspace</code> (<code>engine.state.MARKER</code>), discoverable from anywhere via <code>engine.state.find_workspace()</code>. <code>templates/workspace/</code> is the copy source for a new workspace (<code>skills/tutor/reference/onboarding.md</code>, Step 4); the remaining files are created at onboarding time or written at runtime by the engine.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Path</th>
+<th>Origin</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>.ra-tutor-workspace</code></td>
+<td>Copied from <code>templates/workspace/.ra-tutor-workspace</code></td>
+<td>Marker file; contents <code>{"schema_version": 1, "curriculum": "real-analysis"}</code>. Its presence (not its contents) is what <code>find_workspace()</code> tests for.</td>
+</tr>
+<tr class="even">
+<td><code>notes/</code></td>
+<td>Copied from <code>templates/workspace/notes/</code> (ships only <code>.gitkeep</code>)</td>
+<td>Learner notes; empty at creation.</td>
+</tr>
+<tr class="odd">
+<td><code>scratch/</code></td>
+<td>Copied from <code>templates/workspace/scratch/</code> (ships <code>lookup.lean</code>, a Mathlib <code>exact?</code> lookup scratch file)</td>
+<td>Scratch Lean/working files.</td>
+</tr>
+<tr class="even">
+<td><code>sessions/</code></td>
+<td>Copied from <code>templates/workspace/sessions/</code> (ships only <code>.gitkeep</code>)</td>
+<td>Session records; empty at creation.</td>
+</tr>
+<tr class="odd">
+<td><code>src/</code></td>
+<td>Copied from <code>templates/workspace/src/</code> (ships only <code>.gitkeep</code>)</td>
+<td>Lean project source; empty at creation.</td>
+</tr>
+<tr class="even">
+<td><code>learner.json</code></td>
+<td>Written by <code>engine.state.save_state()</code>; first written during onboarding via <code>state.default_state()</code> with <code>profile</code>/<code>position.phase</code> set</td>
+<td>Learner state: schema_version, position, concepts, stuck, misconception_log, session_count, profile — see <code>default_state()</code> above.</td>
+</tr>
+<tr class="odd">
+<td><code>learner.json.tmp</code></td>
+<td><code>engine.state.save_state()</code> (transient)</td>
+<td>Atomic-write staging file, <code>os.replace</code>d onto <code>learner.json</code>.</td>
+</tr>
+<tr class="even">
+<td><code>learner.json.corrupt-&lt;UTC timestamp&gt;</code></td>
+<td><code>engine.state.load_state()</code>, on a corrupt <code>learner.json</code></td>
+<td>Renamed-aside corrupt file; the engine then proceeds with <code>default_state()</code>.</td>
+</tr>
+<tr class="odd">
+<td><code>ledger.json</code></td>
+<td>Written by <code>engine.ledger.append_theorem()</code>; first created empty (<code>"[]"</code>) during onboarding</td>
+<td>Theorem Ledger entries — list of dicts with the 14 <code>LEDGER_FIELDS</code> plus a stamped <code>"added"</code> date.</td>
+</tr>
+<tr class="even">
+<td><code>error_log.json</code></td>
+<td>Written by <code>engine.ledger.append_error()</code>; first created empty (<code>"[]"</code>) during onboarding</td>
+<td>Error-log entries — list of <code>{date, category, description, context}</code> dicts.</td>
+</tr>
+<tr class="odd">
+<td><code>reviews.json</code></td>
+<td>Written by <code>engine.scheduler.save_reviews()</code>; first created empty (<code>"[]"</code>) during onboarding</td>
+<td>SM-2 review items — list of <code>{concept, ef, reps, interval, due, last_grade}</code> dicts.</td>
+</tr>
+<tr class="even">
+<td><code>*.tmp</code> (<code>ledger.json.tmp</code>, <code>error_log.json.tmp</code>, <code>reviews.json.tmp</code>)</td>
+<td>Transient, per atomic-write helper in each engine module</td>
+<td>Staging files for <code>os.replace</code>; should never persist except mid-crash.</td>
+</tr>
+<tr class="odd">
+<td><code>.stop-reminder-session</code></td>
+<td>Written by <code>hooks/scripts/session_end.py</code>’s <code>record_reminded()</code></td>
+<td>Once-per-session sentinel for the Stop-hook persistence reminder (see Hook Contracts above).</td>
+</tr>
+</tbody>
+</table>
+<section id="the-.claudereal-analysis-tutor.json-pointer" class="level3" data-number="6.3.1">
+<h3 data-number="6.3.1" class="anchored" data-anchor-id="the-.claudereal-analysis-tutor.json-pointer"><span class="header-section-number">6.3.1</span> The <code>~/.claude/real-analysis-tutor.json</code> pointer</h3>
+<p>Written once, at onboarding Step 4 (<code>skills/tutor/reference/onboarding.md</code>), immediately after the workspace is created:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span><span class="dt">"workspace"</span><span class="fu">:</span> <span class="st">"&lt;absolute chosen path&gt;"</span><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This is the fallback <code>engine.state.find_workspace()</code> reads when neither the current directory nor any of its ancestors contains <code>.ra-tutor-workspace</code> — it is what lets every hook and engine call work from any directory in later sessions, not only from inside the workspace itself. <code>find_workspace()</code> still re-checks that <code>&lt;workspace&gt;/.ra-tutor-workspace</code> exists before trusting the pointer; a missing or unparseable config file, or a stale pointer to a workspace whose marker is gone, falls through to <code>None</code> rather than raising.</p>
+</section>
+</section>
+<section id="theorem-ledger-field-reference" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="theorem-ledger-field-reference"><span class="header-section-number">6.4</span> Theorem Ledger — Field Reference</h2>
+<p>The 14 fields of <code>engine.ledger.LEDGER_FIELDS</code>, in order. Descriptions are transcribed from <code>curriculum/real-analysis/ledger-schema.yaml</code>, whose header states they are “taken from the Setup Workflow Guide V2.1, Part X”. Order and names are asserted identical to <code>LEDGER_FIELDS</code> by <code>tests/test_curriculum.py::test_ledger_schema_matches_engine</code>.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td><code>theorem</code></td>
+<td>Short name (e.g., heine_cantor)</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><code>statement</code></td>
+<td>In your own words — no copying from Rudin</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><code>proof_idea</code></td>
+<td>One sentence: the essential move the proof turns on</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td><code>load_bearing_hypothesis</code></td>
+<td>Which hypothesis is essential?</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td><code>counterexample_if_removed</code></td>
+<td>Counterexample when that hypothesis is removed</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td><code>converse_true</code></td>
+<td>true / false / partial</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td><code>converse_example</code></td>
+<td>Canonical counterexample if converse is false</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td><code>misconception</code></td>
+<td>The named misconception for this theorem, drawn from the Part V catalogue</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td><code>misconception_refutation</code></td>
+<td>The precise logical step that is invalid, plus the canonical counterexample that breaks the misconception</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td><code>depends_on</code></td>
+<td>List of earlier Ledger entries this proof invokes</td>
+</tr>
+<tr class="odd">
+<td>11</td>
+<td><code>downstream</code></td>
+<td>Which later results depend on this theorem</td>
+</tr>
+<tr class="even">
+<td>12</td>
+<td><code>analogues</code></td>
+<td>Which earlier theorem has a similar logical form or proof strategy</td>
+</tr>
+<tr class="odd">
+<td>13</td>
+<td><code>lean_status</code></td>
+<td>compiled / in_progress / planned / unverified</td>
+</tr>
+<tr class="even">
+<td>14</td>
+<td><code>bloom_level</code></td>
+<td>highest level achieved: apply / analyze / evaluate / create</td>
+</tr>
+</tbody>
+</table>
+<p><code>engine.ledger.append_theorem()</code> additionally stamps every entry with <code>added</code> (<code>date.today().isoformat()</code>) — a 15th key present on disk but not part of the <code>LEDGER_FIELDS</code> validation contract or the schema’s <code>fields</code> list.</p>
+</section>
+<section id="error-categories" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="error-categories"><span class="header-section-number">6.5</span> Error Categories</h2>
+<p>The 6 categories of <code>engine.ledger.ERROR_CATEGORIES</code>, in order. Descriptions are transcribed from <code>curriculum/real-analysis/ledger-schema.yaml</code>, whose header states they are “taken from the RealAnalysis CompleteGuide V2.1, Part IX, ‘Error Log’ table.”</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Category</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td><code>quantifier_error</code></td>
+<td>Wrong order of quantifiers; swapping for-all and there-exists</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><code>missing_hypothesis</code></td>
+<td>Applying a theorem without verifying all its conditions</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><code>invalid_inference</code></td>
+<td>A step that does not follow logically from what precedes it</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td><code>wrong_theorem</code></td>
+<td>Citing a theorem whose conclusion does not match what is needed</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td><code>delta_depends_on_x</code></td>
+<td>Choosing delta that depends on the point x in a uniform continuity proof</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td><code>converse_confusion</code></td>
+<td>Assuming the converse of a conditional theorem</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="curriculum-pack-schema" class="level2" data-number="6.6">
+<h2 data-number="6.6" class="anchored" data-anchor-id="curriculum-pack-schema"><span class="header-section-number">6.6</span> Curriculum Pack Schema</h2>
+<p>Required structure per curriculum file, as enforced by <code>tests/test_curriculum.py</code> against <code>curriculum/real-analysis/</code>. Every file listed here is required (<code>REQUIRE_ALL = True</code> — a missing file fails the corresponding test rather than skipping it).</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>File</th>
+<th>Top-level key(s)</th>
+<th>Per-item required keys</th>
+<th>Additional constraints (test)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>ledger-schema.yaml</code></td>
+<td><code>fields</code> (list), <code>error_categories</code> (list)</td>
+<td>each item: <code>name</code></td>
+<td><code>[f["name"] for f in fields]</code> must equal <code>list(ledger.LEDGER_FIELDS)</code> exactly (order matters); <code>[c["name"] for c in error_categories]</code> must equal <code>list(ledger.ERROR_CATEGORIES)</code> exactly (order matters).</td>
+</tr>
+<tr class="even">
+<td><code>misconceptions.yaml</code></td>
+<td><code>misconceptions</code> (list)</td>
+<td><code>id</code>, <code>statement</code>, <code>corrupted_step</code>, <code>refutation</code>, <code>counterexample</code>, <code>phase</code>, <code>topic</code> (all truthy)</td>
+<td>The set of <code>id</code>s must equal exactly: <code>completeness-implies-convergence</code>, <code>compact-iff-closed-and-bounded</code>, <code>consecutive-closeness-implies-convergence</code>, <code>pencil-lifting-image</code>, <code>continuity-implies-uniform-continuity</code>, <code>terms-to-zero-implies-convergence</code>, <code>pointwise-limit-preserves-continuity</code>.</td>
+</tr>
+<tr class="odd">
+<td><code>curriculum.yaml</code></td>
+<td><code>phases</code> (list)</td>
+<td>each phase: <code>texts</code>, <code>weeks</code>, <code>name</code> (all truthy)</td>
+<td>Phase <code>id</code>s, in order, must equal <code>["prelim", "phase1", "phase2", ..., "phase9"]</code>. <code>phase4</code>’s <code>misconception</code> must equal <code>"pencil-lifting-image"</code>; <code>phase8</code>, <code>phase9</code>, and <code>prelim</code>’s <code>misconception</code> must be <code>None</code>.</td>
+</tr>
+<tr class="even">
+<td><code>checklists/phase{1..7}.yaml</code> (7 files)</td>
+<td>— (flat document)</td>
+<td><code>phase</code>, <code>topic</code>, <code>items</code>, <code>converse_checks</code>, <code>lean_targets</code>, <code>rudin_exercises</code>, <code>misconception</code> (all <code>is not None</code>)</td>
+<td><code>len(items) &gt;= 5</code>.</td>
+</tr>
+<tr class="odd">
+<td><code>ladder.yaml</code></td>
+<td><code>rungs</code> (list)</td>
+<td>each rung: <code>name</code>, <code>claude_role</code>, <code>bloom_levels</code>, <code>problem_classes</code> (all truthy)</td>
+<td>Rung numbers, in order, must equal <code>[1, 2, 3, 4, 5]</code>.</td>
+</tr>
+</tbody>
+</table>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./extending.html" class="pagination-link" aria-label="Extending to a New Subject">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Extending to a New Subject</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./faq.html" class="pagination-link" aria-label="FAQ">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">FAQ</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

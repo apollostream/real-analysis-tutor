@@ -1,0 +1,85 @@
+---
+title: "Engine Generality"
+---
+
+## The question
+
+Is the tutor engine independent of the subject it teaches — could a user point it at
+any subject? Mostly, but not quite. This page states that boundary precisely.
+
+## Genuinely subject-independent
+
+The following know nothing about Real Analysis specifically: learner state
+(`engine/state.py`), the SM-2 review scheduler (`engine/scheduler.py`), the Theorem
+Ledger machinery (`engine/ledger.py`), the per-turn Socratic guard, stuck-state
+escalation, Bloom calibration, the misconception-probe pattern, the four-part
+consolidation assessment, and the volunteering/zero-documentation onboarding UX — all
+architecture. The curriculum itself lives as data, in `curriculum/real-analysis/`.
+Part XV of the source guide says exactly this: the methodology transfers to Topology
+and Abstract Algebra with new content and near-zero process changes
+(`docs/source-guides/Setup_Workflow_Guide_V2.1.md`, Part XV).
+
+## Currently hardwired to Real Analysis — three tiers
+
+**Tier 1 — content that doesn't exist for other subjects.** Only one curriculum pack
+ships: `curriculum/real-analysis/`. No `curriculum/topology/` or `curriculum/algebra/`
+exists in this repo. Part XV is explicit that a new subject needs its own *researched*
+misconception catalogue, checklists, and text pairings — authorship work, not code
+work.
+
+**Tier 2 — Real Analysis specifics baked into skill prose.**
+`skills/check-proof/SKILL.md` asks, as a named check, whether "the delta depend[s] only
+on epsilon." `skills/formalize/SKILL.md` is written around Lean 4 and Mathlib imports
+and dispatches a `lean-verifier` agent against `src/Chapter<N>.lean`. The Theorem
+Ledger's error categories in `engine/ledger.py` (`ERROR_CATEGORIES`) are
+`quantifier_error`, `missing_hypothesis`, `invalid_inference`, `wrong_theorem`,
+`delta_depends_on_x`, `converse_confusion` — one, `delta_depends_on_x`, is literally a
+Real Analysis idiom. `hooks/scripts/session_start.py` hardcodes a phase-to-misconception
+map (`MISCONCEPTIONS`) with seven Real Analysis entries, e.g.
+`"compact-iff-closed-and-bounded"`. Editable, but today it would talk epsilons and
+compactness to a group-theory student.
+
+**Tier 3 — no selection mechanism.** The workspace marker template,
+`templates/workspace/.ra-tutor-workspace`, records `{"schema_version": 1, "curriculum":
+"real-analysis"}` — but nothing in the codebase reads that `curriculum` field to switch
+packs. Dropping `curriculum/topology/` into the repo today would not activate it; the
+field is written but not consumed.
+
+## Scope caveat
+
+Even fully generalized across all three tiers, this engine is tuned to
+**proof-based mathematics**: converse reflexes, proof ladders, formal verification
+against Mathlib. It is not, and a v2.2 decoupling would not make it, a
+point-it-at-French-or-history tutor.
+
+## Accurate public phrasing
+
+> The pedagogical engine is deliberately separated from the subject matter — extending
+> it to Topology or Abstract Algebra, as the guides' Part XV envisions, is mostly a
+> matter of authoring a new curriculum pack rather than rebuilding the tutor. Real
+> Analysis is the curriculum it ships with today.
+
+## v2.2 decoupling roadmap
+
+To make the strong claim fully true, hooks *and* skills would need to read subject
+specifics — the misconception map, error categories, diagnostic prompts — from the
+active curriculum pack, keyed off the workspace marker's `curriculum` field, instead of
+from hardcoded Python (`engine/ledger.py`, `hooks/scripts/session_start.py`) and skill
+prose (`skills/check-proof/SKILL.md`, `skills/formalize/SKILL.md`). A skeleton
+`curriculum/topology/` pack, shipped as proof the mechanism works, would close all
+three tiers at once.
+
+## Alignment with the source guides
+
+Part XV's "What Stays the Same" table is the authority behind the claim above.
+Unchanged when moving subjects: Claude Code + WSL 2 + VS Code, CLAUDE.md discipline,
+the Pólya recovery protocol, Bloom Taxonomy escalation, the misconception-probe
+*mechanism* (not its catalogue — new subjects need their own, researched), the
+four-part consolidation assessment, the Alcock self-explanation protocol, the
+proof-practice ladder, the Theorem Ledger format, Lean 4 + Mathlib4, and the role
+scripts. What changes: CLAUDE.md's subject line and imports, a new project directory,
+new checklists with researched misconception entries, and new book pairings
+(`docs/source-guides/Setup_Workflow_Guide_V2.1.md`, Part XV). That table describes the
+guide's methodology at the level of human workflow; the three tiers above are where
+the same split currently lives in this repo's code — evidence the split is sound in
+principle, and a punch list of what still needs building here.

@@ -1,0 +1,116 @@
+---
+title: "Architecture"
+---
+
+## Three layers, and why each exists
+
+The plugin splits its work across three cooperating layers (design spec
+`docs/superpowers/specs/2026-07-17-real-analysis-tutor-design.md` §3): each is
+trustworthy for a different reason, none for all three jobs at once.
+
+**The deterministic layer** — hooks (`hooks/hooks.json`, `hooks/scripts/*.py`) and the
+engine (`engine/state.py`, `engine/scheduler.py`, `engine/ledger.py`) — exists because
+some things must never depend on model judgment: whether state loaded correctly, when a
+review is due, whether the per-turn Socratic reminder fired. It is plain, stdlib-only,
+unit-tested Python that runs every turn regardless of what the model is attending to.
+
+**The judgment layer** — the ten skills under `skills/` — exists because pedagogy is not
+a deterministic function of learner state. Deciding what to ask, which stuck-state level
+applies, or whether a "clearly" hides a real gap requires judgment, so this layer
+encodes *how to decide*: the six-stage loop, the Level 1–4 escalation, the Four-Part
+Assessment.
+
+**The fresh-context layer** — the five subagents under `agents/` — exists because even
+good judgment is compromised by its own history. A tutor that just watched a learner
+struggle cannot cleanly judge whether its own draft reply gives too much away — it is
+grading its own work in its own context. A subagent handed only the artifact under
+review has no such conflict.
+
+## The three hooks
+
+**SessionStart** (`hooks/scripts/session_start.py`) locates the workspace by walking up
+from `cwd` for the `.ra-tutor-workspace` marker, falling back to the `workspace` key in
+`~/.claude/real-analysis-tutor.json`. It injects `additionalContext` with one of three
+contracts: for a returning learner, a state digest (position, weakest concepts, due
+reviews) plus an instruction to deliver the open ritual before addressing the user's
+first message — the plugin speaks first in effect, though the hook itself cannot speak;
+for a brand-new workspace (marker present, no `learner.json`), `FIRST_RUN_DIRECTIVE` to
+run onboarding; for no workspace at all, a conditional `NO_WORKSPACE_DIRECTIVE` offering
+the tutor only if the message suggests intent to study — otherwise it says nothing, so
+the plugin stays a good citizen outside tutoring contexts.
+
+**UserPromptSubmit** (`hooks/scripts/prompt_guard.py`) re-asserts the Socratic contract
+every turn a workspace is active, since per-turn reinjection is the documented defense
+against instruction decay across a long context; a no-workspace prompt is a no-op. Tier
+1 is the standard reminder (diagnosis → level → withhold-list → question). Tier 2 fires
+on an answer-fishing pattern match and swaps in a stronger reminder naming the
+productive-struggle rule; an authority-citing sub-pattern ("my professor said...") gets
+a different tail that turns the claim into something to verify jointly, not obey.
+
+**Stop** (`hooks/scripts/session_end.py`) reminds the tutor to persist state, but only
+when it matters: it blocks with a reminder if `learner.json` is older than 30 minutes
+*and* this session hasn't been reminded yet (`should_remind`, gated on a sentinel file,
+`.stop-reminder-session`, written into the workspace). The sentinel stops an
+overnight-stale file from nagging every turn — the reminder fires once per session, not
+once per staleness check.
+
+## Five subagents and information asymmetry
+
+`proof-critic`, `counterexample-hunter`, `misconception-prober`, `lean-verifier`, and
+`leakage-auditor` (`agents/*.md`) share one rule, stated verbatim in each prompt's
+"Information diet" section: each sees only the artifact under review — a proof, a
+theorem, a drafted reply — never the tutor's reasoning or conversation history. This
+operationalizes the MARCH finding the design spec cites: same-context self-checks
+inherit generator bias, so a critic must get decomposed claims, not the generator's own
+account of them. `leakage-auditor` is the sharpest case — the tutor dispatches it with
+only its own drafted reply and the problem statement whenever an escalated (tier 2)
+reminder is active, and obeys its SHIP/REVISE/BLOCK verdict before sending
+(`skills/tutor/SKILL.md`, "Sycophancy defenses"); any `reveals-final-answer` score above
+zero forces BLOCK regardless of the rest.
+
+## Learner workspace
+
+Created once, from `templates/workspace/`, never by hand: marker `.ra-tutor-workspace`
+(schema version + curriculum id); `learner.json` (position, mastery, stuck counters,
+misconception log); `ledger.json` / `error_log.json` (Theorem Ledger entries and
+categorized proof errors); `reviews.json` (spaced-review schedule); `sessions/NNN.md`
+narrative logs; and `src/`, `notes/`, `scratch/` for Lean work.
+`~/.claude/real-analysis-tutor.json` is a pointer of last resort, consulted only when no
+marker turns up walking from `cwd`.
+
+## Hardening: the red-team pass
+
+Before ship, an adversarial fan-out ran six answer-fishing transcripts against the
+tutor/check-proof/stuck skill texts (`docs/superpowers/plans/2026-07-17-real-analysis-tutor.md`,
+Task 20). The surviving `prompt_guard.py` regex set reflects that pass: it catches not
+just direct fishing ("give me the answer") but salami-slicing ("just the first few
+steps") and persona override ("pretend you are a solutions manual", "ignore the
+Socratic rules") — all routed to the same tier-2 tail, since a learner angling for the
+answer indirectly is still angling for it. `leakage-auditor` backstops the regexes for
+replies the tutor drafts unprompted. And every hook fails open: `session_start.py`,
+`prompt_guard.py`, and `session_end.py` each wrap their body in a bare
+`except Exception: pass` (or log to `CLAUDE_PLUGIN_DATA/errors.log` first) and exit 0,
+so a harness bug degrades to silence, never a blocked session.
+
+## A session turn
+
+```{mermaid}
+flowchart TD
+    A[User message] --> B{"UserPromptSubmit\nprompt_guard.py"}
+    B -->|no workspace| C[No-op]
+    B -->|tier 1| D[Inject Socratic reminder]
+    B -->|tier 2: fishing/authority| E[Inject escalated reminder]
+    C --> F[Tutor: hidden pre-response plan]
+    D --> F
+    E --> F
+    F --> G{Dispatch a subagent?}
+    G -->|proof submitted| H["proof-critic / counterexample-hunter /\nmisconception-prober / lean-verifier"]
+    G -->|tier-2 reply drafted| I[leakage-auditor]
+    G -->|no| J[Reply to learner]
+    H --> J
+    I -->|SHIP| J
+    I -->|REVISE / BLOCK| F
+    J --> K{"Stop hook\nsession_end.py"}
+    K -->|stale learner.json,\nnot yet reminded| L[Block: persist state]
+    K -->|else| M[Turn ends]
+```

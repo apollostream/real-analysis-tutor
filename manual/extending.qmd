@@ -1,0 +1,128 @@
+---
+title: "Extending to a New Subject"
+---
+
+## The claim, precisely
+
+The engine — learner state, the SM-2 scheduler, the Theorem Ledger, the Socratic guard,
+Bloom calibration, the misconception-probe pattern, the four-part assessment — knows
+nothing about Real Analysis. The subject lives as data in `curriculum/real-analysis/`.
+Extending to Topology or Abstract Algebra is mostly *authoring a curriculum pack*, not
+rebuilding the tutor. "Mostly": subject-specific material still sits outside the pack,
+and nothing yet reads the pack selector. Both are addressed below.
+
+## Anatomy of a curriculum pack
+
+A pack is a directory under `curriculum/<subject>/`. The Real Analysis pack has five
+parts; `tests/test_curriculum.py` enforces the shape of the first four.
+
+- **`curriculum.yaml`** — phases in order, each with `id`, `name`, `weeks`, `texts`,
+  `focus`, `misconception` (id from `misconceptions.yaml`, or `null`), and `checklist`
+  (path, or `null`); also `sequencing_rules`, `weekly_rhythm`, `quick_start_profiles`.
+- **`misconceptions.yaml`** — one entry per documented error pattern, with
+  `statement`, `corrupted_step`, `refutation`, `counterexample`, `phase`, `topic`, and
+  a fixed `presentation_note` (never flag the error in advance).
+- **`checklists/phaseN.yaml`** — one mastery checklist per phase with a misconception,
+  with `items` (≥5), `converse_checks`, `lean_targets`, `rudin_exercises`, and
+  `misconception`.
+- **`ladder.yaml`** — the five-rung proof-practice ladder (`rung`, `name`,
+  `claude_role`, `bloom_levels`, `problem_classes`), agnostic in structure but
+  subject-specific in `problem_classes`.
+- **`ledger-schema.yaml`** — documents `LEDGER_FIELDS`/`ERROR_CATEGORIES` from
+  `engine/ledger.py` for human readers; mirrors the engine's fixed schema rather than
+  defining new fields (see [Reference](reference.qmd)).
+- **`pedagogy/`** — free-form prose companions (`texts.md`, `bloom.md`, `polya.md`,
+  `self-explanation.md`, `prompts.md`): pairing rationale and framework notes, not
+  schema-checked.
+
+### Illustrative excerpt — a hypothetical Topology pack entry
+
+Illustrative only — no `curriculum/topology/` exists in this repo. It sketches the
+shape a Phase 2-style entry might take, following the schema above:
+
+```yaml
+# curriculum/topology/curriculum.yaml (hypothetical)
+phases:
+  - id: phase2
+    name: "Open Sets, Bases, and Continuity"
+    weeks: [3, 5]
+    texts: ["Gamelin & Greene Ch. 1", "Munkres Ch. 2 (2nd ed.)"]
+    focus: >-
+      Topological spaces from open-set axioms, basis, subspace topology,
+      continuity via preimages of open sets.
+    misconception: continuity-is-preimage-not-image
+    checklist: checklists/phase2.yaml
+
+# curriculum/topology/misconceptions.yaml (hypothetical)
+misconceptions:
+  - id: continuity-is-preimage-not-image
+    phase: phase2
+    topic: "Continuity in Topological Spaces"
+    statement: "A function is continuous if it maps open sets to open sets."
+    corrupted_step: >-
+      Inverts the definition: preimages of open sets must be open, not
+      images of open sets.
+    # ... refutation, counterexample, presentation_note as in the schema
+```
+
+## The schema contract
+
+`tests/test_curriculum.py` is the ground truth for "does this pack load." It asserts:
+phase ids run `["prelim", "phase1", ..., "phase9"]`; every misconception id in
+`curriculum.yaml` resolves in `misconceptions.yaml`, with all six required fields
+present; every `checklists/phaseN.yaml` (N = 1–7) has all seven required keys and at
+least five items; the ladder has exactly rungs 1–5, each fully populated; and
+`ledger-schema.yaml`'s names match `engine.ledger.LEDGER_FIELDS` and
+`ERROR_CATEGORIES` exactly. A new pack wanting the same guarantee needs the same test
+pointed at its directory — today it's hardwired to `ROOT =
+Path("curriculum/real-analysis")`.
+
+## What you must edit today beyond the pack
+
+A complete pack is necessary but not sufficient. Three tiers of subject-specific
+material live outside `curriculum/` (full accounting in [Generality](generality.qmd)):
+
+**Tier 1 — the pack itself**, the authoring work described above. See the research
+obligation below.
+
+**Tier 2 — skill prose and engine constants.** `skills/check-proof/SKILL.md` asks
+"Does the delta depend only on epsilon?" as a fixed check (line 23);
+`skills/formalize/SKILL.md` carries Lean/Mathlib import specifics;
+`engine/ledger.py`'s `ERROR_CATEGORIES` hardcodes `delta_depends_on_x`, one of six
+fixed categories; and `hooks/scripts/session_start.py` hardcodes a `MISCONCEPTIONS`
+dict (lines 21–29) mapping `phase1`…`phase7` to the Real Analysis catalogue ids. All
+editable text and code, not architecture — but today it talks about epsilons to a
+group-theory student.
+
+**Tier 3 — no selection mechanism.** `templates/workspace/.ra-tutor-workspace` records
+`{"curriculum": "real-analysis"}`, but no code path reads that field to choose a pack.
+Dropping a new pack directory in place would not activate it.
+
+## The research obligation
+
+Per the Setup Workflow Guide's Part XV ("new subjects need their own misconception
+entries researched and added") and the Real Analysis catalogue's own provenance note,
+a new subject's misconception catalogue must be empirically grounded — each entry a
+documented error pattern from the mathematics-education literature (Real Analysis
+draws on Weber–Mejia-Ramos and Hodds–Alcock–Inglis), not invented folklore. Authoring
+a pack is a literature-review task before it is a YAML-writing task.
+
+## Recommended pairings (Setup Workflow Guide, Part XV)
+
+| Subject | Metacognitive prep | Motivation text | Rigour text |
+|---|---|---|---|
+| Topology | Alcock Part 2 (overlapping sections) | Gamelin & Greene — *Introduction to Topology* | Munkres — *Topology* (2nd ed.) |
+| Abstract Algebra | None direct — Pólya/Bloom/misconception scripts from day one | Pinter — *A Book of Abstract Algebra* | Dummit & Foote — *Abstract Algebra* |
+
+Recommended order: Real Analysis first, Topology second (direct continuity with the
+metric-space topology in Rudin Ch. 2), Abstract Algebra third.
+
+## The v2.2 decoupling roadmap
+
+The path to pack-drop-in extension: make `hooks/scripts/session_start.py` and the
+relevant skills read the misconception map, error categories, and diagnostic prompts
+from the active pack, keyed off the workspace marker's `curriculum` field, instead of
+hardcoded constants; then ship a skeleton `curriculum/topology/` as proof the
+mechanism works end to end. Until that lands, "the pedagogical engine is separated
+from the subject matter" is true of the data layer and only partly true of the skill
+and hook layer — see [Generality](generality.qmd) for the full accounting.

@@ -35,6 +35,11 @@ In the terminal at the `bash` prompt:
 pip install -r requirements-dev.txt && pytest
 ```
 
+**Developer's Manual:** [browse online](https://apollostream.github.io/real-analysis-tutor/) ·
+[download PDF](https://apollostream.github.io/real-analysis-tutor/real-analysis-tutor-manual.pdf)
+— how the tutor works, the pedagogical frameworks, engine generality, and how to
+extend it to new subjects. (Source in `manual/`.)
+
 Design docs: `docs/superpowers/`.     
 Source methodology: `docs/source-guides/`.
 

@@ -1,34 +1,29 @@
 project:
-  type: website
+  type: book
   output-dir: _site
 
-website:
+book:
   title: "Real Analysis Tutor — Developer's Manual"
-  description: "How the Socratic Real Analysis tutor plugin works, why it teaches the way it does, and how to extend it."
-  navbar:
-    background: "#2B4C7E"
-    left:
-      - href: index.qmd
-        text: Overview
-      - href: pedagogy.qmd
-        text: Pedagogy
-      - href: architecture.qmd
-        text: Architecture
-      - href: generality.qmd
-        text: Generality
-      - href: extending.qmd
-        text: Extending
-      - href: reference.qmd
-        text: Reference
-      - href: faq.qmd
-        text: FAQ
-    right:
-      - icon: github
-        href: https://github.com/apollostream/real-analysis-tutor
+  author: "Methodology & tutor system: Don Kearney"
+  date: today
+  output-file: real-analysis-tutor-manual
+  downloads: [pdf]
+  repo-url: https://github.com/apollostream/real-analysis-tutor
+  chapters:
+    - index.qmd
+    - pedagogy.qmd
+    - architecture.qmd
+    - generality.qmd
+    - extending.qmd
+    - reference.qmd
+    - faq.qmd
+
 format:
   html:
     theme:
       light: [cosmo, styles.scss]
       dark: [darkly, styles.scss]
     toc: true
-    number-sections: false
+  pdf:
+    documentclass: scrreprt
+    colorlinks: true

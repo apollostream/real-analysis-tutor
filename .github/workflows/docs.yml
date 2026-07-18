@@ -12,6 +12,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          tinytex: true
       - run: quarto render manual
       - uses: peaceiris/actions-gh-pages@v4
         with:
