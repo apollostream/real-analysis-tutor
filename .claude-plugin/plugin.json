@@ -5,6 +5,5 @@
   "author": { "name": "Don Kearney" },
   "repository": "https://github.com/apollostream/real-analysis-tutor",
   "license": "MIT",
-  "keywords": ["tutor", "real-analysis", "socratic", "lean4", "mathematics", "rudin"],
-  "hooks": "./hooks/hooks.json"
+  "keywords": ["tutor", "real-analysis", "socratic", "lean4", "mathematics", "rudin"]
 }
