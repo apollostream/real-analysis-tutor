@@ -1,16 +1,19 @@
 {
-  "version": 1,
-  "owner": "apollostream",
+  "name": "real-analysis-tutor",
+  "owner": { "name": "apollostream" },
+  "metadata": {
+    "description": "Marketplace for the Real Analysis Tutor plugin",
+    "version": "2.1.0"
+  },
   "plugins": [
     {
-      "id": "real-analysis-tutor",
-      "name": "Real Analysis Tutor",
+      "name": "real-analysis-tutor",
+      "source": "./",
       "description": "Socratic Real Analysis tutor (Rudin/Strichartz/Alcock methodology, V2.1) with Lean 4 verification and zero-documentation onboarding.",
       "version": "2.1.0",
-      "author": "Michael L. Thompson",
+      "author": { "name": "Michael L. Thompson" },
       "license": "MIT",
-      "keywords": ["tutor", "real-analysis", "socratic", "lean4"],
-      "source": { "type": "github", "owner": "apollostream", "repo": "real-analysis-tutor", "path": ".", "ref": "main" }
+      "keywords": ["tutor", "real-analysis", "socratic", "lean4"]
     }
   ]
 }
