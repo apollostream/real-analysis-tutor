@@ -1,0 +1,255 @@
+# Real Analysis curriculum -- phase plan, sequencing rules, weekly rhythm,
+# and quick-start profiles.
+#
+# Source of truth:
+#   - RealAnalysis_CompleteGuide_V2.1.md, Part VIII "The Master Reading Plan
+#     -- All Phases" (phase table), Part II "The Proof Foundations Library"
+#     (preliminary sequence), Part IV "Chapter Alignment: Strichartz <->
+#     Rudin" (pairing rule + topology gap note), Part XIII "The Complete
+#     Weekly Rhythm" (weekly rhythm table + monthly consolidation), Part XIV
+#     "Quick-Start Guide by Student Profile".
+#   - Setup_Workflow_Guide_V2.1.md, Part VIII "The Reading Plan -- All
+#     Phases with Computer Integration" (misconception-per-phase mapping).
+#
+# Note: the CG Part XIII weekly rhythm table has six Day(s) rows (Day 1;
+# Days 1-2; Day 3; Days 4-5; Day 6; Day 7) spanning all seven calendar days
+# of the week -- Day 1 and Days 1-2 overlap on day one, and Days 4-5
+# similarly spans two days within one row. All six table rows are
+# reproduced below verbatim.
+
+id: real-analysis
+version: "2.1"
+
+sequencing_rules:
+  - "Alcock before Strichartz, Strichartz before Rudin — never reverse."
+  - "Read the Strichartz chapter first for motivation, then the corresponding Rudin chapter immediately after; do not delay Rudin until full Strichartz mastery."
+  - "Munkres Topology Ch.2 §12–21 is REQUIRED supplement at Phase 2."
+  - "Do NOT read NSS before or alongside Rudin Ch.1–8."
+
+weekly_rhythm:
+  days:
+    - days: "Day 1"
+      activity: "Network positioning + Alcock chapter"
+      duration: "1-1.5 hrs"
+      key_instruction: >-
+        Ask: where does this topic sit in the logical structure so far?
+        Read the corresponding Alcock chapter. Identify the informal
+        image Alcock warns against.
+    - days: "Days 1-2"
+      activity: "Strichartz reading (first pass)"
+      duration: "1.5-2 hrs/day"
+      key_instruction: >-
+        Read strategically. Take notes on the WHY. If bogged down, put a
+        marker and continue — do not halt for a single difficult
+        passage.
+    - days: "Day 3"
+      activity: "Mastery Checklist (Strichartz pass) + Misconception review"
+      duration: "1.5-2 hrs"
+      key_instruction: >-
+        Work through checklist items Strichartz covered. Read the
+        Misconception entry and write a one-sentence refutation in your
+        own words before any proof work begins. Include
+        Example/Non-Example for every new definition. Ask Claude to
+        quiz you Socratically.
+    - days: "Days 4-5"
+      activity: "Rudin reading + Proof Ladder Rungs 1-2"
+      duration: "2-3 hrs/day"
+      key_instruction: >-
+        Read Rudin while Strichartz motivation is fresh. Self-explain
+        each line. Apply converse check to every theorem. Work Rung 1-2
+        exercises.
+    - days: "Day 6"
+      activity: "Proof Ladder Rungs 3-4 + Lean 4"
+      duration: "2.5-3 hrs"
+      key_instruction: >-
+        Attempt one Rung 3 and one Rung 4 problem. Formalize the week's
+        major theorem in Lean 4. Apply Bloom Analyze and Evaluate.
+    - days: "Day 7"
+      activity: "Four-Part Assessment + Rung 5 + Ledger update"
+      duration: "2-2.5 hrs"
+      key_instruction: >-
+        Apply the full Four-Part Assessment: (1) Applied problem; (2)
+        Conceptual question; (3) Derivation step; (4) Misconception
+        check. Attempt one Rung 5 construction. Update Theorem Ledger
+        V2.1 (all fields including Misconception). Ask Claude to quiz
+        from Ledger.
+  monthly:
+    - >-
+      Return to earlier chapters and re-read theorems you struggled with.
+      Ideas opaque in Chapter 2 often become clear after Chapter 5.
+      Re-attempt failed exercises without looking at previous attempts.
+      Ask Claude to quiz you on the full Theorem Ledger built to date. Ask
+      Claude to analyse your Error Log for patterns: "What is the single
+      most common error type across my last 20 proofs?"
+    - >-
+      Network re-mapping: once per month, ask Claude to help you draw the
+      full dependency graph of everything you have proved so far. Which
+      theorems are load-bearing for the most results? Which results are
+      most isolated? Where are the logical hubs? This is the
+      section-level Forward-Backward pass applied to the entire
+      curriculum studied to date.
+
+quick_start_profiles:
+  - id: new-to-proof-writing
+    description: "New to proof-writing"
+    path: >-
+      Alcock Part 1 (1 week) → Solow Ch. 1–13 (2 weeks) → Hammack Ch.
+      1–12 (2–3 weeks) → Eccles Ch. 1–5 (1 week) → Phase 1 of main plan
+      with Abbott as optional opener.
+  - id: some-proof-experience
+    description: "Some proof experience"
+    path: >-
+      Alcock Part 1 (3 days) → Solow Ch. 1–7 selectively (1 week) →
+      Eccles Ch. 1–10 (2 weeks) → Hammack Ch. 12 cardinality (3 days) →
+      Phase 1 of main plan.
+  - id: proof-fluent-first-analysis-course
+    description: "Proof-fluent, first analysis course"
+    path: >-
+      Alcock Part 1 (2 days) → Skip Preliminary Phase → Strichartz Ch. 1
+      + Rudin Ch. 1 in parallel → Use Munkres supplement at Phase 2 →
+      Lean 4: start formalizing from Phase 3 onward.
+  - id: revisiting-for-graduate-preparation
+    description: "Revisiting for graduate preparation"
+    path: >-
+      Alcock Part 2 as companion → Skim Strichartz for motivation gaps →
+      Focus: Rudin exercises at Rung 4–5 level → Lean 4: formalize all
+      major theorems Phases 1–8 → Proceed to Phase 9: NSS or
+      Loomis–Sternberg.
+
+phases:
+  - id: prelim
+    name: "Proof Foundations"
+    weeks: [2, 6]
+    texts:
+      - "Solow Ch. 1–13"
+      - "Hammack Ch. 1–12"
+      - "Eccles Ch. 1–5"
+    focus: >-
+      Forward-Backward method, named techniques, quantifier precision,
+      cardinality bridge. Also read Alcock Part 1 (~50 pages) before or
+      during this phase.
+    misconception: null
+    checklist: null
+
+  - id: phase1
+    name: "Real Numbers"
+    weeks: [3, 4]
+    texts:
+      - "Alcock Ch. 10"
+      - "Strichartz Ch. 1"
+      - "Rudin Ch. 1 + Appendix"
+    focus: >-
+      Completeness, sup/inf, Archimedean property, Dedekind construction,
+      countability. Read Ch. 1 twice.
+    misconception: completeness-implies-convergence
+    checklist: checklists/phase1.yaml
+
+  - id: phase2
+    name: "Basic Topology"
+    weeks: [4, 6]
+    texts:
+      - "Strichartz (topology integrated)"
+      - "Munkres Ch. 2 (§12–21)"
+      - "Rudin Ch. 2"
+    focus: >-
+      Metric spaces, open cover compactness, Heine-Borel,
+      Bolzano-Weierstrass, Cantor set. Read Rudin Ch. 2 twice. Budget 6
+      weeks, not 4. Munkres is non-optional for most students.
+    misconception: compact-iff-closed-and-bounded
+    checklist: checklists/phase2.yaml
+
+  - id: phase3
+    name: "Sequences & Series"
+    weeks: [4, 5]
+    texts:
+      - "Alcock Ch. 5–6"
+      - "Strichartz Ch. 2–3"
+      - "Rudin Ch. 3"
+    focus: >-
+      Cauchy implies convergent, limsup/liminf, absolute vs conditional
+      convergence, rearrangement. Quantifier interrogation is critical
+      here.
+    misconception: consecutive-closeness-implies-convergence
+    checklist: checklists/phase3.yaml
+
+  - id: phase4
+    name: "Continuity"
+    weeks: [3, 4]
+    texts:
+      - "Alcock Ch. 7"
+      - "Strichartz Ch. 4"
+      - "Rudin Ch. 4"
+    focus: >-
+      epsilon-delta continuity, uniform continuity, Heine-Cantor, IVT,
+      EVT. Read Alcock Ch. 7 first — it explicitly refutes the
+      pencil-lifting image. The delta-depends-on-x error is the most
+      common mistake here.
+    misconception: pencil-lifting-image
+    checklist: checklists/phase4.yaml
+
+  - id: phase5
+    name: "Differentiation"
+    weeks: [2, 3]
+    texts:
+      - "Alcock Ch. 8"
+      - "Strichartz Ch. 5"
+      - "Rudin Ch. 5"
+    focus: >-
+      MVT, Rolle, Taylor, L'Hôpital. One of Rudin's most elegant
+      chapters. Ex. 26 (differentiable everywhere, derivative
+      discontinuous) is a must.
+    misconception: continuity-implies-uniform-continuity
+    checklist: checklists/phase5.yaml
+
+  - id: phase6
+    name: "Riemann-Stieltjes"
+    weeks: [4, 5]
+    texts:
+      - "Alcock Ch. 9"
+      - "Strichartz Ch. 6"
+      - "Rudin Ch. 6"
+    focus: >-
+      Upper/lower sums, Riemann condition, FTC I and II, integration by
+      parts. The Stieltjes generalization surprises most students. Read
+      Strichartz carefully before Rudin here.
+    misconception: terms-to-zero-implies-convergence
+    checklist: checklists/phase6.yaml
+
+  - id: phase7
+    name: "Sequences & Series of Functions"
+    weeks: [4, 5]
+    texts:
+      - "Strichartz Ch. 7 (+ Fourier)"
+      - "Rudin Ch. 7"
+    focus: >-
+      Pointwise vs uniform, M-test, Arzela-Ascoli, Weierstrass
+      approximation. Exercise 24 (nowhere differentiable) is one of the
+      most celebrated in the book.
+    misconception: pointwise-limit-preserves-continuity
+    checklist: checklists/phase7.yaml
+
+  - id: phase8
+    name: "Power Series & Special Functions"
+    weeks: [2, 3]
+    texts:
+      - "Strichartz Fourier chs."
+      - "Rudin Ch. 8 (read together)"
+    focus: >-
+      Power series, exp/log/trig, gamma function, Fourier series
+      completeness. Completing Phases 1–8 is a major achievement.
+    misconception: null
+    checklist: null
+
+  - id: phase9
+    name: "Multivariable (Advanced)"
+    weeks: [6, 8]
+    texts:
+      - "Spivak"
+      - "NSS or Loomis–Sternberg"
+      - "Rudin Ch. 9 (for reference only)"
+    focus: >-
+      Frechet derivative, inverse/implicit function theorems,
+      differential forms, Stokes. Requires proof-based linear algebra
+      first.
+    misconception: null
+    checklist: null
