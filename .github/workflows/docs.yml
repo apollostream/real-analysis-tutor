@@ -1,0 +1,19 @@
+name: docs
+on:
+  push:
+    branches: [main]
+    paths: ["manual/**", ".github/workflows/docs.yml"]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  render-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: quarto-dev/quarto-actions/setup@v2
+      - run: quarto render manual
+      - uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: manual/_site

@@ -1,0 +1,34 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "Real Analysis Tutor — Developer's Manual"
+  description: "How the Socratic Real Analysis tutor plugin works, why it teaches the way it does, and how to extend it."
+  navbar:
+    background: "#2B4C7E"
+    left:
+      - href: index.qmd
+        text: Overview
+      - href: pedagogy.qmd
+        text: Pedagogy
+      - href: architecture.qmd
+        text: Architecture
+      - href: generality.qmd
+        text: Generality
+      - href: extending.qmd
+        text: Extending
+      - href: reference.qmd
+        text: Reference
+      - href: faq.qmd
+        text: FAQ
+    right:
+      - icon: github
+        href: https://github.com/apollostream/real-analysis-tutor
+format:
+  html:
+    theme:
+      light: [cosmo, styles.scss]
+      dark: [darkly, styles.scss]
+    toc: true
+    number-sections: false
