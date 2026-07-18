@@ -6,7 +6,5 @@
   "repository": "https://github.com/apollostream/real-analysis-tutor",
   "license": "MIT",
   "keywords": ["tutor", "real-analysis", "socratic", "lean4", "mathematics", "rudin"],
-  "skills": ["./skills/"],
-  "agents": ["./agents/"],
   "hooks": "./hooks/hooks.json"
 }
