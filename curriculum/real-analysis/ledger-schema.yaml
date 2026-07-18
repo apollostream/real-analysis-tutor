@@ -1,0 +1,51 @@
+# Theorem Ledger V2.1 -- schema for ledger.json entries.
+#
+# Field names and order mirror engine.ledger.LEDGER_FIELDS; descriptions
+# are taken from the Setup Workflow Guide V2.1, Part X, "The Theorem
+# Ledger V2.1 -- Field Reference". error_categories mirrors
+# engine.ledger.ERROR_CATEGORIES; descriptions are taken from the
+# RealAnalysis CompleteGuide V2.1, Part IX, "Error Log" table.
+
+fields:
+  - name: theorem
+    description: Short name (e.g., heine_cantor)
+  - name: statement
+    description: In your own words -- no copying from Rudin
+  - name: proof_idea
+    description: "One sentence: the essential move the proof turns on"
+  - name: load_bearing_hypothesis
+    description: Which hypothesis is essential?
+  - name: counterexample_if_removed
+    description: Counterexample when that hypothesis is removed
+  - name: converse_true
+    description: true / false / partial
+  - name: converse_example
+    description: Canonical counterexample if converse is false
+  - name: misconception
+    description: The named misconception for this theorem, drawn from the Part V catalogue
+  - name: misconception_refutation
+    description: The precise logical step that is invalid, plus the canonical counterexample that breaks the misconception
+  - name: depends_on
+    description: List of earlier Ledger entries this proof invokes
+  - name: downstream
+    description: Which later results depend on this theorem
+  - name: analogues
+    description: Which earlier theorem has a similar logical form or proof strategy
+  - name: lean_status
+    description: compiled / in_progress / planned
+  - name: bloom_level
+    description: "highest level achieved: apply / analyze / evaluate / create"
+
+error_categories:
+  - name: quantifier_error
+    description: Wrong order of quantifiers; swapping for-all and there-exists
+  - name: missing_hypothesis
+    description: Applying a theorem without verifying all its conditions
+  - name: invalid_inference
+    description: A step that does not follow logically from what precedes it
+  - name: wrong_theorem
+    description: Citing a theorem whose conclusion does not match what is needed
+  - name: delta_depends_on_x
+    description: Choosing delta that depends on the point x in a uniform continuity proof
+  - name: converse_confusion
+    description: Assuming the converse of a conditional theorem
