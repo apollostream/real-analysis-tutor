@@ -1,6 +1,6 @@
 {
   "name": "real-analysis-tutor",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Socratic Real Analysis tutor implementing the V2.1 mastery methodology: Solow/Pólya/Bloom frameworks, misconception probing, Theorem Ledger, spaced review, and Lean 4 verification. Say hello — the tutor takes it from there.",
   "author": { "name": "Don Kearney" },
   "repository": "https://github.com/apollostream/real-analysis-tutor",

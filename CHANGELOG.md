@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.1.1 — 2026-07-17
+
+Fix: remove explicit `hooks` field from plugin.json — the standard
+hooks/hooks.json auto-loads, and the explicit reference caused a
+duplicate-hooks load error on install.
+
 ## 2.1.0 — 2026-07-17
 
 Initial release: full V2.1 methodology as a Claude Code plugin.
