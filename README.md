@@ -13,21 +13,30 @@ are the work and property of Don Kearney.
 
 ## Install
 
+Run Claude Code, and at its prompt, type:
+
+```
 /plugin marketplace add apollostream/real-analysis-tutor
 /plugin install real-analysis-tutor@real-analysis-tutor
+```
 
 ## That's it
 
-Open Claude Code anywhere and say hello — the tutor takes it from there.
+Open Claude Code anywhere and say `hello` — the tutor takes it from there.
 It introduces itself, interviews you to pick a starting point, creates its
 own workspace, and offers Lean 4 setup only when you need it. You never
 need to read anything else in this repository.
 
 ## Development
 
-pip install -r requirements-dev.txt && pytest
+In the terminal at the `bash` prompt:
 
-Design docs: docs/superpowers/. Source methodology: docs/source-guides/.
+```
+pip install -r requirements-dev.txt && pytest
+```
+
+Design docs: `docs/superpowers/`.     
+Source methodology: `docs/source-guides/`.
 
 ## License
 
