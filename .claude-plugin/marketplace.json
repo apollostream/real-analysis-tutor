@@ -11,7 +11,7 @@
       "source": "./",
       "description": "Socratic Real Analysis tutor (Rudin/Strichartz/Alcock methodology, V2.1) with Lean 4 verification and zero-documentation onboarding.",
       "version": "2.1.0",
-      "author": { "name": "Michael L. Thompson" },
+      "author": { "name": "Don Kearney" },
       "license": "MIT",
       "keywords": ["tutor", "real-analysis", "socratic", "lean4"]
     }

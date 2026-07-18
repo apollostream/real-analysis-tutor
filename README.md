@@ -6,6 +6,11 @@ never hand you a proof, it tracks your mastery across sessions, probes the
 documented misconceptions for every topic, and verifies mathematics with
 Lean 4 when available.
 
+**Author: Don Kearney.** This AI tutor system and the V2.1 methodology it
+operationalizes (the *Real Analysis Complete Study Guide* and the
+*Low-Friction Setup & Workflow Guide*, vendored in `docs/source-guides/`)
+are the work and property of Don Kearney.
+
 ## Install
 
 /plugin marketplace add apollostream/real-analysis-tutor

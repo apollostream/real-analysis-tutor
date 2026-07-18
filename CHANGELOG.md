@@ -3,6 +3,8 @@
 ## 2.1.0 — 2026-07-17
 
 Initial release: full V2.1 methodology as a Claude Code plugin.
+Author: Don Kearney — the tutor system and its source methodology
+(V2.1 study guides) are Don Kearney's work and property.
 
 - 10 skills (tutor front door + prime, check-proof, stuck, formalize, attack, assess,
   ledger, review, setup)
