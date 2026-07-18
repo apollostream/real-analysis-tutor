@@ -1,0 +1,226 @@
+# Misconception Catalogue -- seven-topic set.
+#
+# Source of truth: docs/source-guides/RealAnalysis_CompleteGuide_V2.1.md,
+# Part V, "Mastery Checklists with Misconception Catalogue and Lean 4
+# Targets" -- the seven boxed "Misconception --" entries, one per topic
+# checklist. Content is extracted faithfully (statement, precise logical
+# error, full refutation, canonical counterexample with mechanism); no
+# weakening, embellishment, or dropped quantitative detail.
+#
+# The catalogue is grounded in the Weber--Mejia-Ramos and
+# Hodds--Alcock--Inglis research programmes on undergraduate proof
+# comprehension (CG Part V, introductory paragraph): each named error is
+# a documented pattern, not an invented one.
+#
+# presentation_note (SG Part V Misconception Probe rules) is identical
+# across all seven entries by design -- it is the fixed protocol Claude
+# follows when deploying any of these, not a per-topic field.
+
+misconceptions:
+  - id: completeness-implies-convergence
+    phase: phase1
+    topic: Real Numbers & Completeness
+    statement: >-
+      The completeness axiom says every sequence converges.
+    corrupted_step: >-
+      The misconception occurs when students apply completeness: they treat
+      it as a universal convergence guarantee rather than a conditional one.
+      The precise logical error is the omission of the boundedness
+      hypothesis -- completeness asserts that every non-empty set that is
+      bounded above has a supremum; it says nothing about unbounded sets,
+      and nothing directly about sequences.
+    refutation: >-
+      Completeness does not imply convergence. What it implies, via the
+      monotone convergence theorem, is that every bounded monotone sequence
+      converges -- a result requiring both boundedness AND monotonicity,
+      neither of which completeness alone supplies.
+    counterexample: >-
+      The sequence a_n = n is non-empty and real-valued; it does not
+      converge (unbounded). The sequence a_n = (-1)^n is bounded; it does
+      not converge (not monotone -- it oscillates between two subsequential
+      limits). Each counterexample isolates one missing hypothesis.
+    presentation_note: >-
+      Present as a plausible student argument. Never flag in advance which
+      part is wrong. Require: (1) the precise invalid step, (2) the
+      canonical counterexample, (3) the hypothesis that would repair the
+      argument. If the learner fails, ask what the argument would need to
+      be true -- do not reveal.
+
+  - id: compact-iff-closed-and-bounded
+    phase: phase2
+    topic: Basic Topology
+    statement: >-
+      A set is compact if and only if it is closed and bounded.
+    corrupted_step: >-
+      The misconception occurs when students apply Heine-Borel outside its
+      domain: the theorem holds in R^n with the standard metric, but
+      students routinely apply it as a definition valid in all metric
+      spaces. The precise logical error is treating a theorem as a
+      definition.
+    refutation: >-
+      Compactness is defined by the open cover property; closed-and-bounded
+      is a theorem whose proof uses specific properties of R^n and fails in
+      general metric spaces.
+    counterexample: >-
+      In the metric space C([0,1]) of continuous functions with the
+      sup-norm, the closed unit ball {f : ||f||_infty <= 1} is closed and
+      bounded but not compact -- the sequence f_n(x) = x^n is bounded, has
+      no uniformly convergent subsequence (the only candidate limit is
+      discontinuous), and the open cover argument fails.
+    presentation_note: >-
+      Present as a plausible student argument. Never flag in advance which
+      part is wrong. Require: (1) the precise invalid step, (2) the
+      canonical counterexample, (3) the hypothesis that would repair the
+      argument. If the learner fails, ask what the argument would need to
+      be true -- do not reveal.
+
+  - id: consecutive-closeness-implies-convergence
+    phase: phase3
+    topic: Sequences, Limits & Series
+    statement: >-
+      If the terms of a sequence get closer together, the sequence
+      converges.
+    corrupted_step: >-
+      The misconception occurs at the step where a student concludes from
+      |a_{n+1} - a_n| -> 0 that the sequence is Cauchy, and therefore
+      convergent. The precise logical error is the confusion between
+      consecutive-term closeness and the Cauchy condition. The Cauchy
+      condition requires |a_m - a_n| < epsilon for ALL m, n >= N
+      simultaneously -- not just for adjacent terms.
+    refutation: >-
+      The sequence diverges despite adjacent terms converging to the same
+      value: consecutive-term closeness is necessary but not sufficient for
+      the Cauchy condition, which must hold for all pairs m, n beyond N, not
+      merely for n and n+1.
+    counterexample: >-
+      The harmonic series partial sums provide the counterexample: s_n = 1
+      + 1/2 + ... + 1/n satisfies |s_{n+1} - s_n| = 1/(n+1) -> 0, so
+      consecutive terms become arbitrarily close, yet s_n -> infinity.
+    presentation_note: >-
+      Present as a plausible student argument. Never flag in advance which
+      part is wrong. Require: (1) the precise invalid step, (2) the
+      canonical counterexample, (3) the hypothesis that would repair the
+      argument. If the learner fails, ask what the argument would need to
+      be true -- do not reveal.
+
+  - id: pencil-lifting-image
+    phase: phase4
+    topic: Continuity
+    statement: >-
+      A function is continuous if you can draw its graph without lifting
+      your pencil.
+    corrupted_step: >-
+      The misconception occurs at the point of formalisation: the
+      pencil-lifting image encodes a property of graphs on bounded closed
+      intervals drawn left to right -- not a property of arbitrary
+      functions on arbitrary domains. The precise logical error is that the
+      image smuggles in connectedness of the domain, finite range, and
+      left-to-right traversal, none of which appear in the epsilon-delta
+      definition.
+    refutation: >-
+      The image works for some cases but for the wrong reason, and fails to
+      distinguish continuity from path-connectedness of the graph.
+      Continuity is a local, pointwise epsilon-delta property; the
+      pencil-lifting image is a global, domain-shape-dependent heuristic
+      that neither implies nor is implied by it in general.
+    counterexample: >-
+      The function f : Q -> R defined by f(x) = 0 if x^2 < 2 and f(x) = 1
+      if x^2 > 2 is continuous on Q (the domain is disconnected; there is
+      no path along which to "lift a pencil") yet satisfies the
+      epsilon-delta definition at every point of Q. More directly: the
+      topologist's sine curve sin(1/x) fails the pencil-lifting test near 0
+      precisely because it is discontinuous there.
+    presentation_note: >-
+      Present as a plausible student argument. Never flag in advance which
+      part is wrong. Require: (1) the precise invalid step, (2) the
+      canonical counterexample, (3) the hypothesis that would repair the
+      argument. If the learner fails, ask what the argument would need to
+      be true -- do not reveal.
+
+  - id: continuity-implies-uniform-continuity
+    phase: phase5
+    topic: Differentiation
+    statement: >-
+      Uniform continuity is just continuity with the same delta used
+      everywhere, so any continuous function on a closed interval is
+      automatically uniformly continuous for a fixed delta.
+    corrupted_step: >-
+      The misconception occurs at the hypothesis-verification step of
+      Heine-Cantor: students treat the conclusion (uniform continuity on a
+      compact set) as a tautology following from continuity alone, without
+      recognising that compactness is doing essential work. The precise
+      logical error is the claim that a single delta can be read off the
+      continuity condition without further argument.
+    refutation: >-
+      Continuity at each point x gives a delta(x) depending on x;
+      extracting a uniform delta requires compactness to reduce the open
+      cover {B(x, delta(x)/2)} to a finite subcover and take the minimum.
+      Uniform continuity requires compactness; continuity alone does not
+      suffice.
+    counterexample: >-
+      The function f(x) = 1/x on (0,1] is continuous at every point with a
+      valid delta at each point, yet no single delta works for all x
+      simultaneously: given any delta > 0, take x = delta/2 and the
+      argument collapses.
+    presentation_note: >-
+      Present as a plausible student argument. Never flag in advance which
+      part is wrong. Require: (1) the precise invalid step, (2) the
+      canonical counterexample, (3) the hypothesis that would repair the
+      argument. If the learner fails, ask what the argument would need to
+      be true -- do not reveal.
+
+  - id: terms-to-zero-implies-convergence
+    phase: phase6
+    topic: Riemann-Stieltjes Integration
+    statement: >-
+      If the terms of a series go to zero, the series converges.
+    corrupted_step: >-
+      The misconception occurs at the necessary-condition step: the term
+      test (divergence test) establishes that a_n -> 0 is necessary for
+      convergence, and students invert this as sufficient. The precise
+      logical error is converse confusion -- mistaking a necessary
+      condition for a sufficient one.
+    refutation: >-
+      The rate at which terms approach zero determines convergence -- the
+      limit being zero is not enough. The p-series sum 1/n^p provides a
+      parametric family: a_n = 1/n^p -> 0 for all p > 0, yet the series
+      converges if and only if p > 1.
+    counterexample: >-
+      The harmonic series is the canonical counterexample: 1/n -> 0, yet
+      sum 1/n diverges, as shown by the comparison 1/(n+1) + ... + 1/(2n)
+      >= 1/2 for all n, so partial sums grow without bound.
+    presentation_note: >-
+      Present as a plausible student argument. Never flag in advance which
+      part is wrong. Require: (1) the precise invalid step, (2) the
+      canonical counterexample, (3) the hypothesis that would repair the
+      argument. If the learner fails, ask what the argument would need to
+      be true -- do not reveal.
+
+  - id: pointwise-limit-preserves-continuity
+    phase: phase7
+    topic: Sequences & Series of Functions
+    statement: >-
+      If f_n -> f pointwise and each f_n is continuous, then f is
+      continuous.
+    corrupted_step: >-
+      The misconception occurs at the step where students apply the uniform
+      limit theorem without verifying its hypothesis. The precise logical
+      error is the omission of uniformity: the theorem requires uniform
+      convergence, not merely pointwise convergence, and these are not
+      equivalent.
+    refutation: >-
+      The hypothesis of the uniform limit theorem is doing all the work;
+      pointwise convergence alone preserves nothing. Uniform convergence,
+      not pointwise convergence, is the hypothesis that guarantees the
+      limit of continuous functions is continuous.
+    counterexample: >-
+      The counterexample is f_n(x) = x^n on [0,1]: each f_n is continuous,
+      f_n -> f pointwise where f(x) = 0 for x in [0,1) and f(1) = 1, and f
+      is discontinuous at x = 1. The convergence is not uniform -- for any
+      N, taking x close enough to 1 gives f_n(x) > 1/2.
+    presentation_note: >-
+      Present as a plausible student argument. Never flag in advance which
+      part is wrong. Require: (1) the precise invalid step, (2) the
+      canonical counterexample, (3) the hypothesis that would repair the
+      argument. If the learner fails, ask what the argument would need to
+      be true -- do not reveal.
