@@ -45,6 +45,13 @@ compactness to a group-theory student.
 packs. Dropping `curriculum/topology/` into the repo today would not activate it; the
 field is written but not consumed.
 
+::: {.content-visible when-format="html"}
+![What's subject-independent (the engine), what's data (the curriculum pack), and the three tiers still hardwired to Real Analysis](figures/engine-vs-pack.svg){#fig-engine-vs-pack fig-alt="Two clusters: a subject-independent engine (state.py, ledger.py, scheduler.py, the six-stage loop and stuck escalation) and a curriculum-pack data cluster (curriculum.yaml, misconceptions.yaml, checklists, ladder.yaml) that the engine reads. A third, warning-toned cluster shows three hardwired tiers: Tier 1, only the real-analysis pack ships; Tier 2, subject-specific prose baked into skills and engine constants; Tier 3, the workspace marker's curriculum field is written but never read to select a pack."}
+:::
+::: {.content-visible when-format="pdf"}
+![What's subject-independent (the engine), what's data (the curriculum pack), and the three tiers still hardwired to Real Analysis](figures/engine-vs-pack.pdf){#fig-engine-vs-pack fig-alt="Two clusters: a subject-independent engine (state.py, ledger.py, scheduler.py, the six-stage loop and stuck escalation) and a curriculum-pack data cluster (curriculum.yaml, misconceptions.yaml, checklists, ladder.yaml) that the engine reads. A third, warning-toned cluster shows three hardwired tiers: Tier 1, only the real-analysis pack ships; Tier 2, subject-specific prose baked into skills and engine constants; Tier 3, the workspace marker's curriculum field is written but never read to select a pack."}
+:::
+
 ## Scope caveat
 
 Even fully generalized across all three tiers, this engine is tuned to

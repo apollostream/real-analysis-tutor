@@ -8,6 +8,13 @@ The plugin splits its work across three cooperating layers (design spec
 `docs/superpowers/specs/2026-07-17-real-analysis-tutor-design.md` §3): each is
 trustworthy for a different reason, none for all three jobs at once.
 
+::: {.content-visible when-format="html"}
+![The three layers — deterministic engine, judgment-layer skills, fresh-context subagents — and the learner workspace they read and write](figures/three-layers.svg){#fig-three-layers fig-alt="Three clusters: the deterministic layer (hooks and engine modules), the judgment layer (ten skills), and the fresh-context layer (five subagents), each connected to the learner workspace's state files below."}
+:::
+::: {.content-visible when-format="pdf"}
+![The three layers — deterministic engine, judgment-layer skills, fresh-context subagents — and the learner workspace they read and write](figures/three-layers.pdf){#fig-three-layers fig-alt="Three clusters: the deterministic layer (hooks and engine modules), the judgment layer (ten skills), and the fresh-context layer (five subagents), each connected to the learner workspace's state files below."}
+:::
+
 **The deterministic layer** — hooks (`hooks/hooks.json`, `hooks/scripts/*.py`) and the
 engine (`engine/state.py`, `engine/scheduler.py`, `engine/ledger.py`) — exists because
 some things must never depend on model judgment: whether state loaded correctly, when a
@@ -94,23 +101,9 @@ so a harness bug degrades to silence, never a blocked session.
 
 ## A session turn
 
-```{mermaid}
-flowchart TD
-    A[User message] --> B{"UserPromptSubmit\nprompt_guard.py"}
-    B -->|no workspace| C[No-op]
-    B -->|tier 1| D[Inject Socratic reminder]
-    B -->|tier 2: fishing/authority| E[Inject escalated reminder]
-    C --> F[Tutor: hidden pre-response plan]
-    D --> F
-    E --> F
-    F --> G{Dispatch a subagent?}
-    G -->|proof submitted| H["proof-critic / counterexample-hunter /\nmisconception-prober / lean-verifier"]
-    G -->|tier-2 reply drafted| I[leakage-auditor]
-    G -->|no| J[Reply to learner]
-    H --> J
-    I -->|SHIP| J
-    I -->|REVISE / BLOCK| F
-    J --> K{"Stop hook\nsession_end.py"}
-    K -->|stale learner.json,\nnot yet reminded| L[Block: persist state]
-    K -->|else| M[Turn ends]
-```
+::: {.content-visible when-format="html"}
+![One session turn through the harness: `UserPromptSubmit` guard, the tutor's hidden pre-response plan, an optional subagent dispatch, the reply, and the `Stop` hook's once-per-session persistence reminder](figures/session-turn.svg){#fig-session-turn fig-alt="Flow of a single session turn: user message enters the UserPromptSubmit guard (tier 1 or tier 2 reminder, or no-op with no workspace); the tutor runs its hidden pre-response plan; it may dispatch one of five subagents (proof-critic, counterexample-hunter, misconception-prober, lean-verifier on a submitted proof, or leakage-auditor on a drafted tier-2 reply, which can send the tutor back to replan on REVISE or BLOCK); the reply goes to the learner; the Stop hook checks whether to block with a persistence reminder, gated by a once-per-session sentinel."}
+:::
+::: {.content-visible when-format="pdf"}
+![One session turn through the harness: `UserPromptSubmit` guard, the tutor's hidden pre-response plan, an optional subagent dispatch, the reply, and the `Stop` hook's once-per-session persistence reminder](figures/session-turn.pdf){#fig-session-turn fig-alt="Flow of a single session turn: user message enters the UserPromptSubmit guard (tier 1 or tier 2 reminder, or no-op with no workspace); the tutor runs its hidden pre-response plan; it may dispatch one of five subagents (proof-critic, counterexample-hunter, misconception-prober, lean-verifier on a submitted proof, or leakage-auditor on a drafted tier-2 reply, which can send the tutor back to replan on REVISE or BLOCK); the reply goes to the learner; the Stop hook checks whether to block with a persistence reminder, gated by a once-per-session sentinel."}
+:::

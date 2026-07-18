@@ -1,0 +1,82 @@
+---
+title: "Bibliography"
+---
+
+**Compiled:** July 18, 2026
+
+Sources for the methodology, its research grounding, and this manual. All URLs
+verified 2026-07-18.
+
+---
+
+### Primary Sources
+
+[1.](#ref-1) <a id="ref-1"></a> Kearney, D. (2026). *Real Analysis: A complete self-study guide* (Rev. & expanded ed., Version 2.1) [Unpublished instructional guide, vendored in the real-analysis-tutor repository]. GitHub. [https://github.com/apollostream/real-analysis-tutor/blob/main/docs/source-guides/RealAnalysis_CompleteGuide_V2.1.md](https://github.com/apollostream/real-analysis-tutor/blob/main/docs/source-guides/RealAnalysis_CompleteGuide_V2.1.md)
+
+[2.](#ref-2) <a id="ref-2"></a> Kearney, D. (2026). *Low-friction setup & workflow guide* (Rev. & expanded ed., Version 2.1) [Unpublished instructional guide, vendored in the real-analysis-tutor repository]. GitHub. [https://github.com/apollostream/real-analysis-tutor/blob/main/docs/source-guides/Setup_Workflow_Guide_V2.1.md](https://github.com/apollostream/real-analysis-tutor/blob/main/docs/source-guides/Setup_Workflow_Guide_V2.1.md)
+
+### Real Analysis Curriculum Texts
+
+[3.](#ref-3) <a id="ref-3"></a> Rudin, W. (1976). *Principles of mathematical analysis* (3rd ed.). McGraw-Hill. [https://www.mheducation.co.uk/principles-of-mathematical-analysis-int-l-ed-9780070856134-emea](https://www.mheducation.co.uk/principles-of-mathematical-analysis-int-l-ed-9780070856134-emea)
+
+[4.](#ref-4) <a id="ref-4"></a> Strichartz, R. S. (2000). *The way of analysis* (Rev. ed.). Jones and Bartlett. [https://www.jblearning.com/catalog/productdetails/9780763714970](https://www.jblearning.com/catalog/productdetails/9780763714970)
+
+[5.](#ref-5) <a id="ref-5"></a> Abbott, S. (2015). *Understanding analysis* (2nd ed.). Springer. [https://link.springer.com/book/10.1007/978-1-4939-2712-8](https://link.springer.com/book/10.1007/978-1-4939-2712-8)
+
+[6.](#ref-6) <a id="ref-6"></a> Tao, T. (2016). *Analysis I* (3rd ed.). Hindustan Book Agency. Free edition: [https://terrytao.wordpress.com/books/analysis-i/](https://terrytao.wordpress.com/books/analysis-i/)
+
+[7.](#ref-7) <a id="ref-7"></a> Tao, T. (2016). *Analysis II* (3rd ed.). Hindustan Book Agency. Free edition: [https://terrytao.wordpress.com/books/analysis-ii/](https://terrytao.wordpress.com/books/analysis-ii/)
+
+[8.](#ref-8) <a id="ref-8"></a> Pugh, C. C. (2015). *Real mathematical analysis* (2nd ed.). Springer. [https://link.springer.com/book/10.1007/978-3-319-17771-7](https://link.springer.com/book/10.1007/978-3-319-17771-7)
+
+[9.](#ref-9) <a id="ref-9"></a> Spivak, M. (1965). *Calculus on manifolds: A modern approach to classical theorems of advanced calculus*. CRC Press. [https://www.crcpress.com/Calculus-on-Manifolds-A-Modern-Approach-to-Classical-Theorems-of-Advanced/Spivak/p/book/9780805390216](https://www.crcpress.com/Calculus-on-Manifolds-A-Modern-Approach-to-Classical-Theorems-of-Advanced/Spivak/p/book/9780805390216)
+
+[10.](#ref-10) <a id="ref-10"></a> Alcock, L. (2014). *How to think about analysis*. Oxford University Press. [https://archive.org/details/howtothinkabouta0000alco](https://archive.org/details/howtothinkabouta0000alco)
+
+[11.](#ref-11) <a id="ref-11"></a> Solow, D. (2013). *How to read and do proofs: An introduction to mathematical thought processes* (6th ed.). Wiley. [https://www.wiley.com/en-us/How+to+Read+and+Do+Proofs%3A+An+Introduction+to+Mathematical+Thought+Processes%2C+6th+Edition-p-9781118164020](https://www.wiley.com/en-us/How+to+Read+and+Do+Proofs%3A+An+Introduction+to+Mathematical+Thought+Processes%2C+6th+Edition-p-9781118164020)
+
+[12.](#ref-12) <a id="ref-12"></a> Hammack, R. (2018). *Book of proof* (3rd ed.). Virginia Commonwealth University. Free online: [https://richardhammack.github.io/BookOfProof/](https://richardhammack.github.io/BookOfProof/)
+
+[13.](#ref-13) <a id="ref-13"></a> Eccles, P. J. (1997). *An introduction to mathematical reasoning: Numbers, sets and functions*. Cambridge University Press. [https://www.cambridge.org/highereducation/books/an-introduction-to-mathematical-reasoning/884E620008388D6452ED9707CBEA0BF0](https://www.cambridge.org/highereducation/books/an-introduction-to-mathematical-reasoning/884E620008388D6452ED9707CBEA0BF0)
+
+[14.](#ref-14) <a id="ref-14"></a> Velleman, D. J. (2019). *How to prove it: A structured approach* (3rd ed.). Cambridge University Press. [https://www.cambridge.org/core/books/how-to-prove-it/97F48414AF68062CCE4BBACBA3DDE1E9](https://www.cambridge.org/core/books/how-to-prove-it/97F48414AF68062CCE4BBACBA3DDE1E9)
+
+[15.](#ref-15) <a id="ref-15"></a> Munkres, J. R. (2000). *Topology* (2nd ed.). Prentice Hall / Pearson. [https://www.pearson.com/en-us/subject-catalog/p/topology-classic-version/P200000006299/9780137848669](https://www.pearson.com/en-us/subject-catalog/p/topology-classic-version/P200000006299/9780137848669)
+
+### Pedagogy & Mathematics-Education Research
+
+[16.](#ref-16) <a id="ref-16"></a> Pólya, G. (1945). *How to solve it: A new aspect of mathematical method*. Princeton University Press. [https://press.princeton.edu/books/paperback/9780691164076/how-to-solve-it](https://press.princeton.edu/books/paperback/9780691164076/how-to-solve-it)
+
+[17.](#ref-17) <a id="ref-17"></a> Anderson, L. W., & Krathwohl, D. R. (Eds.). (2001). *A taxonomy for learning, teaching, and assessing: A revision of Bloom's taxonomy of educational objectives* (Complete ed.). Longman. [https://archive.org/details/taxonomyforlearn0000unse](https://archive.org/details/taxonomyforlearn0000unse)
+
+[18.](#ref-18) <a id="ref-18"></a> Hodds, M., Alcock, L., & Inglis, M. (2014). Self-explanation training improves proof comprehension. *Journal for Research in Mathematics Education, 45*(1), 62–101. [https://doi.org/10.5951/jresematheduc.45.1.0062](https://doi.org/10.5951/jresematheduc.45.1.0062)
+
+[19.](#ref-19) <a id="ref-19"></a> Mejía-Ramos, J. P., Fuller, E., Weber, K., Rhoads, K., & Samkoff, A. (2012). An assessment model for proof comprehension in undergraduate mathematics. *Educational Studies in Mathematics, 79*(1), 3–18. [https://doi.org/10.1007/s10649-011-9349-7](https://doi.org/10.1007/s10649-011-9349-7)
+
+[20.](#ref-20) <a id="ref-20"></a> Laursen, S. L., Hassi, M.-L., Kogan, M., & Weston, T. J. (2014). Benefits for women and men of inquiry-based learning in college mathematics: A multi-institution study. *Journal for Research in Mathematics Education, 45*(4), 406–418. [https://doi.org/10.5951/jresematheduc.45.4.0406](https://doi.org/10.5951/jresematheduc.45.4.0406)
+
+[21.](#ref-21) <a id="ref-21"></a> Sweller, J. (1988). Cognitive load during problem solving: Effects on learning. *Cognitive Science, 12*(2), 257–285. [https://mrbartonmaths.com/resourcesnew/8.%20Research/Explicit%20Instruction/Cognitive%20Load%20during%20problem%20solving.pdf](https://mrbartonmaths.com/resourcesnew/8.%20Research/Explicit%20Instruction/Cognitive%20Load%20during%20problem%20solving.pdf)
+
+[22.](#ref-22) <a id="ref-22"></a> Mason, J., Burton, L., & Stacey, K. (2010). *Thinking mathematically* (2nd ed.). Pearson. [https://archive.org/details/thinkingmathemat0000maso](https://archive.org/details/thinkingmathemat0000maso)
+
+[23.](#ref-23) <a id="ref-23"></a> Lakatos, I. (1976). *Proofs and refutations: The logic of mathematical discovery* (J. Worrall & E. Zahar, Eds.). Cambridge University Press. [https://doi.org/10.1017/CBO9781139171472](https://doi.org/10.1017/CBO9781139171472)
+
+[24.](#ref-24) <a id="ref-24"></a> Schoenfeld, A. H. (1985). *Mathematical problem solving*. Academic Press. [https://archive.org/details/mathematicalprob0000scho](https://archive.org/details/mathematicalprob0000scho)
+
+### AI Tutoring & Verification Research
+
+[25.](#ref-25) <a id="ref-25"></a> Wang, R. E., Ribeiro, A. T., Robinson, C. D., Loeb, S., & Demszky, D. (2024). *Tutor CoPilot: A human-AI approach for scaling real-time expertise* (arXiv:2410.03017). arXiv. [https://arxiv.org/abs/2410.03017](https://arxiv.org/abs/2410.03017)
+
+[26.](#ref-26) <a id="ref-26"></a> Patel, M., Bhattacharyya, R., Lu, T., Mehta, A., Voss, N., Norouzi, N., & Ranade, G. (2025). *LeanTutor: Towards a verified AI mathematical proof tutor* (arXiv:2506.08321). arXiv. [https://arxiv.org/abs/2506.08321](https://arxiv.org/abs/2506.08321)
+
+[27.](#ref-27) <a id="ref-27"></a> Lean community. (n.d.). *Mathlib4: The mathematics library of Lean 4* [Software documentation]. [https://leanprover-community.github.io/](https://leanprover-community.github.io/)
+
+[28.](#ref-28) <a id="ref-28"></a> Anthropic. (2026). *Claude Code documentation*. [https://docs.claude.com/en/docs/claude-code/overview](https://docs.claude.com/en/docs/claude-code/overview)
+
+---
+
+*All 28 URLs above were checked for a live HTTP 200 response (directly or via
+redirect) on 2026-07-18. Where a publisher page blocked automated verification
+(bot-detection challenges on some Cambridge, Oxford, and Wiley pages),
+a verified Internet Archive, DOI, or free-mirror URL was substituted so that
+every entry links to a page confirmed to load and to match the cited work.*

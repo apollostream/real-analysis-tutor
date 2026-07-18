@@ -31,8 +31,7 @@ Because the struggle is the mechanism, not an obstacle to it
 (`skills/tutor/SKILL.md`, "Identity and prime directive"): every reply asks a
 question before explaining, and no reply supplies a complete proof, a partial
 proof, or a single step — "just the first few steps" is still the proof. This
-isn't a stylistic preference; the source guide cites Hodds, Alcock & Inglis
-(2014), whose self-explanation training produced an effect size of d = 0.95 on
+isn't a stylistic preference; the source guide cites Hodds, Alcock & Inglis ([2014](bibliography.qmd#ref-18)), whose self-explanation training produced an effect size of d = 0.95 on
 proof comprehension, one of the larger effects reported in mathematics
 education research, and the gains held for weeks after a single session.
 

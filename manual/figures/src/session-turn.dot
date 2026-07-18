@@ -1,0 +1,83 @@
+digraph SessionTurn {
+    bgcolor="transparent";
+    rankdir=TB;
+    fontname="Charter,Georgia,serif";
+    fontsize=11;
+    node [fontname="Charter,Georgia,serif", fontsize=11, shape=box, style="rounded,filled",
+          fillcolor="#E8EDF5", color="#2B4C7E", penwidth=1.2, margin="0.18,0.10"];
+    edge [fontname="Charter,Georgia,serif", fontsize=10, color="#6B7280", arrowsize=0.8];
+
+    labelloc="t";
+    label=<<B>A session turn through the harness</B>>;
+
+    user [label="User message", fillcolor="#FBF9F5", color="#6B7280"];
+
+    subgraph cluster_guard {
+        label="UserPromptSubmit — prompt_guard.py";
+        style="rounded,filled";
+        fillcolor="#FBF9F5";
+        color="#2B4C7E";
+        fontsize=11;
+        guard [label="tier(prompt)", shape=diamond, fillcolor="#E8EDF5", fontsize=10, margin="0.1,0.05"];
+        tier1 [label="Tier 1\nstanding Socratic reminder"];
+        tier2 [label="Tier 2\nfishing / authority — escalated reminder", fillcolor="#F3E3E3", color="#8C3B3B"];
+        guard -> tier1 [label="default"];
+        guard -> tier2 [label="pattern match"];
+    }
+    noop [label="No workspace\n(no-op)", fillcolor="#FBF9F5", color="#6B7280", fontcolor="#6B7280"];
+
+    plan [label="Tutor: hidden pre-response plan\ndiagnosis → Bloom/rung → withhold-list → one question"];
+
+    dispatch [label="Dispatch a subagent?", shape=diamond, fillcolor="#E8EDF5", margin="0.1,0.05"];
+
+    subgraph cluster_agents {
+        label="Fresh-context layer — one dispatched per need";
+        style="rounded,filled";
+        fillcolor="#FBF9F5";
+        color="#2B4C7E";
+        fontsize=11;
+        pc [label="proof-critic"];
+        ch [label="counterexample-\nhunter"];
+        mp [label="misconception-\nprober"];
+        lv [label="lean-verifier"];
+        la [label="leakage-auditor", fillcolor="#F3E3E3", color="#8C3B3B"];
+    }
+
+    reply [label="Reply to learner", fillcolor="#E9F1EC", color="#2E6B4F"];
+
+    subgraph cluster_stop {
+        label="Stop — session_end.py";
+        style="rounded,filled";
+        fillcolor="#FBF9F5";
+        color="#2B4C7E";
+        fontsize=11;
+        stopcheck [label="should_remind()\nstale learner.json,\nnot yet this session", shape=diamond, fillcolor="#E8EDF5", fontsize=10, margin="0.1,0.05"];
+        block [label="Block:\n\"persist state\"\n(once per session, sentinel)", fillcolor="#F3E3E3", color="#8C3B3B"];
+        turnend [label="Turn ends", fillcolor="#FBF9F5", color="#6B7280", fontcolor="#6B7280"];
+    }
+
+    user -> guard;
+    guard -> noop [label="no workspace", style=dashed];
+    tier1 -> plan;
+    tier2 -> plan;
+    noop -> plan;
+
+    plan -> dispatch;
+    dispatch -> pc [label="proof submitted"];
+    dispatch -> ch [label="proof submitted"];
+    dispatch -> mp [label="proof submitted"];
+    dispatch -> lv [label="proof submitted"];
+    dispatch -> la [label="tier-2 reply drafted"];
+    dispatch -> reply [label="no"];
+
+    pc -> reply;
+    ch -> reply;
+    mp -> reply;
+    lv -> reply;
+    la -> reply [label="SHIP"];
+    la -> plan [label="REVISE / BLOCK", color="#8C3B3B", fontcolor="#8C3B3B", constraint=false];
+
+    reply -> stopcheck;
+    stopcheck -> block [label="yes"];
+    stopcheck -> turnend [label="no"];
+}

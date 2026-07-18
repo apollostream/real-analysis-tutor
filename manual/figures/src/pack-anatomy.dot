@@ -1,0 +1,30 @@
+digraph PackAnatomy {
+    bgcolor="transparent";
+    rankdir=LR;
+    fontname="Charter,Georgia,serif";
+    fontsize=11;
+    nodesep=0.25;
+    ranksep=0.6;
+    node [fontname="Charter,Georgia,serif", fontsize=10.5, shape=box, style="rounded,filled",
+          fillcolor="#E8EDF5", color="#2B4C7E", penwidth=1.1, margin="0.14,0.10"];
+    edge [fontname="Charter,Georgia,serif", fontsize=9.5, color="#6B7280", arrowsize=0.75];
+
+    labelloc="t";
+    label=<<B>Anatomy of a curriculum pack</B><BR/><FONT POINT-SIZE="9.5">curriculum/&lt;subject&gt;/ — real-analysis pack shown</FONT>>;
+
+    root [label="curriculum/real-analysis/", fillcolor="#FBF9F5", color="#2B4C7E", shape=folder];
+
+    curr [label=<<B>curriculum.yaml</B><BR/>phases, sequencing_rules,<BR/>weekly_rhythm, quick_start_profiles>];
+    misc [label=<<B>misconceptions.yaml</B><BR/>one entry per documented<BR/>error pattern>];
+    ladder [label=<<B>ladder.yaml</B><BR/>5-rung proof-practice ladder>];
+    schema [label=<<B>ledger-schema.yaml</B><BR/>mirrors engine.ledger fields<BR/>for human readers>];
+    checklists [label=<<B>checklists/</B>\lphase1.yaml … phase7.yaml\l≥5 items each>, shape=folder, fillcolor="#FBF9F5"];
+    pedagogy [label=<<B>pedagogy/</B>\ltexts.md · bloom.md · polya.md\lself-explanation.md · prompts.md\l(free-form, not schema-checked)>, shape=folder, fillcolor="#FBF9F5"];
+
+    root -> curr;
+    root -> misc;
+    root -> ladder;
+    root -> schema;
+    root -> checklists;
+    root -> pedagogy;
+}

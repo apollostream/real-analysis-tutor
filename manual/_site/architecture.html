@@ -74,9 +74,6 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
-<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
-<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
 
 </head>
@@ -324,6 +321,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">FAQ</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./bibliography.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Bibliography</span></span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -369,6 +372,16 @@ ul.task-list li input[type="checkbox"] {
 <section id="three-layers-and-why-each-exists" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="three-layers-and-why-each-exists"><span class="header-section-number">3.1</span> Three layers, and why each exists</h2>
 <p>The plugin splits its work across three cooperating layers (design spec <code>docs/superpowers/specs/2026-07-17-real-analysis-tutor-design.md</code> §3): each is trustworthy for a different reason, none for all three jobs at once.</p>
+<div id="fig-three-layers" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Three clusters: the deterministic layer (hooks and engine modules), the judgment layer (ten skills), and the fresh-context layer (five subagents), each connected to the learner workspace's state files below.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-three-layers-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/three-layers.svg" class="img-fluid figure-img" alt="Three clusters: the deterministic layer (hooks and engine modules), the judgment layer (ten skills), and the fresh-context layer (five subagents), each connected to the learner workspace's state files below.">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-three-layers-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.1: The three layers — deterministic engine, judgment-layer skills, fresh-context subagents — and the learner workspace they read and write
+</figcaption>
+</figure>
+</div>
 <p><strong>The deterministic layer</strong> — hooks (<code>hooks/hooks.json</code>, <code>hooks/scripts/*.py</code>) and the engine (<code>engine/state.py</code>, <code>engine/scheduler.py</code>, <code>engine/ledger.py</code>) — exists because some things must never depend on model judgment: whether state loaded correctly, when a review is due, whether the per-turn Socratic reminder fired. It is plain, stdlib-only, unit-tested Python that runs every turn regardless of what the model is attending to.</p>
 <p><strong>The judgment layer</strong> — the ten skills under <code>skills/</code> — exists because pedagogy is not a deterministic function of learner state. Deciding what to ask, which stuck-state level applies, or whether a “clearly” hides a real gap requires judgment, so this layer encodes <em>how to decide</em>: the six-stage loop, the Level 1–4 escalation, the Four-Part Assessment.</p>
 <p><strong>The fresh-context layer</strong> — the five subagents under <code>agents/</code> — exists because even good judgment is compromised by its own history. A tutor that just watched a learner struggle cannot cleanly judge whether its own draft reply gives too much away — it is grading its own work in its own context. A subagent handed only the artifact under review has no such conflict.</p>
@@ -393,34 +406,15 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="a-session-turn" class="level2" data-number="3.6">
 <h2 data-number="3.6" class="anchored" data-anchor-id="a-session-turn"><span class="header-section-number">3.6</span> A session turn</h2>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">flowchart TD
-    A[User message] --&gt; B{"UserPromptSubmit\nprompt_guard.py"}
-    B --&gt;|no workspace| C[No-op]
-    B --&gt;|tier 1| D[Inject Socratic reminder]
-    B --&gt;|tier 2: fishing/authority| E[Inject escalated reminder]
-    C --&gt; F[Tutor: hidden pre-response plan]
-    D --&gt; F
-    E --&gt; F
-    F --&gt; G{Dispatch a subagent?}
-    G --&gt;|proof submitted| H["proof-critic / counterexample-hunter /\nmisconception-prober / lean-verifier"]
-    G --&gt;|tier-2 reply drafted| I[leakage-auditor]
-    G --&gt;|no| J[Reply to learner]
-    H --&gt; J
-    I --&gt;|SHIP| J
-    I --&gt;|REVISE / BLOCK| F
-    J --&gt; K{"Stop hook\nsession_end.py"}
-    K --&gt;|stale learner.json,\nnot yet reminded| L[Block: persist state]
-    K --&gt;|else| M[Turn ends]
-</pre>
+<div id="fig-session-turn" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Flow of a single session turn: user message enters the UserPromptSubmit guard (tier 1 or tier 2 reminder, or no-op with no workspace); the tutor runs its hidden pre-response plan; it may dispatch one of five subagents (proof-critic, counterexample-hunter, misconception-prober, lean-verifier on a submitted proof, or leakage-auditor on a drafted tier-2 reply, which can send the tutor back to replan on REVISE or BLOCK); the reply goes to the learner; the Stop hook checks whether to block with a persistence reminder, gated by a once-per-session sentinel.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-session-turn-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/session-turn.svg" class="img-fluid figure-img" alt="Flow of a single session turn: user message enters the UserPromptSubmit guard (tier 1 or tier 2 reminder, or no-op with no workspace); the tutor runs its hidden pre-response plan; it may dispatch one of five subagents (proof-critic, counterexample-hunter, misconception-prober, lean-verifier on a submitted proof, or leakage-auditor on a drafted tier-2 reply, which can send the tutor back to replan on REVISE or BLOCK); the reply goes to the learner; the Stop hook checks whether to block with a persistence reminder, gated by a once-per-session sentinel.">
 </div>
-<p></p></figure><p></p>
-</div>
-</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-session-turn-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.2: One session turn through the harness: <code>UserPromptSubmit</code> guard, the tutor’s hidden pre-response plan, an optional subagent dispatch, the reply, and the <code>Stop</code> hook’s once-per-session persistence reminder
+</figcaption>
+</figure>
 </div>
 
 

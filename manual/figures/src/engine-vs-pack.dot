@@ -1,0 +1,48 @@
+digraph EngineVsPack {
+    bgcolor="transparent";
+    rankdir=TB;
+    fontname="Charter,Georgia,serif";
+    fontsize=11;
+    ranksep=0.35;
+    node [fontname="Charter,Georgia,serif", fontsize=10.5, shape=box, style="rounded,filled",
+          fillcolor="#E8EDF5", color="#2B4C7E", penwidth=1.2, margin="0.14,0.08"];
+    edge [fontname="Charter,Georgia,serif", fontsize=9, color="#6B7280", arrowsize=0.75];
+
+    labelloc="t";
+    label=<<B>Engine vs. curriculum pack — where the split actually is</B>>;
+
+    subgraph cluster_engine {
+        label=<<B>Subject-independent engine</B>>;
+        style="rounded,filled"; fillcolor="#FBF9F5"; color="#2E6B4F"; fontsize=10.5;
+        state [label="engine/state.py\nlearner state"];
+        sched [label="engine/scheduler.py\nSM-2 review"];
+        ledgerpy [label="engine/ledger.py\nledger machinery"];
+        loop [label="6-stage loop · stuck escalation\nBloom calibration · 4-part assessment"];
+        state -> sched [style=invis];
+        sched -> ledgerpy [style=invis];
+        ledgerpy -> loop [style=invis];
+    }
+
+    subgraph cluster_pack {
+        label=<<B>Curriculum pack (data)</B> — curriculum/real-analysis/>;
+        style="rounded,filled"; fillcolor="#FBF9F5"; color="#2B4C7E"; fontsize=10.5;
+        curr [label="curriculum.yaml · misconceptions.yaml"];
+        checklists [label="checklists/phaseN.yaml · ladder.yaml"];
+        curr -> checklists [style=invis];
+    }
+
+    subgraph cluster_hard {
+        label=<<B>Three hardwired tiers</B> — today, Real Analysis only>;
+        style="rounded,filled"; fillcolor="#F3E3E3"; color="#8C3B3B"; fontsize=10.5;
+        tier1 [label=<<B>Tier 1</B> — only pack that ships: no topology/ or algebra/ pack exists>, fillcolor="#F3E3E3", color="#8C3B3B"];
+        tier2 [label=<<B>Tier 2</B> — subject prose baked into skills &amp; engine constants<BR/>(check-proof's "delta depend only on epsilon";<BR/>ledger.py's delta_depends_on_x; session_start.py's MISCONCEPTIONS map)>, fillcolor="#F3E3E3", color="#8C3B3B"];
+        tier3 [label=<<B>Tier 3</B> — no selection mechanism: marker's "curriculum" field is written, never read to switch packs>, fillcolor="#F3E3E3", color="#8C3B3B"];
+        tier1 -> tier2 [style=invis];
+        tier2 -> tier3 [style=invis];
+    }
+
+    loop -> curr [label="reads phases,\nmisconceptions, ladder", style=dashed, minlen=1];
+    curr -> tier1 [style=dashed, color="#8C3B3B", arrowhead=none, minlen=1];
+    loop -> tier2 [style=dashed, color="#8C3B3B", minlen=1];
+    state -> tier3 [label="writes .ra-tutor-workspace\n{curriculum: \"real-analysis\"} — unread", style=dashed, color="#8C3B3B", fontcolor="#8C3B3B", minlen=1];
+}

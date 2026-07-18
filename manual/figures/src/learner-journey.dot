@@ -1,0 +1,48 @@
+digraph LearnerJourney {
+    bgcolor="transparent";
+    rankdir=TB;
+    fontname="Charter,Georgia,serif";
+    fontsize=11;
+    node [fontname="Charter,Georgia,serif", fontsize=11, shape=box, style="rounded,filled",
+          fillcolor="#E8EDF5", color="#2B4C7E", penwidth=1.2, margin="0.16,0.10"];
+    edge [fontname="Charter,Georgia,serif", fontsize=9.5, color="#6B7280", arrowsize=0.8];
+
+    labelloc="t";
+    label=<<B>The learner's journey</B>>;
+
+    install [label=<<B>Install</B><BR/><FONT POINT-SIZE="9.5">2 commands:<BR/>/plugin marketplace add …<BR/>/plugin install …</FONT>>, fillcolor="#FBF9F5", color="#6B7280"];
+    hello [label=<<B>Say \"hello\"</B><BR/><FONT POINT-SIZE="9.5">no config file to edit first</FONT>>, fillcolor="#FBF9F5", color="#6B7280"];
+    onboarding [label=<<B>Onboarding interview</B><BR/><FONT POINT-SIZE="9.5">the one promise · profile question ·<BR/>workspace location · Lean detection ·<BR/>60-sec orientation</FONT>>];
+
+    subgraph cluster_daily {
+        label=<<B>Daily sessions</B>>;
+        style="rounded,filled"; fillcolor="#FBF9F5"; color="#2B4C7E"; fontsize=11;
+        openr [label="Open ritual\nposition, not praise;\nsurface due reviews;\npropose agenda"];
+        work [label="Six-stage loop\nprime → attempt → check →\nformalize → attack → assess"];
+        closer [label="Close ritual\nmisconception probe · Look Back ·\npersist state · preview next"];
+        openr -> work -> closer;
+    }
+
+    weekly [label=<<B>Weekly rhythm</B><BR/><FONT POINT-SIZE="9.5">curriculum.yaml weekly_rhythm:<BR/>network positioning → Strichartz<BR/>reading → mastery checklist →<BR/>Rudin reading → proof ladder →<BR/>Four-Part Assessment</FONT>>, fillcolor="#FBF9F5", color="#6B7280"];
+
+    monthly [label=<<B>Monthly review</B><BR/><FONT POINT-SIZE="9.5">skills/review — full-ledger quiz,<BR/>error-pattern analysis,<BR/>dependency-graph re-mapping,<BR/>misconception re-checks</FONT>>, fillcolor="#FBF9F5", color="#6B7280"];
+
+    subgraph cluster_state {
+        label=<<B>State accumulates</B> (learner's workspace)>;
+        style="rounded,filled"; fillcolor="#E9F1EC"; color="#2E6B4F"; fontsize=11;
+        lj [label="learner.json", fillcolor="#E9F1EC", color="#2E6B4F"];
+        lg [label="ledger.json\nerror_log.json", fillcolor="#E9F1EC", color="#2E6B4F"];
+        rv [label="reviews.json", fillcolor="#E9F1EC", color="#2E6B4F"];
+        sn [label="sessions/NNN.md", fillcolor="#E9F1EC", color="#2E6B4F"];
+    }
+
+    install -> hello -> onboarding -> openr;
+    closer -> weekly [label="days accumulate into"];
+    weekly -> monthly [label="~30 days /\n~8 ledger entries"];
+    monthly -> openr [label="next session", constraint=false];
+
+    closer -> lj [style=dashed, color="#2E6B4F", constraint=false];
+    closer -> lg [style=dashed, color="#2E6B4F", constraint=false];
+    closer -> rv [style=dashed, color="#2E6B4F", constraint=false];
+    closer -> sn [style=dashed, color="#2E6B4F", constraint=false];
+}

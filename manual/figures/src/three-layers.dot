@@ -1,0 +1,53 @@
+digraph ThreeLayers {
+    bgcolor="transparent";
+    rankdir=TB;
+    fontname="Charter,Georgia,serif";
+    fontsize=11;
+    node [fontname="Charter,Georgia,serif", fontsize=11, shape=box, style="rounded,filled",
+          fillcolor="#E8EDF5", color="#2B4C7E", penwidth=1.2, margin="0.18,0.10"];
+    edge [fontname="Charter,Georgia,serif", fontsize=10, color="#6B7280", arrowsize=0.8];
+
+    labelloc="t";
+    label=<<B>Three layers of the plugin</B>>;
+
+    subgraph cluster_det {
+        label=<<B>Deterministic layer</B> — never depends on model judgment>;
+        style="rounded,filled"; fillcolor="#FBF9F5"; color="#2B4C7E"; fontsize=11;
+        hooks [label="3 hooks\nhooks/hooks.json\nhooks/scripts/*.py"];
+        engine [label="engine/\nstate.py · scheduler.py · ledger.py"];
+        hooks -> engine [label="reads/writes via", style=dashed, color="#6B7280"];
+    }
+
+    subgraph cluster_judg {
+        label=<<B>Judgment layer</B> — how to decide>;
+        style="rounded,filled"; fillcolor="#FBF9F5"; color="#2B4C7E"; fontsize=11;
+        skills [label="10 skills\nskills/*/SKILL.md\n\ntutor · prime · check-proof · stuck\nformalize · attack · assess · ledger\nreview · setup"];
+    }
+
+    subgraph cluster_fresh {
+        label=<<B>Fresh-context layer</B> — no self-review bias>;
+        style="rounded,filled"; fillcolor="#FBF9F5"; color="#2B4C7E"; fontsize=11;
+        agents [label="5 subagents\nagents/*.md\n\nproof-critic · counterexample-hunter\nmisconception-prober · lean-verifier\nleakage-auditor"];
+    }
+
+    subgraph cluster_data {
+        label=<<B>Learner workspace</B> — persisted state, no hand-computation>;
+        style="rounded,filled"; fillcolor="#FBF9F5"; color="#6B7280"; fontsize=11;
+        learner [label="learner.json", fillcolor="#FBF9F5", color="#6B7280"];
+        ledgerjson [label="ledger.json\nerror_log.json", fillcolor="#FBF9F5", color="#6B7280"];
+        reviews [label="reviews.json", fillcolor="#FBF9F5", color="#6B7280"];
+        sessions [label="sessions/NNN.md", fillcolor="#FBF9F5", color="#6B7280"];
+    }
+
+    hooks -> skills [label="fires every turn;\nreinjects contract"];
+    skills -> agents [label="dispatches for\na fresh look"];
+    agents -> skills [label="verdict returns", style=dashed];
+
+    engine -> learner [color="#6B7280"];
+    engine -> ledgerjson [color="#6B7280"];
+    engine -> reviews [color="#6B7280"];
+    skills -> sessions [label="narrative log", color="#6B7280", style=dashed];
+
+    { rank=same; hooks; }
+    { rank=same; learner; ledgerjson; reviews; sessions; }
+}

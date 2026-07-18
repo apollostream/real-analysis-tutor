@@ -13,7 +13,7 @@ must come from the learner, and it never supplies a proof, a partial proof, or a
 step of one (`skills/tutor/SKILL.md`, "Identity and prime directive").
 
 **Author: Don Kearney.** The tutor system and the V2.1 methodology it operationalizes —
-the *Real Analysis Complete Study Guide* and the *Low-Friction Setup & Workflow Guide*,
+the *Real Analysis Complete Study Guide* ([Kearney, 2026](bibliography.qmd#ref-1)) and the *Low-Friction Setup & Workflow Guide* ([Kearney, 2026](bibliography.qmd#ref-2)),
 vendored under `docs/source-guides/` — are Don Kearney's work and property (`README.md`,
 `CHANGELOG.md` 2.1.0). The plugin implements that methodology as 10 skills, 5 agents,
 and 3 hooks (`skills/`, `agents/`, `hooks/hooks.json`).
@@ -52,6 +52,24 @@ before Stage 1. On later sessions it instead runs the open ritual in
 engine (`engine/state.py`, `engine/scheduler.py`), greets by progress rather than
 praise, surfaces concepts due for review, and proposes an agenda before handing off to
 the six-stage loop (`skills/tutor/reference/six-stage-loop.md`).
+
+::: {.content-visible when-format="html"}
+![The six-stage tutoring loop run on every topic, with the skill that owns each stage](figures/six-stage-loop.svg){#fig-six-stage-loop fig-alt="A cycle of six stages: Concept Priming (skill prime), Active Reading/Attempt (skill stuck on impasse), Proof Checking (skill check-proof), Formal Verification (skill formalize), Counterexample and Converse (skill attack), and Four-Part Consolidation (skills assess then ledger), returning to Concept Priming for the next topic. Annotated with the Example/Non-Example gate before Stage 1 and the converse reflex at Stage 5."}
+:::
+::: {.content-visible when-format="pdf"}
+![The six-stage tutoring loop run on every topic, with the skill that owns each stage](figures/six-stage-loop.pdf){#fig-six-stage-loop fig-alt="A cycle of six stages: Concept Priming (skill prime), Active Reading/Attempt (skill stuck on impasse), Proof Checking (skill check-proof), Formal Verification (skill formalize), Counterexample and Converse (skill attack), and Four-Part Consolidation (skills assess then ledger), returning to Concept Priming for the next topic. Annotated with the Example/Non-Example gate before Stage 1 and the converse reflex at Stage 5."}
+:::
+
+## The learner's journey
+
+From install to the accumulating record of a semester's work:
+
+::: {.content-visible when-format="html"}
+![Install through daily sessions, the weekly rhythm, and the monthly review, with workspace state files accumulating along the way](figures/learner-journey.svg){#fig-learner-journey fig-alt="Install (two plugin commands) leads to saying hello, then the onboarding interview, then daily sessions (open ritual, six-stage loop, close ritual) which accumulate into the weekly rhythm and, roughly every 30 days or 8 ledger entries, a monthly review, looping back into the next daily session. The close ritual writes learner.json, ledger.json/error_log.json, reviews.json, and sessions/NNN.md."}
+:::
+::: {.content-visible when-format="pdf"}
+![Install through daily sessions, the weekly rhythm, and the monthly review, with workspace state files accumulating along the way](figures/learner-journey.pdf){#fig-learner-journey fig-alt="Install (two plugin commands) leads to saying hello, then the onboarding interview, then daily sessions (open ritual, six-stage loop, close ritual) which accumulate into the weekly rhythm and, roughly every 30 days or 8 ledger entries, a monthly review, looping back into the next daily session. The close ritual writes learner.json, ledger.json/error_log.json, reviews.json, and sessions/NNN.md."}
+:::
 
 ## Map of this manual
 

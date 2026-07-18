@@ -321,6 +321,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">FAQ</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./bibliography.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Bibliography</span></span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -377,6 +383,16 @@ ul.task-list li input[type="checkbox"] {
 <p><strong>Tier 1 — content that doesn’t exist for other subjects.</strong> Only one curriculum pack ships: <code>curriculum/real-analysis/</code>. No <code>curriculum/topology/</code> or <code>curriculum/algebra/</code> exists in this repo. Part XV is explicit that a new subject needs its own <em>researched</em> misconception catalogue, checklists, and text pairings — authorship work, not code work.</p>
 <p><strong>Tier 2 — Real Analysis specifics baked into skill prose.</strong> <code>skills/check-proof/SKILL.md</code> asks, as a named check, whether “the delta depend[s] only on epsilon.” <code>skills/formalize/SKILL.md</code> is written around Lean 4 and Mathlib imports and dispatches a <code>lean-verifier</code> agent against <code>src/Chapter&lt;N&gt;.lean</code>. The Theorem Ledger’s error categories in <code>engine/ledger.py</code> (<code>ERROR_CATEGORIES</code>) are <code>quantifier_error</code>, <code>missing_hypothesis</code>, <code>invalid_inference</code>, <code>wrong_theorem</code>, <code>delta_depends_on_x</code>, <code>converse_confusion</code> — one, <code>delta_depends_on_x</code>, is literally a Real Analysis idiom. <code>hooks/scripts/session_start.py</code> hardcodes a phase-to-misconception map (<code>MISCONCEPTIONS</code>) with seven Real Analysis entries, e.g. <code>"compact-iff-closed-and-bounded"</code>. Editable, but today it would talk epsilons and compactness to a group-theory student.</p>
 <p><strong>Tier 3 — no selection mechanism.</strong> The workspace marker template, <code>templates/workspace/.ra-tutor-workspace</code>, records <code>{"schema_version": 1, "curriculum": "real-analysis"}</code> — but nothing in the codebase reads that <code>curriculum</code> field to switch packs. Dropping <code>curriculum/topology/</code> into the repo today would not activate it; the field is written but not consumed.</p>
+<div id="fig-engine-vs-pack" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Two clusters: a subject-independent engine (state.py, ledger.py, scheduler.py, the six-stage loop and stuck escalation) and a curriculum-pack data cluster (curriculum.yaml, misconceptions.yaml, checklists, ladder.yaml) that the engine reads. A third, warning-toned cluster shows three hardwired tiers: Tier 1, only the real-analysis pack ships; Tier 2, subject-specific prose baked into skills and engine constants; Tier 3, the workspace marker's curriculum field is written but never read to select a pack.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-engine-vs-pack-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/engine-vs-pack.svg" class="img-fluid figure-img" alt="Two clusters: a subject-independent engine (state.py, ledger.py, scheduler.py, the six-stage loop and stuck escalation) and a curriculum-pack data cluster (curriculum.yaml, misconceptions.yaml, checklists, ladder.yaml) that the engine reads. A third, warning-toned cluster shows three hardwired tiers: Tier 1, only the real-analysis pack ships; Tier 2, subject-specific prose baked into skills and engine constants; Tier 3, the workspace marker's curriculum field is written but never read to select a pack.">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-engine-vs-pack-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.1: What’s subject-independent (the engine), what’s data (the curriculum pack), and the three tiers still hardwired to Real Analysis
+</figcaption>
+</figure>
+</div>
 </section>
 <section id="scope-caveat" class="level2" data-number="4.4">
 <h2 data-number="4.4" class="anchored" data-anchor-id="scope-caveat"><span class="header-section-number">4.4</span> Scope caveat</h2>

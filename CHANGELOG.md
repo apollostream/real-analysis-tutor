@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+Developer's Manual (Quarto book, `manual/`): eight chapters + FAQ +
+URL-verified APA bibliography; eight Graphviz-dot vector figures; rendered
+to GitHub Pages (HTML + downloadable PDF) by CI. README links added.
+
 ## 2.1.2 — 2026-07-18
 
 Fix: the Stop-hook persist-state reminder now fires at most once per

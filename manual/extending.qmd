@@ -65,6 +65,13 @@ misconceptions:
     # ... refutation, counterexample, presentation_note as in the schema
 ```
 
+::: {.content-visible when-format="html"}
+![The file tree of a curriculum pack, with a one-line role for each file](figures/pack-anatomy.svg){#fig-pack-anatomy fig-alt="curriculum/real-analysis/ contains curriculum.yaml (phases, sequencing rules, weekly rhythm, quick-start profiles), misconceptions.yaml (one entry per documented error pattern), ladder.yaml (five-rung proof-practice ladder), ledger-schema.yaml (mirrors engine.ledger fields for human readers), a checklists/ directory (phase1.yaml through phase7.yaml, at least five items each), and a pedagogy/ directory (texts.md, bloom.md, polya.md, self-explanation.md, prompts.md — free-form, not schema-checked)."}
+:::
+::: {.content-visible when-format="pdf"}
+![The file tree of a curriculum pack, with a one-line role for each file](figures/pack-anatomy.pdf){#fig-pack-anatomy fig-alt="curriculum/real-analysis/ contains curriculum.yaml (phases, sequencing rules, weekly rhythm, quick-start profiles), misconceptions.yaml (one entry per documented error pattern), ladder.yaml (five-rung proof-practice ladder), ledger-schema.yaml (mirrors engine.ledger fields for human readers), a checklists/ directory (phase1.yaml through phase7.yaml, at least five items each), and a pedagogy/ directory (texts.md, bloom.md, polya.md, self-explanation.md, prompts.md — free-form, not schema-checked)."}
+:::
+
 ## The schema contract
 
 `tests/test_curriculum.py` is the ground truth for "does this pack load." It asserts:

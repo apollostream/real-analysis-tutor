@@ -1,0 +1,25 @@
+digraph BloomLadder {
+    bgcolor="transparent";
+    rankdir=LR;
+    fontname="Charter,Georgia,serif";
+    fontsize=11;
+    nodesep=0.35;
+    ranksep=0.55;
+    node [fontname="Charter,Georgia,serif", fontsize=11, shape=box, style="rounded,filled",
+          fillcolor="#E8EDF5", color="#2B4C7E", penwidth=1.2, margin="0.16,0.12"];
+    edge [fontname="Charter,Georgia,serif", fontsize=9.5, color="#6B7280", arrowsize=0.8];
+
+    labelloc="t";
+    label=<<B>Proof-practice ladder × Bloom's taxonomy</B><BR/><FONT POINT-SIZE="9.5">curriculum/real-analysis/ladder.yaml</FONT>>;
+
+    r1 [label=<<B>Rung 1</B><BR/>Mechanical<BR/><FONT COLOR="#2B4C7E"><B>Remember /<BR/>Understand</B></FONT>>];
+    r2 [label=<<B>Rung 2</B><BR/>Structural<BR/><FONT COLOR="#2B4C7E"><B>Apply</B></FONT>>];
+    r3 [label=<<B>Rung 3</B><BR/>Conceptual<BR/><FONT COLOR="#2B4C7E"><B>Analyze</B></FONT>>];
+    r4 [label=<<B>Rung 4</B><BR/>Rudin-Style<BR/><FONT COLOR="#2B4C7E"><B>Evaluate</B></FONT>>];
+    r5 [label=<<B>Rung 5</B><BR/>Creative<BR/><FONT COLOR="#2B4C7E"><B>Create</B></FONT>>];
+
+    gate1 [label="GATE\nRungs 1-2\nfluent\nbefore 3", shape=hexagon, fillcolor="#F3E3E3", color="#8C3B3B", fontsize=9, margin="0.06,0.04"];
+    gate2 [label="GATE\nRung 4\nreliable\nbefore 5", shape=hexagon, fillcolor="#F3E3E3", color="#8C3B3B", fontsize=9, margin="0.06,0.04"];
+
+    r1 -> r2 -> gate1 -> r3 -> r4 -> gate2 -> r5;
+}

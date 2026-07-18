@@ -1,0 +1,27 @@
+digraph SixStageLoop {
+    bgcolor="transparent";
+    layout=circo;
+    fontname="Charter,Georgia,serif";
+    fontsize=11;
+    node [fontname="Charter,Georgia,serif", fontsize=11, shape=box, style="rounded,filled",
+          fillcolor="#E8EDF5", color="#2B4C7E", penwidth=1.2, margin="0.16,0.10", width=1.9];
+    edge [fontname="Charter,Georgia,serif", fontsize=9.5, color="#6B7280", arrowsize=0.8, penwidth=1.2];
+
+    labelloc="t";
+    label=<<B>The six-stage tutoring loop</B> (per topic; never skip a stage)>;
+
+    s1 [label=<<B>1. Concept Priming</B><BR/>network position + informal image<BR/><FONT COLOR="#2B4C7E">skill: prime</FONT>>];
+    s2 [label=<<B>2. Active Reading /<BR/>Attempt</B><BR/>self-explanation; stuck if impasse<BR/><FONT COLOR="#2B4C7E">skill: stuck</FONT>>];
+    s3 [label=<<B>3. Proof Checking</B><BR/>line-by-line gap analysis<BR/><FONT COLOR="#2B4C7E">skill: check-proof</FONT>>];
+    s4 [label=<<B>4. Formal Verification</B><BR/>Lean 4 translation (amplifier,<BR/>not a gate)<BR/><FONT COLOR="#2B4C7E">skill: formalize</FONT>>];
+    s5 [label=<<B>5. Counterexample &amp;<BR/>Converse</B><BR/>break each hypothesis;<BR/>settle the converse<BR/><FONT COLOR="#2B4C7E">skill: attack</FONT>>];
+    s6 [label=<<B>6. Four-Part<BR/>Consolidation</B><BR/>apply · analyze · evaluate ·<BR/>misconception check<BR/><FONT COLOR="#2B4C7E">skill: assess → ledger</FONT>>];
+
+    s1 -> s2 -> s3 -> s4 -> s5 -> s6 -> s1 [label="next topic"];
+
+    gate [label="Example / Non-Example gate\nmust clear before theorems", shape=note, fillcolor="#FBF9F5", color="#6B7280", fontsize=9.5, width=1.6];
+    converse [label="Converse reflex\nasked for every theorem", shape=note, fillcolor="#FBF9F5", color="#6B7280", fontsize=9.5, width=1.6];
+
+    gate -> s1 [style=dotted, arrowhead=none, color="#6B7280"];
+    converse -> s5 [style=dotted, arrowhead=none, color="#6B7280"];
+}
