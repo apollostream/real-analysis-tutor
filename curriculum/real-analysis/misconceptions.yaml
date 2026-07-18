@@ -118,18 +118,18 @@ misconceptions:
       left-to-right traversal, none of which appear in the epsilon-delta
       definition.
     refutation: >-
-      The image works for some cases but for the wrong reason, and fails to
-      distinguish continuity from path-connectedness of the graph.
-      Continuity is a local, pointwise epsilon-delta property; the
-      pencil-lifting image is a global, domain-shape-dependent heuristic
-      that neither implies nor is implied by it in general.
+      The image smuggles in connectedness of the domain, finite range, and
+      left-to-right traversal, none of which appear in the epsilon-delta
+      definition; it fails to distinguish continuity from
+      path-connectedness of the graph.
     counterexample: >-
       The function f : Q -> R defined by f(x) = 0 if x^2 < 2 and f(x) = 1
       if x^2 > 2 is continuous on Q (the domain is disconnected; there is
       no path along which to "lift a pencil") yet satisfies the
       epsilon-delta definition at every point of Q. More directly: the
       topologist's sine curve sin(1/x) fails the pencil-lifting test near 0
-      precisely because it is discontinuous there.
+      precisely because it is discontinuous there -- the image works for
+      that case but for the wrong reason.
     presentation_note: >-
       Present as a plausible student argument. Never flag in advance which
       part is wrong. Require: (1) the precise invalid step, (2) the
