@@ -11,7 +11,10 @@ import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
-from engine import state  # noqa: E402
+try:
+    from engine import state  # noqa: E402
+except Exception:  # broken/partial install: fail open, never block the session
+    state = None
 
 STALE_SECONDS = 30 * 60
 
@@ -43,6 +46,8 @@ def main() -> None:
         except json.JSONDecodeError:
             payload = {}
 
+        if state is None:
+            sys.exit(0)
         cwd = payload.get("cwd") or str(Path.cwd())
         stop_hook_active = bool(payload.get("stop_hook_active", False))
 

@@ -12,7 +12,10 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
-from engine import scheduler, state  # noqa: E402
+try:
+    from engine import scheduler, state  # noqa: E402
+except Exception:  # broken/partial install: fail open, never block the session
+    scheduler = state = None
 
 # Phase -> named misconception id, per SG Part VIII.
 MISCONCEPTIONS = {
@@ -97,6 +100,8 @@ def main() -> None:
         except (json.JSONDecodeError, ValueError):
             payload = {}
 
+        if state is None or scheduler is None:
+            return
         cwd = Path(payload.get("cwd") or Path.cwd())
         context = build_context(cwd, date.today())
 
