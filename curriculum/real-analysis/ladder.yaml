@@ -1,0 +1,117 @@
+# The Proof-Practice Ladder -- five rungs, organising problems by
+# cognitive demand rather than conventional difficulty.
+#
+# Source of truth: docs/source-guides/RealAnalysis_CompleteGuide_V2.1.md,
+# Part VI, "The Proof-Practice Ladder -- Five Rungs" -- the five rung
+# sections (name, description, problem-class bullets, "Claude's role"
+# paragraph) and the boxed AI-integration paragraph. Bloom levels per
+# rung are cross-referenced from Part III C, "Bloom's Taxonomy Applied to
+# Real Analysis" (Target Phase column: Rungs 1-2, Rungs 3-4, Rung 4, Rung
+# 5) and Part VI's own "Apply Bloom [level]" instructions embedded in
+# each rung's Claude's-role paragraph.
+#
+# The ladder applies to every topic -- work through all five rungs for
+# each chapter before moving on.
+
+id: real-analysis-proof-ladder
+
+gate: "Rungs 1-2 fluent before 3; Rung 4 reliable before 5."
+
+ai_integration: >-
+  Use Claude to scaffold your ascent. For Rungs 1-2, ask Claude to check
+  your work. For Rungs 3-4, ask Claude to play devil's advocate and apply
+  the Pólya recovery protocol when you are stuck. For Rung 5, ask Claude
+  to try to break your construction before you finalise it. Lean 4 is
+  particularly valuable at Rungs 3-4, where the compiler catches the
+  subtle gaps that feel correct but are not.
+
+rungs:
+  - rung: 1
+    name: Mechanical
+    description: >-
+      Direct application of definitions. No creativity required --
+      follow the definition mechanically.
+    problem_classes:
+      - "epsilon-delta proofs for simple functions: lim(x→2) 3x = 6, lim(x→0) x² = 0."
+      - "Basic sup and inf computations for explicitly defined sets."
+      - "Derivative and integral definitions applied to polynomials."
+      - "Basic sequence limit proofs: 1/n → 0, (n+1)/n → 1."
+      - "Simple Cauchy sequence verification."
+    claude_role: >-
+      Check your epsilon-delta arithmetic and verify the quantifier order
+      is correct. Ask: "Does my delta depend only on epsilon?" Apply
+      Bloom Remember and Understand levels.
+    bloom_levels: [remember, understand]
+
+  - rung: 2
+    name: Structural
+    description: >-
+      Apply theorems and standard techniques to non-trivial situations.
+      Requires selecting the right tool.
+    problem_classes:
+      - "Monotone convergence theorem — prove a specific monotone sequence converges."
+      - "Alternating series test — proof and application."
+      - "Uniform continuity on compact sets — verify for a specific function."
+      - "Integration by parts via FTC."
+      - "Weierstrass M-test — apply to a specific series of functions."
+      - "Ratio and root test proofs."
+    claude_role: >-
+      After your attempt, ask: "Which theorem did I use and have I
+      verified all its hypotheses?" Then ask for a case where one
+      hypothesis fails and the conclusion breaks. Apply Bloom Apply
+      level.
+    bloom_levels: [apply]
+
+  - rung: 3
+    name: Conceptual
+    description: >-
+      Understand the logical architecture -- why theorems are true, what
+      each hypothesis buys, how results connect.
+    problem_classes:
+      - "limsup/liminf arguments — prove the characterization theorem."
+      - "Rearrangement phenomena — why rearranging a conditionally convergent series can produce any sum."
+      - "FTC proofs in both directions — understand the asymmetry."
+      - "Uniform vs pointwise convergence — prove a result holds for one but not the other."
+      - "Compactness machinery — trace a proof and identify the exact moment compactness is invoked."
+    claude_role: >-
+      After each proof, ask Claude to map the dependencies: "What
+      earlier results does this proof invoke and what breaks if I remove
+      each one?" Apply Bloom Analyze level. Begin Converse checks.
+    bloom_levels: [analyze]
+
+  - rung: 4
+    name: Rudin-Style
+    description: >-
+      Compressed, elegant proofs at the level Rudin presents. No
+      unnecessary steps -- the minimum correct argument.
+    problem_classes:
+      - "Compactness arguments — Heine-Borel, Arzela-Ascoli."
+      - "Connectedness proofs — IVT, continuous image of connected set."
+      - "Uniform convergence theorems with full rigour."
+      - "Taylor's theorem with remainder in its strongest form."
+      - "Rudin Chapter 7 Exercises 9, 15, 20 — each requires substantial independent proof construction."
+    claude_role: >-
+      Submit your proof and ask: "Is there a shorter correct argument?
+      Is every step necessary?" Apply Bloom Evaluate level. Check the
+      same proof in Lean 4 — the compiler will find remaining gaps.
+    bloom_levels: [evaluate]
+
+  - rung: 5
+    name: Creative
+    description: >-
+      Construct objects with prescribed properties. Requires genuine
+      mathematical invention -- no template exists.
+    problem_classes:
+      - "Construct a sequence with a prescribed set of subsequential limits."
+      - "Build a function continuous on Q, discontinuous on R \\ Q (or vice versa)."
+      - "Construct a conditionally convergent series that rearranges to +∞."
+      - "Build a continuous function on [0,1] not uniformly continuous on (0,1) — explain the exact failure mechanism."
+      - "Exhibit a series of continuous functions converging pointwise to a discontinuous limit."
+      - "Construct the nowhere-differentiable continuous function explicitly (Rudin Exercise 7.24)."
+      - "Build a counterexample to a theorem when one hypothesis is removed."
+    claude_role: >-
+      Before finalising any construction, ask: "Try to break this. Does
+      my construction actually have the property I claim? Is there an
+      edge case I missed?" Apply Bloom Create level. Verify in Lean 4 if
+      possible.
+    bloom_levels: [create]

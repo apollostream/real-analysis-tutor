@@ -3,7 +3,7 @@ from pathlib import Path
 from engine import ledger
 
 ROOT = Path("curriculum/real-analysis")
-REQUIRE_ALL = False  # Task 12 flips to True
+REQUIRE_ALL = True
 
 
 def load_yaml(rel):
