@@ -9,4 +9,4 @@ Live session probes (claude -p, haiku):
 - Plain dir, no workspace → model reports no tutor context present. Hooks stay silent outside tutoring contexts. PASS
 
 `claude plugin validate .` → Validation passed.
-`pytest -q` → 38 passed.
+`pytest -q` → 41 passed (after adversarial-review hardening).
