@@ -1,0 +1,32 @@
+# Mastery checklist -- Continuity.
+# Source: RealAnalysis CompleteGuide V2.1, Part V, "Continuity".
+
+phase: phase4
+topic: "Continuity"
+sources: "Strichartz Ch. 4 + Rudin Ch. 4"
+
+items:
+  - "Write a complete epsilon-delta proof for a non-trivial continuous function."
+  - "Distinguish continuity from uniform continuity — state both precisely."
+  - "Prove that your delta in a uniform continuity proof does not depend on x."
+  - "Prove Heine-Cantor: continuous on compact implies uniformly continuous."
+  - "Prove IVT as a consequence of connectedness."
+  - "Prove EVT: continuous on compact implies achieves max and min."
+  - "Prove continuous image of compact set is compact."
+  - "Exhibit a function continuous everywhere but differentiable nowhere (cite)."
+
+converse_checks:
+  - "Heine-Cantor converse: uniformly continuous on compact implies continuous. True (trivially). What about the converse on non-compact sets? Construct f continuous but not uniformly continuous on (0,1]."
+  - "IVT converse: if f takes all values between f(a) and f(b), is f continuous? No — construct counterexample (Darboux function)."
+
+lean_targets:
+  - "[Lean] Formalize Heine-Cantor (uniform continuity on compact sets)."
+  - "[Lean] Prove IVT using Mathlib's connectedness machinery."
+
+rudin_exercises: [1, 2, 3, 4, 6, 8, 14, 15, 16, 19, 20]
+
+misconception: pencil-lifting-image
+
+example_nonexample_rule: "Before any theorem work, self-generate one object satisfying each new definition and one that fails by violating exactly one condition."
+
+usage: "Socratic testing item by item; strategic on first pass, hold firm on consolidation — do not advance until every item is explainable without the book."

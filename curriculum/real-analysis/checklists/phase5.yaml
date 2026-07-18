@@ -1,0 +1,32 @@
+# Mastery checklist -- Differentiation.
+# Source: RealAnalysis CompleteGuide V2.1, Part V, "Differentiation".
+
+phase: phase5
+topic: "Differentiation"
+sources: "Strichartz Ch. 5 + Rudin Ch. 5"
+
+items:
+  - "State and prove the Mean Value Theorem from Rolle's theorem."
+  - "Prove Rolle's theorem from EVT."
+  - "State Taylor's theorem with the correct remainder form."
+  - "Explain the derivative as a linear approximation — what the error term says."
+  - "Prove that differentiability implies continuity (but not vice versa)."
+  - "Use MVT to prove: monotone derivative implies convex function."
+  - "Prove L'Hôpital's rule from the generalized MVT."
+  - "Exhibit a function differentiable everywhere with discontinuous derivative."
+
+converse_checks:
+  - "MVT converse: if f'(c) = 0 for some c ∈ (a,b), does f(a) = f(b)? No. Construct counterexample."
+  - "Differentiability implies continuity: the converse is false. Construct f continuous everywhere, differentiable nowhere."
+  - "Rolle's theorem: what breaks if f is not continuous on [a,b]? If not differentiable on (a,b)?"
+
+lean_targets:
+  - "[Lean] Formalize the Mean Value Theorem — Mathlib has it; compare to your proof."
+
+rudin_exercises: [1, 2, 3, 4, 6, 14, 15, 26, 27]
+
+misconception: continuity-implies-uniform-continuity
+
+example_nonexample_rule: "Before any theorem work, self-generate one object satisfying each new definition and one that fails by violating exactly one condition."
+
+usage: "Socratic testing item by item; strategic on first pass, hold firm on consolidation — do not advance until every item is explainable without the book."

@@ -1,0 +1,34 @@
+# Mastery checklist -- Sequences, Limits & Series.
+# Source: RealAnalysis CompleteGuide V2.1, Part V, "Sequences, Limits & Series".
+
+phase: phase3
+topic: "Sequences, Limits & Series"
+sources: "Strichartz Ch. 2-3 + Rudin Ch. 3"
+
+items:
+  - "Write a complete epsilon-N proof for a non-trivial sequence limit."
+  - "Prove that every Cauchy sequence in R converges."
+  - "Prove the monotone convergence theorem."
+  - "Construct a sequence with a prescribed set of subsequential limits."
+  - "Compute limsup and liminf from the definition."
+  - "Prove: limsup aₙ = inf{sup{aₖ : k ≥ n} : n ∈ N}."
+  - "Apply the comparison, ratio, and root tests correctly."
+  - "Explain why the harmonic series diverges and sum 1/n² converges."
+  - "State the rearrangement theorem and explain what it says about conditional convergence."
+
+converse_checks:
+  - "Cauchy converse: in R, every convergent sequence is Cauchy. True. Prove it."
+  - "Monotone convergence: what breaks if the sequence is not bounded? Construct a monotone unbounded sequence."
+  - "Rearrangement theorem: does it apply to absolutely convergent series? State the positive result."
+
+lean_targets:
+  - "[Lean] Formalize the Cauchy criterion for series convergence."
+  - "[Lean] Prove monotone convergence theorem in Lean."
+
+rudin_exercises: [3, 5, 6, 7, 11, 14, 16, 20, 21, 23]
+
+misconception: consecutive-closeness-implies-convergence
+
+example_nonexample_rule: "Before any theorem work, self-generate one object satisfying each new definition and one that fails by violating exactly one condition."
+
+usage: "Socratic testing item by item; strategic on first pass, hold firm on consolidation — do not advance until every item is explainable without the book."

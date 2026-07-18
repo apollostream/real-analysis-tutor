@@ -1,0 +1,33 @@
+# Mastery checklist -- Sequences & Series of Functions.
+# Source: RealAnalysis CompleteGuide V2.1, Part V, "Sequences & Series of Functions".
+
+phase: phase7
+topic: "Sequences & Series of Functions"
+sources: "Strichartz Ch. 7 + Rudin Ch. 7"
+
+items:
+  - "Define pointwise and uniform convergence — state both precisely."
+  - "Prove: uniform convergence + continuous functions implies continuous limit."
+  - "Prove: uniform convergence preserves Riemann integrability."
+  - "State and prove the Weierstrass M-test."
+  - "State the Arzela-Ascoli theorem and identify what equicontinuity buys."
+  - "State the Weierstrass approximation theorem."
+  - "Exhibit a sequence converging pointwise but not uniformly."
+  - "Exhibit a sequence of continuous functions with a discontinuous pointwise limit."
+  - "Construct the nowhere-differentiable continuous function (Rudin Exercise 24)."
+
+converse_checks:
+  - "Uniform limit theorem converse: if the limit of continuous functions is continuous, was the convergence uniform? No — construct counterexample on [0,1]."
+  - "Weierstrass M-test: what breaks if Σ Mₙ diverges but the series still converges? Give example."
+
+lean_targets:
+  - "[Lean] Formalize the Weierstrass M-test — important and achievable."
+  - "[Lean] Prove uniform limit of continuous functions is continuous."
+
+rudin_exercises: [1, 2, 3, 4, 5, 6, 9, 12, 14, 15, 20, 24]
+
+misconception: pointwise-limit-preserves-continuity
+
+example_nonexample_rule: "Before any theorem work, self-generate one object satisfying each new definition and one that fails by violating exactly one condition."
+
+usage: "Socratic testing item by item; strategic on first pass, hold firm on consolidation — do not advance until every item is explainable without the book."

@@ -1,0 +1,30 @@
+# Mastery checklist -- Riemann-Stieltjes Integration.
+# Source: RealAnalysis CompleteGuide V2.1, Part V, "Riemann-Stieltjes Integration".
+
+phase: phase6
+topic: "Riemann-Stieltjes Integration"
+sources: "Strichartz Ch. 6 + Rudin Ch. 6"
+
+items:
+  - "Define upper and lower Riemann sums and the Riemann integral precisely."
+  - "State the Riemann condition and prove continuous implies integrable."
+  - "Explain what the Stieltjes generalization adds over Riemann."
+  - "Prove the Fundamental Theorem of Calculus in both directions."
+  - "State the class of Riemann-integrable functions precisely."
+  - "Explain what \"measure-zero set of discontinuities\" means informally."
+  - "Prove integration by parts for the Stieltjes integral."
+
+converse_checks:
+  - "FTC Part I converse: if F' = f everywhere, does F = integral of f? What additional hypotheses are needed?"
+  - "Integrability: construct a bounded function that is not Riemann-integrable (Dirichlet function). What is its set of discontinuities?"
+
+lean_targets:
+  - "[Lean] Formalize FTC Part I using Mathlib.Analysis.Calculus."
+
+rudin_exercises: [1, 2, 3, 4, 5, 7, 8, 10, 11, 16]
+
+misconception: terms-to-zero-implies-convergence
+
+example_nonexample_rule: "Before any theorem work, self-generate one object satisfying each new definition and one that fails by violating exactly one condition."
+
+usage: "Socratic testing item by item; strategic on first pass, hold firm on consolidation — do not advance until every item is explainable without the book."

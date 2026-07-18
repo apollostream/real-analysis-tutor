@@ -1,0 +1,33 @@
+# Mastery checklist -- Basic Topology.
+# Source: RealAnalysis CompleteGuide V2.1, Part V, "Basic Topology".
+
+phase: phase2
+topic: "Basic Topology"
+sources: "Rudin Ch. 2 + Munkres Supplement"
+
+items:
+  - "Define a metric space and give three non-trivial examples."
+  - "State the open cover definition of compactness precisely."
+  - "Prove Heine-Borel: closed and bounded if and only if compact in Rⁿ."
+  - "Explain why Heine-Borel fails in infinite-dimensional spaces."
+  - "Prove every compact metric space is sequentially compact."
+  - "Prove Bolzano-Weierstrass from compactness."
+  - "Define connectedness and prove R is connected."
+  - "Describe the Cantor set and prove it is compact, perfect, and uncountable."
+
+converse_checks:
+  - "Heine-Borel converse: compact implies closed and bounded in Rⁿ. True. Verify."
+  - "Sequential compactness and compactness: equivalent in metric spaces; not in general. State where equivalence breaks."
+  - "Connectedness: the converse of \"continuous image of connected set is connected\" — is the pre-image connected? Construct counterexample."
+
+lean_targets:
+  - "[Lean] Formalize Heine-Borel — Mathlib has supporting machinery."
+  - "[Lean] Prove sequential compactness of [0,1]."
+
+rudin_exercises: [2, 3, 4, 9, 11, 12, 16, 19, 22, 25]
+
+misconception: compact-iff-closed-and-bounded
+
+example_nonexample_rule: "Before any theorem work, self-generate one object satisfying each new definition and one that fails by violating exactly one condition."
+
+usage: "Socratic testing item by item; strategic on first pass, hold firm on consolidation — do not advance until every item is explainable without the book."

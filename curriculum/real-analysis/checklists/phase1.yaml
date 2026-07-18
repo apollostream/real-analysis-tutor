@@ -1,0 +1,32 @@
+# Mastery checklist -- Real Numbers & Completeness.
+# Source: RealAnalysis CompleteGuide V2.1, Part V, "Real Numbers & Completeness".
+
+phase: phase1
+topic: "Real Numbers & Completeness"
+sources: "Strichartz Ch. 1 + Rudin Ch. 1"
+
+items:
+  - "State the completeness axiom precisely and explain what fails without it."
+  - "Prove the Archimedean property from completeness."
+  - "Prove density of Q in R: between any two reals lies a rational."
+  - "Compute sup and inf for non-trivial sets (e.g., {1/n : n ∈ N})."
+  - "Explain why the Dedekind cut construction works."
+  - "Prove Cantor's diagonal argument — uncountability of R."
+  - "State and prove the nested intervals theorem."
+
+converse_checks:
+  - "Completeness axiom: the converse (every non-empty bounded set has a sup) is true by definition — the axiom is biconditional."
+  - "Archimedean property: is the converse (if N is unbounded then R is Archimedean) meaningful? Discuss."
+  - "Nested intervals theorem: fails in Q. State the exact failure mechanism."
+
+lean_targets:
+  - "[Lean] Formalize the Archimedean property using Mathlib."
+  - "[Lean] Prove density of Q in R in a Lean theorem statement."
+
+rudin_exercises: [1, 2, 3, 5, 6, 8]
+
+misconception: completeness-implies-convergence
+
+example_nonexample_rule: "Before any theorem work, self-generate one object satisfying each new definition and one that fails by violating exactly one condition."
+
+usage: "Socratic testing item by item; strategic on first pass, hold firm on consolidation — do not advance until every item is explainable without the book."
