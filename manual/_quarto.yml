@@ -17,6 +17,7 @@ book:
     - extending.qmd
     - reference.qmd
     - faq.qmd
+    - bibliography.qmd
 
 format:
   html:

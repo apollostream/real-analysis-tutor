@@ -11,7 +11,7 @@ under Development.
 
 ## Shape
 
-- Quarto **website** project in `manual/`, rendered by CI to GitHub Pages (`gh-pages` branch).
+- Quarto **book** project in `manual/` (HTML site + single downloadable PDF `real-analysis-tutor-manual.pdf`), rendered by CI to GitHub Pages (`gh-pages` branch).
 - Six pages + FAQ. Lean chapters (300–700 words each except reference), no filler.
 - Theme: built-in `cosmo` + small `manual/styles.scss` (textbook-blue accent #2B4C7E,
   Charter/Georgia body — matches the project's artifact identity), dark theme via `darkly`.
@@ -45,3 +45,12 @@ under Development.
 4. Enable GitHub Pages on `gh-pages`; verify deploy; CHANGELOG entry.
 
 Out of scope: learner-facing docs; API docs generation; versioned manuals.
+
+## Addendum (2026-07-18, user-directed enrichment)
+
+- Diagrams: standardized on Graphviz dot pre-rendered to SVG (HTML) + PDF (LaTeX), committed
+  under `manual/figures/` with sources in `manual/figures/src/*.dot`. Rationale: vector output in
+  both formats; no Chromium dependency in CI (mermaid rasterizes for PDF and needs Chrome).
+  Liberal, informative visualization encouraged per user, incl. infographic-style figures.
+- `bibliography.qmd`: formal APA bibliography; every entry carries a URL verified live (HTTP 200)
+  at authoring time. Inline links from claim-bearing pages.

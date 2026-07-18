@@ -257,3 +257,7 @@ skipping it).
 | `curriculum.yaml` | `phases` (list) | each phase: `texts`, `weeks`, `name` (all truthy) | Phase `id`s, in order, must equal `["prelim", "phase1", "phase2", ..., "phase9"]`. `phase4`'s `misconception` must equal `"pencil-lifting-image"`; `phase8`, `phase9`, and `prelim`'s `misconception` must be `None`. |
 | `checklists/phase{1..7}.yaml` (7 files) | — (flat document) | `phase`, `topic`, `items`, `converse_checks`, `lean_targets`, `rudin_exercises`, `misconception` (all `is not None`) | `len(items) >= 5`. |
 | `ladder.yaml` | `rungs` (list) | each rung: `name`, `claude_role`, `bloom_levels`, `problem_classes` (all truthy) | Rung numbers, in order, must equal `[1, 2, 3, 4, 5]`. |
+
+::: {.callout-note}
+The misconception entries require seven keys in total: `id` is enforced by the id-set assertion in `tests/test_curriculum.py`, and the remaining six (`statement`, `corrupted_step`, `refutation`, `counterexample`, `phase`, `topic`) by the per-field truthy check.
+:::
