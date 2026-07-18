@@ -386,16 +386,22 @@ Figure&nbsp;2.1: The five proof-ladder rungs mapped to Bloom levels, with the tw
 </div>
 <p><strong>2. Progression gating.</strong> <code>curriculum/real-analysis/ladder.yaml</code> assigns each of the five proof-ladder rungs a <code>bloom_levels</code> list — Rung 1 <code>[remember, understand]</code>, Rung 2 <code>apply</code>, Rung 3 <code>analyze</code>, Rung 4 <code>evaluate</code>, Rung 5 <code>create</code> — and states the gate directly in the file: <code>"Rungs 1-2 fluent before 3; Rung 4 reliable before 5."</code> The learner’s Bloom level, in other words, controls which problems are offered next.</p>
 <p><strong>3. Assessment structure.</strong> <code>skills/assess/SKILL.md</code> runs the Four-Part Consolidation Assessment, Bloom-indexed by construction: an applied problem targets Apply, a conceptual/quantifier question targets Analyze, a derivation step targets Evaluate, and the misconception check targets Analyze and Evaluate together. Each part is graded 0–5; a grade of 3 or higher on a part is what “demonstrates” its level, and the ladder advances only on demonstrated mastery — the skill stops at the first level that fails rather than averaging over a bad one.</p>
-<p><strong>4. Persistent measurement.</strong> <code>bloom_level</code> is one of the fourteen fields in <code>curriculum/real-analysis/ledger-schema.yaml</code>, documented as “highest level achieved: apply / analyze / evaluate / create,” and <code>skills/assess/SKILL.md</code> sets it after grading to the single highest level actually cleared that session. The same ≥3 threshold anchors <code>engine/scheduler.py</code>’s SM-2 review grades (a grade under 3 resets the spacing interval). A test, <code>tests/test_curriculum.py::test_ledger_schema_matches_engine</code>, asserts the schema’s field list matches <code>engine.ledger.LEDGER_FIELDS</code> exactly, so the two cannot silently drift apart. Session state — position (phase/chapter/rung), per-concept mastery, and stuck counters — persists alongside it in <code>learner.json</code> via <code>engine/state.py</code>, so Bloom level is a durable record, not something re-inferred each session.</p>
+<p><strong>4. Persistent measurement.</strong> <code>bloom_level</code> is one of the fourteen fields in <code>curriculum/real-analysis/</code> <code>ledger-schema.yaml</code>, documented as “highest level achieved: apply / analyze / evaluate / create,” and <code>skills/assess/SKILL.md</code> sets it after grading to the single highest level actually cleared that session. The same ≥3 threshold anchors <code>engine/scheduler.py</code>’s SM-2 review grades (a grade under 3 resets the spacing interval). A test, <code>tests/test_curriculum.py</code> <code>::test_ledger_schema_matches_engine</code>, asserts the schema’s field list matches <code>engine.ledger.</code> <code>LEDGER_FIELDS</code> exactly, so the two cannot silently drift apart. Session state — position (phase/chapter/rung), per-concept mastery, and stuck counters — persists alongside it in <code>learner.json</code> via <code>engine/state.py</code>, so Bloom level is a durable record, not something re-inferred each session.</p>
 </section>
 <section id="division-of-labor" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="division-of-labor"><span class="header-section-number">2.3</span> Division of labor</h2>
 <p>The other three frameworks each answer a different question than “how deep should this question go”:</p>
+<div id="tbl-frameworks" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[12,40,48]">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-frameworks-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2.1: Division of labor across the four frameworks
+</figcaption>
+<div aria-describedby="tbl-frameworks-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
 <colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
+<col style="width: 12%">
+<col style="width: 40%">
+<col style="width: 48%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -427,6 +433,9 @@ Figure&nbsp;2.1: The five proof-ladder rungs mapped to Bloom levels, with the tw
 </tr>
 </tbody>
 </table>
+</div>
+</figure>
+</div>
 <p>Solow and Pólya together drive <code>skills/stuck/SKILL.md</code>’s four-level escalation for a learner who cannot make progress on a proof — strict order, never skip a level:</p>
 <div id="fig-stuck-escalation" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Level 1 Solow Forward-Backward always starts; escalates to Level 2 Revised Recovery Protocol (D-L-M-K plus Pólya) when Level 1 stalls; to Level 3 Framework Reframe when Level 2 fails twice; to Level 4 direct conceptual intervention only after Levels 1-3 all documented as failed, and even then concepts only, never a step of the proof. Annotated: never skip a level or jump ahead because a level feels slow; Pólya's analogy step within Level 2 is gated to not be offered before Phase 4.">
 <figure class="quarto-float quarto-float-fig figure">

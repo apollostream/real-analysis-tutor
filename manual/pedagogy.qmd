@@ -42,12 +42,12 @@ advances only on demonstrated mastery — the skill stops at the first level tha
 rather than averaging over a bad one.
 
 **4. Persistent measurement.** `bloom_level` is one of the fourteen fields in
-`curriculum/real-analysis/ledger-schema.yaml`, documented as "highest level achieved:
+`curriculum/real-analysis/` `ledger-schema.yaml`, documented as "highest level achieved:
 apply / analyze / evaluate / create," and `skills/assess/SKILL.md` sets it after
 grading to the single highest level actually cleared that session. The same ≥3
 threshold anchors `engine/scheduler.py`'s SM-2 review grades (a grade under 3 resets
-the spacing interval). A test, `tests/test_curriculum.py::test_ledger_schema_matches_engine`,
-asserts the schema's field list matches `engine.ledger.LEDGER_FIELDS` exactly, so the
+the spacing interval). A test, `tests/test_curriculum.py` `::test_ledger_schema_matches_engine`,
+asserts the schema's field list matches `engine.ledger.` `LEDGER_FIELDS` exactly, so the
 two cannot silently drift apart. Session state — position (phase/chapter/rung),
 per-concept mastery, and stuck counters — persists alongside it in `learner.json`
 via `engine/state.py`, so Bloom level is a durable record, not something re-inferred
@@ -64,6 +64,8 @@ this question go":
 | **Pólya** | Recovery — what to ask when the learner is stuck and needs a new approach, plus the Look Back that closes every proof | Stuck Level 2, `skills/stuck/reference/dlmk-polya.md`; Look Back in `skills/assess/SKILL.md` and `skills/tutor/SKILL.md` §7 |
 | **Bloom** | Question calibration — pitching every question at a chosen cognitive level rather than defaulting to recall | `skills/tutor/SKILL.md` §2; `curriculum/real-analysis/ladder.yaml`; `skills/assess/SKILL.md`; `curriculum/real-analysis/ledger-schema.yaml` |
 | **Alcock** | Reading and misconception research — the self-explanation protocol, the informal-image audit, and the misconception catalogue | `curriculum/real-analysis/pedagogy/self-explanation.md`; informal-image audit in `skills/prime/SKILL.md` §3; `curriculum/real-analysis/misconceptions.yaml` |
+
+: Division of labor across the four frameworks {#tbl-frameworks tbl-colwidths="[12,40,48]"}
 
 Solow and Pólya together drive `skills/stuck/SKILL.md`'s four-level escalation for a
 learner who cannot make progress on a proof — strict order, never skip a level:

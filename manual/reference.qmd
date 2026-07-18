@@ -21,25 +21,45 @@ docstring says so), atomic writes throughout (`os.replace` after a `.tmp` write)
 
 Module constant: `MARKER = ".ra-tutor-workspace"`.
 
+```{=latex}
+\begingroup\footnotesize
+```
+
 | Function | Behavior | Error behavior |
 |---|---|---|
-| `find_workspace(start: Path) -> Path \| None` | Walks `start` and its ancestors for a directory containing `MARKER`; if none is found, falls back to reading the `"workspace"` key from `~/.claude/real-analysis-tutor.json` and returns that path if its marker exists. | Never raises — returns `None` on any failure or if nothing is found. |
+| `find_workspace(start: Path) -> Path \| None` | Walks `start` and ancestors for a `MARKER` dir; else falls back to the `"workspace"` key in `~/.claude/real-analysis-tutor.json` if its marker exists. | Never raises — `None` on any failure or if nothing is found. |
 | `default_state() -> dict` | Returns the fresh-learner state dict: `{"schema_version": 1, "position": {"phase": "prelim", "chapter": None, "rung": 1}, "concepts": {}, "stuck": {}, "misconception_log": [], "session_count": 0, "profile": None}`. | Pure; never raises. |
-| `load_state(workspace: Path) -> dict` | Reads `<workspace>/learner.json`; returns `default_state()` if the file does not exist. | On `JSONDecodeError`, `OSError`, or `UnicodeDecodeError`, renames the bad file to `learner.json.corrupt-<UTC timestamp>` (best-effort; a failed rename is silently swallowed) and returns `default_state()`. Never raises. |
-| `save_state(workspace: Path, state: dict) -> None` | Writes `state` as JSON to `<workspace>/learner.json.tmp`, then `os.replace`s it onto `<workspace>/learner.json` (atomic). | Not caught — an `OSError` during the write/replace propagates to the caller. |
-| `state_digest(state: dict, due: list[str]) -> str` | Builds a short digest for hook injection: position line, sessions-completed line, up to 3 weakest concepts by mastery (ascending), a due-for-review line if `due` is non-empty. Returns at most the first 6 lines joined with `\n`. | Pure; tolerant of missing keys via `.get()`; never raises. |
+| `load_state(workspace: Path) -> dict` | Reads `<workspace>/learner.json`; returns `default_state()` if missing. | On `JSONDecodeError`, `OSError`, or `UnicodeDecodeError`, renames the bad file to `learner.json.corrupt-<UTC timestamp>` (best-effort) and returns `default_state()`; never raises. |
+| `save_state(workspace: Path, state: dict) -> None` | Writes `state` as JSON to `learner.json.tmp`, then atomically `os.replace`s onto `learner.json`. | Not caught — `OSError` propagates. |
+| `state_digest(state: dict, due: list[str]) -> str` | Builds a hook digest: position line, sessions-completed line, up to 3 weakest concepts (ascending mastery), a due-for-review line if `due` is non-empty; at most 6 lines joined with `\n`. | Pure; tolerant of missing keys via `.get()`; never raises. |
+
+: `engine/state.py` functions {#tbl-state-api tbl-colwidths="[24,44,32]"}
+
+```{=latex}
+\endgroup
+```
 
 ### `engine/scheduler.py` — SM-2 spaced repetition
 
 Module docstring: "Interval math ALWAYS lives here — never delegated to the model."
 Module constants: `REVIEWS_FILE = "reviews.json"`, `DEFAULT_EF = 2.5`, `EF_FLOOR = 1.3`.
 
+```{=latex}
+\begingroup\footnotesize
+```
+
 | Function | Behavior | Error behavior |
 |---|---|---|
-| `record_review(reviews: list, concept: str, grade: int, today: datetime.date) -> list` | Applies SM-2 to `concept` for `grade` (0–5) as of `today`; returns a **new** list (input items are not mutated in place — matching items are replaced, new ones appended). `grade < 3` resets `reps=0, interval=1`; else `reps` increments and `interval` is 1 (first rep), 6 (second rep), or `round(interval * old_ef)` (subsequent reps). New ease factor is `max(EF_FLOOR, old_ef + 0.1 - (5-grade)*(0.08+(5-grade)*0.02))`. | Raises `ValueError(f"grade must be an int 0-5, got {grade!r}")` if `grade` is not an `int` (booleans excluded) or is outside `0–5`. |
-| `due(reviews: list, today: datetime.date) -> list` | Returns concept names whose `due` date is on or before `today`, oldest first. | Not caught — `date.fromisoformat` raises `ValueError` on a malformed `"due"` string; a missing `"due"` key raises `KeyError`. |
-| `load_reviews(workspace: Path) -> list` | Reads `<workspace>/reviews.json`; returns `[]` if the file does not exist. | On `JSONDecodeError` or `OSError`, returns `[]`. Never raises. |
-| `save_reviews(workspace: Path, reviews: list) -> None` | Writes `reviews` as JSON to `<workspace>/reviews.json.tmp`, then `os.replace`s it onto `<workspace>/reviews.json` (atomic). | Not caught — an `OSError` propagates. |
+| `record_review(reviews: list, concept: str, grade: int, today: datetime.date) -> list` | Applies SM-2 to `concept` for `grade` (0–5) as of `today`; returns a **new** list (matches replaced, new appended). `grade < 3` resets `reps=0, interval=1`; else `reps` increments and `interval` is 1/6/`round(interval*old_ef)` for rep 1/2/3+. New `ef = max(EF_FLOOR, old_ef + 0.1 - (5-grade)*(0.08+(5-grade)*0.02))`. | Raises `ValueError` if `grade` is not an `int` 0–5 (booleans excluded). |
+| `due(reviews: list, today: datetime.date) -> list` | Returns concept names whose `due` date is on or before `today`, oldest first. | Not caught — malformed `"due"` raises `ValueError`; missing `"due"` key raises `KeyError`. |
+| `load_reviews(workspace: Path) -> list` | Reads `<workspace>/reviews.json`; returns `[]` if missing. | On `JSONDecodeError` or `OSError`, returns `[]`; never raises. |
+| `save_reviews(workspace: Path, reviews: list) -> None` | Writes `reviews` as JSON to `reviews.json.tmp`, then atomically `os.replace`s onto `reviews.json`. | Not caught — `OSError` propagates. |
+
+: `engine/scheduler.py` functions {#tbl-scheduler-api tbl-colwidths="[24,44,32]"}
+
+```{=latex}
+\endgroup
+```
 
 ### `engine/ledger.py` — Theorem Ledger & Error Log
 
@@ -48,28 +68,51 @@ entries, see [Theorem Ledger field reference](#theorem-ledger-field-reference)) 
 `error_log.json` (error entries, see [Error categories](#error-categories)). Both are
 written atomically (temp file + `os.replace`).
 
+```{=latex}
+\begingroup\footnotesize
+```
+
 Module constants: `LEDGER_FIELDS` (the 14 names, list order is the contract —
-`tests/test_curriculum.py::test_ledger_schema_matches_engine` asserts
+`tests/test_curriculum.py` `::test_ledger_schema_matches_engine` asserts
 `curriculum/real-analysis/ledger-schema.yaml`'s `fields` list matches it exactly) and
 `ERROR_CATEGORIES` (the 6 names, same order contract via `error_categories`).
 
 | Function | Behavior | Error behavior |
 |---|---|---|
-| `load_ledger(workspace: Path) -> list` | Returns the list of theorem-ledger entries for `workspace` (reads `<workspace>/ledger.json`). | Returns `[]` if the file is missing, contains invalid JSON, or the parsed JSON is not a list. `OSError` on an existing-but-unreadable file is not caught. |
-| `append_theorem(workspace: Path, entry: dict) -> None` | Validates `entry` has every `LEDGER_FIELDS` key, then stamps it with an `"added"` ISO date (`date.today().isoformat()`) and appends it atomically to `ledger.json`. | Raises `ValueError(f"Missing required ledger field(s): {', '.join(missing)}")` naming every missing field. |
-| `append_error(workspace: Path, category: str, description: str, context: str = "") -> None` | Validates `category` is one of `ERROR_CATEGORIES`, builds a record `{"date": <UTC ISO now>, "category": category, "description": description, "context": context}`, and appends it atomically to `error_log.json`. | Raises `ValueError(f"Invalid error category: {category!r}; must be one of {ERROR_CATEGORIES}")`. |
-| `error_counts(workspace: Path, last_n: int = 20) -> dict` | Returns a `dict` of category → count over the most recent `last_n` entries of `error_log.json` (all entries if `last_n` is falsy). | Not caught — a malformed entry missing `"category"` raises `KeyError`. |
+| `load_ledger(workspace: Path) -> list` | Reads `<workspace>/ledger.json` and returns its entries. | Returns `[]` if missing, invalid JSON, or not a list; unreadable-file `OSError` not caught. |
+| `append_theorem(workspace: Path, entry: dict) -> None` | Validates `entry` has every `LEDGER_FIELDS` key, stamps an `"added"` ISO date (`date.today().isoformat()`), appends atomically to `ledger.json`. | Raises `ValueError` naming every missing field. |
+| `append_error(workspace: Path, category: str, description: str, context: str = "") -> None` | Validates `category` is in `ERROR_CATEGORIES`, builds `{"date": <UTC ISO now>, "category", "description", "context"}`, appends atomically to `error_log.json`. | Raises `ValueError` naming the invalid category and the allowed set. |
+| `error_counts(workspace: Path, last_n: int = 20) -> dict` | Returns a `dict` of category → count over the most recent `last_n` entries of `error_log.json` (all entries if `last_n` is falsy). | Not caught — entry missing `"category"` raises `KeyError`. |
+
+: `engine/ledger.py` functions {#tbl-ledger-api tbl-colwidths="[24,44,32]"}
+
+```{=latex}
+\endgroup
+```
 
 ## Hook Contracts
 
-Three hooks are registered in `hooks/hooks.json`, each run as
-`python3 "${CLAUDE_PLUGIN_ROOT}/hooks/scripts/<script>.py"`:
+```{=latex}
+\begingroup\footnotesize
+```
+
+Three hooks are registered in `hooks/hooks.json`, each run as:
+
+```
+python3 "${CLAUDE_PLUGIN_ROOT}/hooks/scripts/<script>.py"
+```
 
 | Event | Script | Registered command |
 |---|---|---|
 | `SessionStart` | `hooks/scripts/session_start.py` | `python3 "${CLAUDE_PLUGIN_ROOT}/hooks/scripts/session_start.py"` |
 | `UserPromptSubmit` | `hooks/scripts/prompt_guard.py` | `python3 "${CLAUDE_PLUGIN_ROOT}/hooks/scripts/prompt_guard.py"` |
 | `Stop` | `hooks/scripts/session_end.py` | `python3 "${CLAUDE_PLUGIN_ROOT}/hooks/scripts/session_end.py"` |
+
+: Hook registration {#tbl-hook-registration tbl-colwidths="[16,32,52]"}
+
+```{=latex}
+\endgroup
+```
 
 All three carry the same three guarantees (`docs/superpowers/plans/2026-07-17-real-analysis-tutor.md`):
 
@@ -86,9 +129,17 @@ All three carry the same three guarantees (`docs/superpowers/plans/2026-07-17-re
 - **Input fields consumed from stdin JSON:** `cwd` (falls back to `Path.cwd()` if
   absent). Also calls `date.today()` directly, not from the payload.
 - **Output shape (context available):**
+
+  ```{=latex}
+  \begingroup\footnotesize
+  ```
   ```json
   {"hookSpecificOutput": {"hookEventName": "SessionStart", "additionalContext": "<text>"}}
   ```
+  ```{=latex}
+  \endgroup
+  ```
+
   printed to stdout as one line of JSON, only when `build_context()` returns non-`None`.
 - **No-op cases (nothing printed, exit 0 implicitly):** unparseable/non-JSON stdin;
   stdin JSON that is not an object; `engine.state`/`engine.scheduler` failed to import
@@ -113,9 +164,17 @@ All three carry the same three guarantees (`docs/superpowers/plans/2026-07-17-re
 - **Input fields consumed from stdin JSON:** `prompt` (default `""`), `cwd` (falls
   back to `str(Path.cwd())`).
 - **Output shape (workspace active):**
+
+  ```{=latex}
+  \begingroup\footnotesize
+  ```
   ```json
   {"hookSpecificOutput": {"hookEventName": "UserPromptSubmit", "additionalContext": "<reminder text>"}}
   ```
+  ```{=latex}
+  \endgroup
+  ```
+
 - **No-op case:** no workspace found (`state.find_workspace(Path(cwd))` is `None`) —
   nothing printed.
 - **`tier(prompt) -> int`** (pure): returns `2` if the prompt matches the `TIER2_PATTERNS`
@@ -167,21 +226,31 @@ A workspace is any directory containing the marker file `.ra-tutor-workspace`
 workspace (`skills/tutor/reference/onboarding.md`, Step 4); the remaining files are
 created at onboarding time or written at runtime by the engine.
 
+```{=latex}
+\begingroup\footnotesize
+```
+
 | Path | Origin | Purpose |
 |---|---|---|
-| `.ra-tutor-workspace` | Copied from `templates/workspace/.ra-tutor-workspace` | Marker file; contents `{"schema_version": 1, "curriculum": "real-analysis"}`. Its presence (not its contents) is what `find_workspace()` tests for. |
-| `notes/` | Copied from `templates/workspace/notes/` (ships only `.gitkeep`) | Learner notes; empty at creation. |
-| `scratch/` | Copied from `templates/workspace/scratch/` (ships `lookup.lean`, a Mathlib `exact?` lookup scratch file) | Scratch Lean/working files. |
-| `sessions/` | Copied from `templates/workspace/sessions/` (ships only `.gitkeep`) | Session records; empty at creation. |
-| `src/` | Copied from `templates/workspace/src/` (ships only `.gitkeep`) | Lean project source; empty at creation. |
-| `learner.json` | Written by `engine.state.save_state()`; first written during onboarding via `state.default_state()` with `profile`/`position.phase` set | Learner state: schema_version, position, concepts, stuck, misconception_log, session_count, profile — see `default_state()` above. |
-| `learner.json.tmp` | `engine.state.save_state()` (transient) | Atomic-write staging file, `os.replace`d onto `learner.json`. |
-| `learner.json.corrupt-<UTC timestamp>` | `engine.state.load_state()`, on a corrupt `learner.json` | Renamed-aside corrupt file; the engine then proceeds with `default_state()`. |
-| `ledger.json` | Written by `engine.ledger.append_theorem()`; first created empty (`"[]"`) during onboarding | Theorem Ledger entries — list of dicts with the 14 `LEDGER_FIELDS` plus a stamped `"added"` date. |
-| `error_log.json` | Written by `engine.ledger.append_error()`; first created empty (`"[]"`) during onboarding | Error-log entries — list of `{date, category, description, context}` dicts. |
-| `reviews.json` | Written by `engine.scheduler.save_reviews()`; first created empty (`"[]"`) during onboarding | SM-2 review items — list of `{concept, ef, reps, interval, due, last_grade}` dicts. |
-| `*.tmp` (`ledger.json.tmp`, `error_log.json.tmp`, `reviews.json.tmp`) | Transient, per atomic-write helper in each engine module | Staging files for `os.replace`; should never persist except mid-crash. |
-| `.stop-reminder-session` | Written by `hooks/scripts/session_end.py`'s `record_reminded()` | Once-per-session sentinel for the Stop-hook persistence reminder (see Hook Contracts above). |
+| `.ra-tutor-workspace` | Copied from template (same name) | Marker file; contents `{"schema_version": 1, "curriculum": "real-analysis"}`. Its presence (not its contents) is what `find_workspace()` tests for. |
+| `notes/` | Copied from template (ships only `.gitkeep`) | Learner notes; empty at creation. |
+| `scratch/` | Copied from template (ships `lookup.lean`, a Mathlib `exact?` scratch file) | Scratch Lean/working files. |
+| `sessions/` | Copied from template (ships only `.gitkeep`) | Session records; empty at creation. |
+| `src/` | Copied from template (ships only `.gitkeep`) | Lean project source; empty at creation. |
+| `learner.json` | Written by `save_state()`; first set at onboarding via `default_state()` | Learner state: schema_version, position, concepts, stuck, misconception_log, session_count, profile — see `default_state()` above. |
+| `learner.json.tmp` | `save_state()` (transient) | Atomic-write staging file, `os.replace`d onto `learner.json`. |
+| `learner.json.corrupt-<UTC timestamp>` | `load_state()`, on a corrupt `learner.json` | Renamed-aside corrupt file; the engine then proceeds with `default_state()`. |
+| `ledger.json` | Written by `append_theorem()`; first empty (`"[]"`) at onboarding | Theorem Ledger entries — list of dicts with the 14 `LEDGER_FIELDS` plus a stamped `"added"` date. |
+| `error_log.json` | Written by `append_error()`; first empty (`"[]"`) at onboarding | Error-log entries — list of `{date, category, description, context}` dicts. |
+| `reviews.json` | Written by `save_reviews()`; first empty (`"[]"`) at onboarding | SM-2 review items — list of `{concept, ef, reps, interval, due, last_grade}` dicts. |
+| `*.tmp` (`ledger.json.tmp`, `error_log.json.tmp`, `reviews.json.tmp`) | Transient, per atomic-write helper | Staging files for `os.replace`; should never persist except mid-crash. |
+| `.stop-reminder-session` | Written by `session_end.py`'s `record_reminded()` | Once-per-session sentinel for the Stop-hook persistence reminder (see Hook Contracts above). |
+
+: Workspace file layout {#tbl-workspace-layout tbl-colwidths="[20,32,48]"}
+
+```{=latex}
+\endgroup
+```
 
 ### The `~/.claude/real-analysis-tutor.json` pointer
 
@@ -205,7 +274,11 @@ falls through to `None` rather than raising.
 The 14 fields of `engine.ledger.LEDGER_FIELDS`, in order. Descriptions are transcribed
 from `curriculum/real-analysis/ledger-schema.yaml`, whose header states they are
 "taken from the Setup Workflow Guide V2.1, Part X". Order and names are asserted
-identical to `LEDGER_FIELDS` by `tests/test_curriculum.py::test_ledger_schema_matches_engine`.
+identical to `LEDGER_FIELDS` by `tests/test_curriculum.py` `::test_ledger_schema_matches_engine`.
+
+```{=latex}
+\begingroup\footnotesize
+```
 
 | # | Field | Description |
 |---|---|---|
@@ -224,15 +297,25 @@ identical to `LEDGER_FIELDS` by `tests/test_curriculum.py::test_ledger_schema_ma
 | 13 | `lean_status` | compiled / in_progress / planned / unverified |
 | 14 | `bloom_level` | highest level achieved: apply / analyze / evaluate / create |
 
+: The 14 `LEDGER_FIELDS` {#tbl-ledger-fields tbl-colwidths="[6,26,68]"}
+
 `engine.ledger.append_theorem()` additionally stamps every entry with `added`
 (`date.today().isoformat()`) — a 15th key present on disk but not part of the
 `LEDGER_FIELDS` validation contract or the schema's `fields` list.
+
+```{=latex}
+\endgroup
+```
 
 ## Error Categories
 
 The 6 categories of `engine.ledger.ERROR_CATEGORIES`, in order. Descriptions are
 transcribed from `curriculum/real-analysis/ledger-schema.yaml`, whose header states
 they are "taken from the RealAnalysis CompleteGuide V2.1, Part IX, 'Error Log' table."
+
+```{=latex}
+\begingroup\footnotesize
+```
 
 | # | Category | Description |
 |---|---|---|
@@ -243,12 +326,22 @@ they are "taken from the RealAnalysis CompleteGuide V2.1, Part IX, 'Error Log' t
 | 5 | `delta_depends_on_x` | Choosing delta that depends on the point x in a uniform continuity proof |
 | 6 | `converse_confusion` | Assuming the converse of a conditional theorem |
 
+: The 6 `ERROR_CATEGORIES` {#tbl-error-categories tbl-colwidths="[6,26,68]"}
+
+```{=latex}
+\endgroup
+```
+
 ## Curriculum Pack Schema
 
 Required structure per curriculum file, as enforced by `tests/test_curriculum.py`
 against `curriculum/real-analysis/`. Every file listed here is required
 (`REQUIRE_ALL = True` — a missing file fails the corresponding test rather than
 skipping it).
+
+```{=latex}
+\begingroup\footnotesize
+```
 
 | File | Top-level key(s) | Per-item required keys | Additional constraints (test) |
 |---|---|---|---|
@@ -257,6 +350,12 @@ skipping it).
 | `curriculum.yaml` | `phases` (list) | each phase: `texts`, `weeks`, `name` (all truthy) | Phase `id`s, in order, must equal `["prelim", "phase1", "phase2", ..., "phase9"]`. `phase4`'s `misconception` must equal `"pencil-lifting-image"`; `phase8`, `phase9`, and `prelim`'s `misconception` must be `None`. |
 | `checklists/phase{1..7}.yaml` (7 files) | — (flat document) | `phase`, `topic`, `items`, `converse_checks`, `lean_targets`, `rudin_exercises`, `misconception` (all `is not None`) | `len(items) >= 5`. |
 | `ladder.yaml` | `rungs` (list) | each rung: `name`, `claude_role`, `bloom_levels`, `problem_classes` (all truthy) | Rung numbers, in order, must equal `[1, 2, 3, 4, 5]`. |
+
+: Curriculum pack files required by `tests/test_curriculum.py` {#tbl-curriculum-schema tbl-colwidths="[28,17,18,37]"}
+
+```{=latex}
+\endgroup
+```
 
 ::: {.callout-note}
 The misconception entries require seven keys in total: `id` is enforced by the id-set assertion in `tests/test_curriculum.py`, and the remaining six (`statement`, `corrupted_step`, `refutation`, `counterexample`, `phase`, `topic`) by the per-field truthy check.

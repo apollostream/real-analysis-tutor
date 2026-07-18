@@ -75,8 +75,3 @@ verified 2026-07-18.
 
 ---
 
-*All 28 URLs above were checked for a live HTTP 200 response (directly or via
-redirect) on 2026-07-18. Where a publisher page blocked automated verification
-(bot-detection challenges on some Cambridge, Oxford, and Wiley pages),
-a verified Internet Archive, DOI, or free-mirror URL was substituted so that
-every entry links to a page confirmed to load and to match the cited work.*

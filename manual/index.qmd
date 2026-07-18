@@ -62,7 +62,11 @@ the six-stage loop (`skills/tutor/reference/six-stage-loop.md`).
 
 ## The learner's journey
 
-From install to the accumulating record of a semester's work:
+@fig-learner-journey traces the whole arc — from install to the
+accumulating record of a semester's work. Two commands and a greeting
+start it; every session after that opens with the tutor recalling saved
+state, and every close ritual writes that state back to the workspace
+files shown at the bottom of the figure.
 
 ::: {.content-visible when-format="html"}
 ![Install through daily sessions, the weekly rhythm, and the monthly review, with workspace state files accumulating along the way](figures/learner-journey.svg){#fig-learner-journey fig-alt="Install (two plugin commands) leads to saying hello, then the onboarding interview, then daily sessions (open ritual, six-stage loop, close ritual) which accumulate into the weekly rhythm and, roughly every 30 days or 8 ledger entries, a monthly review, looping back into the next daily session. The close ritual writes learner.json, ledger.json/error_log.json, reviews.json, and sessions/NNN.md."}

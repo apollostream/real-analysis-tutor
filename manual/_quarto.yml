@@ -28,3 +28,7 @@ format:
   pdf:
     documentclass: scrreprt
     colorlinks: true
+    geometry: [margin=0.9in]
+    include-in-header:
+      text: |
+        \setlength{\emergencystretch}{3em}

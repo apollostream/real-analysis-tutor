@@ -1,0 +1,68 @@
+\contentsline {chapter}{\numberline {1}Overview}{4}{chapter.1}%
+\contentsline {section}{\numberline {1.1}What this is}{4}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Who this manual is for}{4}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Quickstart}{4}{section.1.3}%
+\contentsline {section}{\numberline {1.4}First run vs.~returning sessions}{5}{section.1.4}%
+\contentsline {section}{\numberline {1.5}The learner's journey}{6}{section.1.5}%
+\contentsline {section}{\numberline {1.6}Map of this manual}{6}{section.1.6}%
+\contentsline {chapter}{\numberline {2}The Pedagogical Frameworks}{8}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Four frameworks, four jobs}{8}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Bloom's taxonomy --- four operative roles}{8}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Division of labor}{9}{section.2.3}%
+\contentsline {section}{\numberline {2.4}What makes this explicit rather than aspirational}{11}{section.2.4}%
+\contentsline {chapter}{\numberline {3}Architecture}{12}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Three layers, and why each exists}{12}{section.3.1}%
+\contentsline {section}{\numberline {3.2}The three hooks}{13}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Five subagents and information asymmetry}{13}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Learner workspace}{14}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Hardening: the red-team pass}{14}{section.3.5}%
+\contentsline {section}{\numberline {3.6}A session turn}{14}{section.3.6}%
+\contentsline {chapter}{\numberline {4}Engine Generality}{16}{chapter.4}%
+\contentsline {section}{\numberline {4.1}The question}{16}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Genuinely subject-independent}{16}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Currently hardwired to Real Analysis --- three tiers}{16}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Scope caveat}{18}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Accurate public phrasing}{18}{section.4.5}%
+\contentsline {section}{\numberline {4.6}v2.2 decoupling roadmap}{18}{section.4.6}%
+\contentsline {section}{\numberline {4.7}Alignment with the source guides}{18}{section.4.7}%
+\contentsline {chapter}{\numberline {5}Extending to a New Subject}{19}{chapter.5}%
+\contentsline {section}{\numberline {5.1}The claim, precisely}{19}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Anatomy of a curriculum pack}{19}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Illustrative excerpt --- a hypothetical Topology pack entry}{19}{subsection.5.2.1}%
+\contentsline {section}{\numberline {5.3}The schema contract}{21}{section.5.3}%
+\contentsline {section}{\numberline {5.4}What you must edit today beyond the pack}{21}{section.5.4}%
+\contentsline {section}{\numberline {5.5}The research obligation}{21}{section.5.5}%
+\contentsline {section}{\numberline {5.6}Recommended pairings (Setup Workflow Guide, Part XV)}{21}{section.5.6}%
+\contentsline {section}{\numberline {5.7}The v2.2 decoupling roadmap}{22}{section.5.7}%
+\contentsline {chapter}{\numberline {6}Reference}{23}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Engine API}{23}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}\texttt {engine/state.py} --- workspace discovery \& learner state}{23}{subsection.6.1.1}%
+\contentsline {subsection}{\numberline {6.1.2}\texttt {engine/scheduler.py} --- SM-2 spaced repetition}{24}{subsection.6.1.2}%
+\contentsline {subsection}{\numberline {6.1.3}\texttt {engine/ledger.py} --- Theorem Ledger \& Error Log}{24}{subsection.6.1.3}%
+\contentsline {section}{\numberline {6.2}Hook Contracts}{25}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}\texttt {SessionStart} --- \texttt {hooks/scripts/session\_start.py}}{25}{subsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.2.2}\texttt {UserPromptSubmit} --- \texttt {hooks/scripts/prompt\_guard.py}}{26}{subsection.6.2.2}%
+\contentsline {subsection}{\numberline {6.2.3}\texttt {Stop} --- \texttt {hooks/scripts/session\_end.py}}{26}{subsection.6.2.3}%
+\contentsline {section}{\numberline {6.3}Workspace Layout}{27}{section.6.3}%
+\contentsline {subsection}{\numberline {6.3.1}The \texttt {\textasciitilde {}/.claude/real-analysis-tutor.json} pointer}{28}{subsection.6.3.1}%
+\contentsline {section}{\numberline {6.4}Theorem Ledger --- Field Reference}{28}{section.6.4}%
+\contentsline {section}{\numberline {6.5}Error Categories}{29}{section.6.5}%
+\contentsline {section}{\numberline {6.6}Curriculum Pack Schema}{29}{section.6.6}%
+\contentsline {chapter}{\numberline {7}FAQ}{31}{chapter.7}%
+\contentsline {subsection}{\numberline {7.0.1}Is the engine subject-independent? Can I point it at any subject?}{31}{subsection.7.0.1}%
+\contentsline {subsection}{\numberline {7.0.2}What role does Bloom's taxonomy actually play?}{31}{subsection.7.0.2}%
+\contentsline {subsection}{\numberline {7.0.3}Why won't it just give me the answer?}{31}{subsection.7.0.3}%
+\contentsline {subsection}{\numberline {7.0.4}Do I need Lean 4?}{31}{subsection.7.0.4}%
+\contentsline {subsection}{\numberline {7.0.5}Where is my data stored, and how do I reset?}{32}{subsection.7.0.5}%
+\contentsline {subsection}{\numberline {7.0.6}Why does the tutor speak first? How does it know where I left off?}{32}{subsection.7.0.6}%
+\contentsline {subsection}{\numberline {7.0.7}What is the ``Stop hook'' message I might see once per session?}{32}{subsection.7.0.7}%
+\contentsline {subsection}{\numberline {7.0.8}Can I use it on Windows?}{32}{subsection.7.0.8}%
+\contentsline {subsection}{\numberline {7.0.9}Who authored the methodology?}{32}{subsection.7.0.9}%
+\contentsline {subsection}{\numberline {7.0.10}Does it work offline? What does it cost?}{32}{subsection.7.0.10}%
+\contentsline {subsection}{\numberline {7.0.11}How do I add Topology or Abstract Algebra?}{33}{subsection.7.0.11}%
+\contentsline {chapter}{\numberline {8}Bibliography}{34}{chapter.8}%
+\contentsline {subsection}{\numberline {8.0.1}Primary Sources}{34}{subsection.8.0.1}%
+\contentsline {subsection}{\numberline {8.0.2}Real Analysis Curriculum Texts}{34}{subsection.8.0.2}%
+\contentsline {subsection}{\numberline {8.0.3}Pedagogy \& Mathematics-Education Research}{35}{subsection.8.0.3}%
+\contentsline {subsection}{\numberline {8.0.4}AI Tutoring \& Verification Research}{36}{subsection.8.0.4}%
+\providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
