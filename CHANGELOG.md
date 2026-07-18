@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.1.2 — 2026-07-18
+
+Fix: the Stop-hook persist-state reminder now fires at most once per
+session (workspace sentinel keyed by session id). Previously a stale
+learner.json — e.g. resuming the morning after a session — triggered
+the reminder after every single tutor response.
+
 ## 2.1.1 — 2026-07-17
 
 Fix: remove explicit `hooks` field from plugin.json — the standard
