@@ -32,7 +32,7 @@ fields:
   - name: analogues
     description: Which earlier theorem has a similar logical form or proof strategy
   - name: lean_status
-    description: compiled / in_progress / planned
+    description: compiled / in_progress / planned / unverified
   - name: bloom_level
     description: "highest level achieved: apply / analyze / evaluate / create"
 

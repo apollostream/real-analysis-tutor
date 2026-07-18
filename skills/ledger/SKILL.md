@@ -36,7 +36,7 @@ batch, in their own words:
 | `depends_on` | Which earlier ledger entries this proof invokes. |
 | `downstream` | Which later results (so far) depend on this theorem. |
 | `analogues` | Which earlier theorem shares this one's logical form or proof strategy. |
-| `lean_status` | `formalized` / `in_progress` / `planned` / `unverified`. |
+| `lean_status` | `compiled` / `in_progress` / `planned` / `unverified`. |
 | `bloom_level` | Apply / Analyze / Evaluate / Create — carry over the level reached in the Four-Part Assessment. |
 
 `misconception` and `misconception_refutation` are the one pair where a

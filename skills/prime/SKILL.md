@@ -65,7 +65,7 @@ print(st['position']['phase'])
 "
 ```
 
-then read `${CLAUDE_PLUGIN_ROOT}/curriculum/real-analysis/misconceptions.yaml`
+then read `${CLAUDE_PLUGIN_ROOT}/curriculum/real-analysis/misconceptions.yaml` If no entry exists for the current phase (prelim, phase8, phase9), proceed without one — the informal-image audit still runs on the learner's own stated picture.
 and locate the entry whose `phase` field matches. Its `statement` field is
 the known-dangerous informal image for this phase — hold it in reserve as
 your working hypothesis for what the learner's picture is likely to be,
