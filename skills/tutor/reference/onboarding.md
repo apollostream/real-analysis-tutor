@@ -41,6 +41,16 @@ python3 -c "import sys,json;sys.path.insert(0,'$CLAUDE_PLUGIN_ROOT');from pathli
 
 Substitute `WORKSPACE`, `PROFILE_ID` (the chosen profile id), and `STARTING_PHASE`.
 
+Immediately after creating the workspace, write `~/.claude/real-analysis-tutor.json`
+containing `{"workspace": "<absolute chosen path>"}` — the engine's `find_workspace`
+fallback reads this file, which is what makes every hook and engine snippet work from
+ANY directory in future sessions, not just from inside the workspace. Tell the learner,
+in one plain sentence, that they can open Claude Code anywhere from now on.
+
+```bash
+python3 -c "import json,pathlib; p=pathlib.Path.home()/'.claude'/'real-analysis-tutor.json'; p.parent.mkdir(parents=True, exist_ok=True); p.write_text(json.dumps({'workspace': 'WORKSPACE'}))"
+```
+
 ## Step 5 — Starting phase from profile
 
 Set the starting phase from the profile: the two experience-building profiles begin at

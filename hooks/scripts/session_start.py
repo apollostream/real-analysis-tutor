@@ -39,14 +39,24 @@ up front — do not wait to be asked:
 
 Use the real-analysis-tutor:tutor skill to orchestrate."""
 
+NO_WORKSPACE_DIRECTIVE = (
+    "real-analysis-tutor plugin note: no study workspace exists yet. If the "
+    "user's message suggests they want to study Real Analysis, proofs, "
+    "Rudin, or math learning — or they greet you with intent to start — "
+    "introduce yourself and run the real-analysis-tutor:tutor onboarding "
+    "interview. Otherwise do not mention the tutor."
+)
+
 
 def build_context(cwd: Path, today: date) -> str | None:
     """Pure function: given a cwd and today's date, return the additionalContext
-    string for the SessionStart hook, or None if no workspace is found.
+    string for the SessionStart hook. When no workspace is found, returns a
+    small conditional directive instead of None so the model knows to offer
+    onboarding only when the learner's intent warrants it.
     """
     ws = state.find_workspace(cwd)
     if ws is None:
-        return None
+        return NO_WORKSPACE_DIRECTIVE
 
     learner_path = Path(ws) / "learner.json"
     if not learner_path.exists():
@@ -98,7 +108,12 @@ def main() -> None:
         try:
             payload = json.loads(raw)
         except (json.JSONDecodeError, ValueError):
-            payload = {}
+            # Unparseable stdin: stay silent, exit 0. Do not fabricate a cwd
+            # fallback for input we could not understand at all.
+            return
+
+        if not isinstance(payload, dict):
+            return
 
         if state is None or scheduler is None:
             return

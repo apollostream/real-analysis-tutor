@@ -37,6 +37,7 @@ Run each check, report OK / MISSING in plain language (not a raw terminal dump) 
 5. `lake --version`
 6. `code --version` — VS Code itself
 7. `code --list-extensions | grep -i leanprover` — the Lean 4 extension specifically; report separately from VS Code itself, since having the editor without the extension is a common half-done state
+7a. On WSL 2 only: `code --list-extensions | grep -i ms-vscode-remote.remote-wsl` — the "WSL by Microsoft" extension; without it, `code .` from inside WSL cannot connect VS Code on Windows into the WSL filesystem. Report separately, same half-done-state reasoning as the Lean extension check.
 8. Workspace project health: check that `lakefile.lean` exists in the workspace and that `lake exe cache get` has already been run (a populated `.lake/` build cache is a reasonable signal). Do **not** run a full `lake build` as part of doctor without asking first — if Mathlib's binary cache was never fetched, a full build can take hours. If the learner wants a real build confirmation, offer it and confirm before running.
 
 Summarize at the end: what's working, what's missing, and — if anything is missing — say you can walk them through install mode for exactly the missing pieces.
@@ -80,6 +81,12 @@ State this warning to the learner verbatim in substance before running it: **Do 
 
 ```
 code --install-extension leanprover.lean4
+```
+
+On WSL 2, also check for and (confirm-first) install the "WSL by Microsoft" extension — without it, `code .` from inside WSL cannot connect VS Code on Windows into the WSL 2 filesystem:
+
+```
+code --install-extension ms-vscode-remote.remote-wsl
 ```
 
 **Step 6 — Verify the full stack with the infoview.** Workspace-local file write: create `src/Test.lean` yourself with the SG test example:

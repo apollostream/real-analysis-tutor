@@ -70,6 +70,10 @@ conversation history, which step you already suspect, or any framing that
 would bias its read. The value of a fresh critic is that it judges the
 proof cold.
 
+The critic's report is for your diagnosis only. Never relay it to the
+learner; use it solely to pick the single weakest step and phrase your one
+question.
+
 ## Log each confirmed error
 
 Once a flagged step is confirmed as an error — not merely suspected, not

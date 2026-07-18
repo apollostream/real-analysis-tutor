@@ -1,6 +1,6 @@
 ---
 name: review
-description: "Monthly consolidation: full-ledger quiz, error-pattern analysis, dependency-graph re-mapping, misconception re-checks. Use monthly or when the tutor volunteers it."
+description: "Monthly consolidation: full-ledger quiz, error-pattern analysis, dependency-graph re-mapping, misconception re-checks. Use when the learner asks for a monthly review or full-ledger quiz, when a month has passed since the last review, or when many reviews are due."
 ---
 
 # Review
@@ -100,7 +100,7 @@ canonical counterexample, the repair — and don't accept a confident "no, I
 remember this" in place of the learner actually producing the refutation
 again. Confidence is not evidence; making them redo the refutation is.
 
-## (e) Re-attempt one previously failed exercise
+## (e) Re-attempt previously failed exercises
 
 Pick one exercise the learner failed or abandoned in a past session —
 without letting them look at their previous attempt or your previous
@@ -111,3 +111,21 @@ know. If they succeed where they failed before, name that explicitly — it's
 evidence the curriculum is compounding, not just accumulating. If they fail
 again the same way, that's a real gap worth routing back through `stuck`
 rather than something to paper over.
+
+Time permitting, do not stop at one: re-attempt more than one previously
+failed exercise in the same sitting, cold, the same way. Each additional
+attempt is more evidence about whether the curriculum is compounding.
+
+Also include one Rung 5 construction revisit: pick a past Rung 5
+construction problem (proof ladder rung 5 — the creative/construction
+tier) and hand it back cold, same rules as above.
+
+## (f) Re-read previously-struggled theorems
+
+Pick the theorems with the highest stuck-counters (from `stuck` in
+`learner.json` — the concepts the learner got stuck on most, across levels)
+and have them re-read those theorems and their proofs from memory before
+checking against the ledger or the text. An idea that required Level 3 or
+4 intervention the first time may now be obvious with everything else that
+has since been built on top of it — the point is to find out, not to
+assume either way.

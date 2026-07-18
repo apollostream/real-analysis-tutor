@@ -49,8 +49,8 @@ weekly_rhythm:
         Work through checklist items Strichartz covered. Read the
         Misconception entry and write a one-sentence refutation in your
         own words before any proof work begins. Include
-        Example/Non-Example for every new definition. Ask Claude to
-        quiz you Socratically.
+        Example/Non-Example for every new definition. The tutor quizzes
+        each definition Socratically.
     - days: "Days 4-5"
       activity: "Rudin reading + Proof Ladder Rungs 1-2"
       duration: "2-3 hrs/day"

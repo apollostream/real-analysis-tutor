@@ -5,6 +5,8 @@ description: Four-Part Consolidation Assessment (Stage 6). Use at the end of eve
 
 Stage 6 of the six-stage loop, and the last thing that happens before the session closes. Replaces the old one-shot "test me" prompt, which only ever reached Bloom Apply. Run all four parts, in this order, every time. Ask one question at a time and wait for the learner's answer before moving on.
 
+**Provenance note.** The four fixed parts, their order, and the Bloom-level targeting are guide-mandated protocol (CG Part IX). The grading-to-scheduling mechanics below — SM-2 grades feeding `scheduler.record_review`, and the ledger/volunteering thresholds referenced elsewhere in this plugin — are plugin-added machinery that operationalizes the guide's intent in code; they are not themselves prescribed by the guide text.
+
 ## Part 1 — Applied problem (Bloom: Apply)
 
 Give a specific epsilon-delta or construction problem on a non-trivial function or set — something requiring genuine construction, not a template the learner can pattern-match against. The guide's model for the register you're aiming for: "Prove from the definition that f(x) = x sin(1/x), extended by f(0) = 0, is continuous at 0." Write a comparably non-trivial problem for the topic just studied — don't reuse this one verbatim unless the topic is literally continuity at a point.

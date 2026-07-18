@@ -29,7 +29,9 @@ Ask how much time they have today, then propose an agenda scaled to it from the
 `weekly_rhythm` in `$CLAUDE_PLUGIN_ROOT/curriculum/real-analysis/curriculum.yaml`: pick the
 rhythm day matching their position (network positioning, Strichartz first pass, mastery
 checklist, Rudin reading, proof ladder, or the Four-Part Assessment) and trim it to fit
-their available minutes. Propose, do not impose.
+their available minutes. If concepts are due for review, propose a short retrieval quiz on
+them (ledger quiz mode) as the FIRST agenda item, scaled to available time — do not wait
+for the learner to ask. Propose, do not impose.
 
 ## Step 5 — The one question, then reconcile
 

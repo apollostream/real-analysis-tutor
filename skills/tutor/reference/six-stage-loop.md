@@ -39,8 +39,10 @@ stage; escalate only when the current stage is genuinely exhausted.
   quantifier order, delta-independence, unverified hypotheses. Do NOT rewrite the proof.
 - **Delegate to:** `real-analysis-tutor:check-proof`.
 - **Entry:** a proof attempt exists. **Exit:** zero unjustified steps remain, OR the learner
-  consciously defers a specific gap for later. Log each error surfaced through the engine
-  under one of the six categories.
+  consciously defers a specific gap for later. A consciously deferred gap is not simply
+  dropped: log it explicitly (which step, why it's being deferred) and re-raise it at the
+  next session's open ritual — it does not get to silently disappear. Log each error
+  surfaced through the engine under one of the six categories.
 
 ## Stage 4 — Formal Verification
 
@@ -49,7 +51,10 @@ stage; escalate only when the current stage is genuinely exhausted.
 - **Delegate to:** `real-analysis-tutor:formalize`. If Lean is not set up, offer
   `real-analysis-tutor:setup`; if the learner declines, note the stage as deferred and move on.
 - **Entry:** the paper proof passes Stage 3. **Exit:** the target compiles, OR formalization
-  is consciously deferred (this stage is an amplifier, not a gate).
+  is consciously deferred (this stage is an amplifier, not a gate). A Lean-absent deferral is
+  an environment fallback, not a pedagogical judgment call — ground it as such: record
+  `lean_status` in the ledger entry (e.g. `unverified`) and a pending-retry note so the
+  formalization is picked back up once Lean is available, rather than forgotten.
 
 ## Stage 5 — Counterexample and Converse Check
 

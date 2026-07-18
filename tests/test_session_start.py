@@ -16,9 +16,11 @@ def make_ws(tmp_path):
     return tmp_path
 
 
-def test_no_workspace_returns_none(tmp_path, monkeypatch):
+def test_no_workspace_returns_install_directive(tmp_path, monkeypatch):
     monkeypatch.setenv("HOME", str(tmp_path))
-    assert session_start.build_context(tmp_path, D0) is None
+    ctx = session_start.build_context(tmp_path, D0)
+    assert "no study workspace" in ctx
+    assert "Otherwise do not mention the tutor" in ctx
 
 
 def test_first_run_directive(tmp_path, monkeypatch):

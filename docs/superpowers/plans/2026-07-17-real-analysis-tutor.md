@@ -11,7 +11,7 @@
 ## Global Constraints
 
 - Plugin name: `real-analysis-tutor`; version `2.1.0`; license MIT; repo `apollostream/real-analysis-tutor` (**private**).
-- Repo root: `/home/michael/Documents/Python/real-analysis-tutor` (git already initialized, branch `main`).
+- Repo root: `<repo-root>` (git already initialized, branch `main`).
 - Hook scripts MUST fail open: any internal exception → exit 0, no stdout; log to `${CLAUDE_PLUGIN_DATA}/errors.log` if set, else silently drop.
 - Hook runtime budget: < 1 second; stdlib only (no yaml import in hooks).
 - Runtime engine/hooks: Python stdlib ONLY. Tests may use pytest + pyyaml (dev deps).
@@ -836,7 +836,7 @@ argument-hint: "[optional: topic or 'continue']"
 - Modify: whatever the findings require.
 
 - [ ] **Step 1:** `pytest -q` — ALL PASS. `claude plugin validate .` (from repo root) — expect clean; fix any manifest/frontmatter findings.
-- [ ] **Step 2: Smoke test** in a scratch dir: `claude plugin marketplace add /home/michael/Documents/Python/real-analysis-tutor` (local path) + `claude plugin install`; run `claude -p "hello" ...` non-interactively in a temp cwd; verify: SessionStart hook emits first-run directive; `/real-analysis-tutor:tutor` visible in skill list. Record results in `docs/superpowers/smoke-test-notes.md`.
+- [ ] **Step 2: Smoke test** in a scratch dir: `claude plugin marketplace add <repo-root>` (local path) + `claude plugin install`; run `claude -p "hello" ...` non-interactively in a temp cwd; verify: SessionStart hook emits first-run directive; `/real-analysis-tutor:tutor` visible in skill list. Record results in `docs/superpowers/smoke-test-notes.md`.
 - [ ] **Step 3: Adversarial fan-out (Workflow):** parallel reviewers — (a) leakage red-team: 6 answer-fishing transcripts against tutor/check-proof/stuck skill texts, verdict per EduFrameTrap pattern; (b) fidelity audit: every skill/agent/curriculum file against CG/SG section list (misconceptions verbatim-equivalent? stuck levels in order? four parts fixed order? sequencing rules present?); (c) zero-doc UX walkthrough: simulated brand-new learner — is anything required knowledge that the tutor never volunteers?; (d) plugin-format lint against `docs/superpowers/claude-code-plugins-reference-2026.md`. Fix all CONFIRMED findings; re-run pytest.
 - [ ] **Step 4: Commit** `test: validation, smoke test, adversarial review fixes`.
 
@@ -845,7 +845,7 @@ argument-hint: "[optional: topic or 'continue']"
 ### Task 21: Publish
 
 - [ ] **Step 1:** Final `pytest -q` + `claude plugin validate .` — both clean.
-- [ ] **Step 2:** `gh repo create apollostream/real-analysis-tutor --private --source /home/michael/Documents/Python/real-analysis-tutor --push`.
+- [ ] **Step 2:** `gh repo create apollostream/real-analysis-tutor --private --source <repo-root> --push`.
 - [ ] **Step 3:** `git tag v2.1.0 && git push origin v2.1.0`. Confirm CI green: `gh run watch`.
 - [ ] **Step 4:** Report install line to user: `/plugin marketplace add apollostream/real-analysis-tutor` (works for the repo owner while private; public later at user's discretion).
 
