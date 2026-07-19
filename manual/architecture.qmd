@@ -36,15 +36,22 @@ review has no such conflict.
 ## The three hooks
 
 **SessionStart** (`hooks/scripts/session_start.py`) locates the workspace by walking up
-from `cwd` for the `.ra-tutor-workspace` marker, falling back to the `workspace` key in
-`~/.claude/real-analysis-tutor.json`. It injects `additionalContext` with one of three
-contracts: for a returning learner, a state digest (position, weakest concepts, due
-reviews) plus an instruction to deliver the open ritual before addressing the user's
-first message — the plugin speaks first in effect, though the hook itself cannot speak;
-for a brand-new workspace (marker present, no `learner.json`), `FIRST_RUN_DIRECTIVE` to
-run onboarding; for no workspace at all, a conditional `NO_WORKSPACE_DIRECTIVE` offering
-the tutor only if the message suggests intent to study — otherwise it says nothing, so
-the plugin stays a good citizen outside tutoring contexts.
+from `cwd` for the `.ra-tutor-workspace` marker (`state.find_workspace_local`), falling
+back to the `workspace` key in `~/.claude/real-analysis-tutor.json`. Which of the two
+resolved it matters: the hook is location-aware and injects `additionalContext` with one
+of three tiers accordingly. Inside the workspace (marker found by walking up from `cwd`),
+a returning learner gets a state digest (position, weakest concepts, due reviews) plus an
+instruction to deliver the open ritual before addressing the user's first message — the
+plugin speaks first in effect, though the hook itself cannot speak — and a brand-new
+workspace (marker present, no `learner.json`) gets `FIRST_RUN_DIRECTIVE` to run
+onboarding. Outside the workspace but reachable only through the pointer file, the hook
+holds back: it injects a short conditional note (workspace path, phase, due-review count)
+that asks the model to deliver the open ritual only if the user's message shows intent to
+study, and to say nothing about the tutor otherwise — no unsolicited takeover just because
+the pointer file remembers where the learner's workspace lives. With no workspace at all,
+a conditional `NO_WORKSPACE_DIRECTIVE` withholds even on a bare greeting — it requires an
+explicit request to study Real Analysis, mathematics, or proofs before introducing itself
+— so the plugin stays a good citizen outside tutoring contexts.
 
 **UserPromptSubmit** (`hooks/scripts/prompt_guard.py`) re-asserts the Socratic contract
 every turn a workspace is active, since per-turn reinjection is the documented defense

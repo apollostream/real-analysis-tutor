@@ -28,6 +28,34 @@ def test_find_workspace_none(tmp_path, monkeypatch):
     assert state.find_workspace(tmp_path) is None
 
 
+def test_find_workspace_local_walks_up(tmp_path):
+    ws = make_ws(tmp_path)
+    deep = ws / "a" / "b"
+    deep.mkdir(parents=True)
+    assert state.find_workspace_local(deep) == ws
+
+
+def test_find_workspace_local_none_when_only_pointer_resolves(tmp_path, monkeypatch):
+    # Workspace lives elsewhere; only the pointer file knows about it. A cwd
+    # with no marker in its own ancestry must not resolve locally, even
+    # though find_workspace (with the pointer fallback) would find it.
+    elsewhere = tmp_path / "elsewhere"
+    elsewhere.mkdir()
+    ws = make_ws(elsewhere)
+    home = tmp_path / "home"
+    (home / ".claude").mkdir(parents=True)
+    (home / ".claude" / "real-analysis-tutor.json").write_text(
+        json.dumps({"workspace": str(ws)})
+    )
+    monkeypatch.setenv("HOME", str(home))
+
+    foreign_cwd = tmp_path / "foreign"
+    foreign_cwd.mkdir()
+
+    assert state.find_workspace_local(foreign_cwd) is None
+    assert state.find_workspace(foreign_cwd) == ws
+
+
 def test_load_missing_returns_default(tmp_path):
     ws = make_ws(tmp_path)
     assert state.load_state(ws)["session_count"] == 0

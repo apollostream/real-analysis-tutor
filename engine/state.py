@@ -12,11 +12,12 @@ from pathlib import Path
 MARKER = ".ra-tutor-workspace"
 
 
-def find_workspace(start: Path) -> Path | None:
-    """Walk `start` and its ancestors looking for MARKER. If none is found,
-    fall back to reading `~/.claude/real-analysis-tutor.json`'s "workspace"
-    key and returning that Path if its marker exists. Returns None on any
-    failure or if nothing is found — never raises.
+def find_workspace_local(start: Path) -> Path | None:
+    """Walk `start` and its ancestors looking for MARKER. Does not consult
+    the `~/.claude/real-analysis-tutor.json` pointer — a non-None result
+    here means the workspace was found because `start` is inside it, not
+    because a pointer file said so elsewhere. Returns None on any failure
+    or if nothing is found — never raises.
     """
     try:
         current = Path(start).resolve()
@@ -33,6 +34,19 @@ def find_workspace(start: Path) -> Path | None:
                 continue
     except Exception:
         pass
+
+    return None
+
+
+def find_workspace(start: Path) -> Path | None:
+    """Walk `start` and its ancestors looking for MARKER. If none is found,
+    fall back to reading `~/.claude/real-analysis-tutor.json`'s "workspace"
+    key and returning that Path if its marker exists. Returns None on any
+    failure or if nothing is found — never raises.
+    """
+    local = find_workspace_local(start)
+    if local is not None:
+        return local
 
     try:
         config_path = Path.home() / ".claude" / "real-analysis-tutor.json"

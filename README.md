@@ -22,10 +22,11 @@ Run Claude Code, and at its prompt, type:
 
 ## That's it
 
-Open Claude Code anywhere and say `hello` — the tutor takes it from there.
-It introduces itself, interviews you to pick a starting point, creates its
-own workspace, and offers Lean 4 setup only when you need it. You never
-need to read anything else in this repository.
+Open Claude Code in your study folder and say `hello` — the tutor takes it
+from there. (From anywhere else, just mention you'd like to study and it
+picks right up.) It introduces itself, interviews you to pick a starting
+point, creates its own workspace, and offers Lean 4 setup only when you
+need it. You never need to read anything else in this repository.
 
 ## Development
 

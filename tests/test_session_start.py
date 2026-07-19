@@ -21,6 +21,37 @@ def test_no_workspace_returns_install_directive(tmp_path, monkeypatch):
     ctx = session_start.build_context(tmp_path, D0)
     assert "no study workspace" in ctx
     assert "Otherwise do not mention the tutor" in ctx
+    assert "real-analysis-tutor:tutor" in ctx
+    # A bare greeting is not intent — the directive must say so explicitly.
+    assert "greeting alone is not intent" in ctx
+
+
+def test_pointer_remote_gets_soft_directive(tmp_path, monkeypatch):
+    # Workspace lives elsewhere; only the pointer file knows about it, and
+    # cwd is an unrelated directory with no marker in its own ancestry.
+    workspace = tmp_path / "elsewhere"
+    workspace.mkdir()
+    make_ws(workspace)
+    s = state.default_state()
+    s["position"] = {"phase": "phase4", "chapter": "Rudin Ch.4", "rung": 2}
+    state.save_state(workspace, s)
+
+    home = tmp_path / "home"
+    (home / ".claude").mkdir(parents=True)
+    (home / ".claude" / "real-analysis-tutor.json").write_text(
+        json.dumps({"workspace": str(workspace)})
+    )
+    monkeypatch.setenv("HOME", str(home))
+
+    foreign_cwd = tmp_path / "foreign"
+    foreign_cwd.mkdir()
+
+    ctx = session_start.build_context(foreign_cwd, D0)
+    assert "Otherwise do not mention the tutor" in ctx
+    assert "phase4" in ctx
+    assert "whatever it says" not in ctx
+    assert "Real Analysis" in ctx
+    assert str(workspace) in ctx
 
 
 def test_first_run_directive(tmp_path, monkeypatch):

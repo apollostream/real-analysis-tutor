@@ -51,8 +51,11 @@ onboarding): `learner.json`, `reviews.json`, `ledger.json`, and
 `error_log.json`, alongside a `.ra-tutor-workspace` marker file
 (`engine/state.py`). A pointer to that workspace also lives in
 `~/.claude/real-analysis-tutor.json` so the tutor can find it even if you open
-Claude Code from elsewhere (`skills/tutor/SKILL.md`, "Belt-and-braces"). To
-reset, delete the workspace directory (or just its JSON files) and the
+Claude Code from elsewhere (`skills/tutor/SKILL.md`, "Belt-and-braces") —
+though away from the workspace itself it holds back to a short, conditional
+note instead of the full open ritual, and only proceeds if your message shows
+you actually want to study (see [Architecture](architecture.qmd)). To reset,
+delete the workspace directory (or just its JSON files) and the
 `~/.claude/real-analysis-tutor.json` pointer; the next session runs onboarding
 again as if you were new.
 
@@ -63,7 +66,11 @@ type anything: it finds your workspace, loads `learner.json` and
 `reviews.json` through the engine, and injects a digest of your position, due
 reviews, and current phase as context. That's why the tutor can open with your
 progress and an agenda instead of asking you to re-explain where you are —
-see the open ritual in [Architecture](architecture.qmd).
+see the open ritual in [Architecture](architecture.qmd). This only happens in
+full when Claude Code is opened inside the workspace itself, though: from
+elsewhere, resolved only through the pointer file, the hook holds back to a
+one-line nudge that proceeds only if your message shows study intent, and with
+no workspace at all a bare greeting isn't enough either.
 
 ### What is the "Stop hook" message I might see once per session?
 
